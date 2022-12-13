@@ -27,7 +27,7 @@ const login = () => {
     });
     const [error, setError] = useState(false);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     // const oauth = [
     //     { img: fImg, txt: "Continue with Facebook", link: "/facebook-auth" },
@@ -52,7 +52,6 @@ const login = () => {
                 email: state.email,
                 password: state.password,
             });
-            dispatch(addUser(response.data));
             await Swal.fire({
                 title: "Berhasil login",
                 icon: "success",

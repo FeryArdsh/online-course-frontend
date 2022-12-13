@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
 import css from "./LoggedInNavbar.module.css";
-
 import SearchBar from "../../../utils/SearchBar/SearchBar";
-
-import globeIcon from "/icons/globe.png";
-import userEmptyIcon from "/icons/user-empty.png";
 import hamburgerIcon from "/icons/hamburger.png";
-import exitIcon from "/icons/exit.png";
 import { useSelector } from "react-redux";
+import { AiOutlineSetting, AiOutlineShoppingCart } from "react-icons/ai";
+import { BiLogIn } from "react-icons/bi";
+import LOCAL_STORAGE from "../../../service/localStorage";
+import instance from "../../../config/instance";
 
 const LoggedInNavbar = () => {
     let [menuState, setMenuState] = useState(false);
     const user = useSelector((state) => state.userData);
+
+    const onLogout = async () => {
+        LOCAL_STORAGE.clearLocalStorage();
+        try {
+            await instance.post("logout/all");
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <div className={css.navbar}>
@@ -49,23 +56,25 @@ const LoggedInNavbar = () => {
                 <Link className={css.hovBox} to="/user/my-courses">
                     Pembelajaran Saya
                 </Link>
-                <Link to="/cart" className={css.cartBox}>
+                {/* <Link to="/cart" className={css.cartBox}>
                     <img
                         className={css.cartIcon}
                         src="/icons/heart.png"
                         alt="wishlist icon"
                     />
-                </Link>
+                </Link> */}
                 <Link to="/cart" className={css.cartBox}>
-                    <img
-                        className={css.cartIcon}
-                        src="/icons/shopping-cart.png"
-                        alt="cart icon"
-                    />
+                    <span className={css.iconCart}>
+                        <AiOutlineShoppingCart size={24} />
+                    </span>
                 </Link>
                 <div className={css.profile}>
                     <img
-                        src={user?.data?.imgProfil.url}
+                        src={
+                            user?.data
+                                ? user?.data?.imgProfil?.url
+                                : "https://gravatar.com/avatar/c78f7619065feb1b84555a528d25f60d?s=400&d=mp&r=x"
+                        }
                         className={css.profileIcon}
                     />
                     <div className={css.menuBox}>
@@ -77,7 +86,11 @@ const LoggedInNavbar = () => {
                                 >
                                     <div className={css.leftUserDiv}>
                                         <img
-                                            src={user?.data?.imgProfil.url}
+                                            src={
+                                                user?.data
+                                                    ? user?.data?.imgProfil?.url
+                                                    : "https://gravatar.com/avatar/c78f7619065feb1b84555a528d25f60d?s=400&d=mp&r=x"
+                                            }
                                             alt="user profile"
                                             className={css.userProfileImg}
                                         />
@@ -109,13 +122,22 @@ const LoggedInNavbar = () => {
                             </div>
                             <hr className={css.hr} />
                             <div className={css.prflDiv}>
-                                <Link
-                                    to="/user/profile/settings/basic"
-                                    className={css.menuItem}
-                                >
-                                    Setting Akun
-                                </Link>
+                                <div className={css.menuItem2}>
+                                    <Link
+                                        to="/user/profile/settings/basic"
+                                        className={css.menuItem}
+                                    >
+                                        Setting Akun
+                                    </Link>
+                                    <Link
+                                        to="/user/profile/settings/basic"
+                                        className={css.menuItem}
+                                    >
+                                        <AiOutlineSetting size={20} />
+                                    </Link>
+                                </div>
                             </div>
+                            <hr className={css.hr} />
                             <div className={css.prflDiv}>
                                 <Link
                                     to="user/koushil"
@@ -129,35 +151,22 @@ const LoggedInNavbar = () => {
                                 >
                                     Edit Foto Profil
                                 </Link>
-                            </div>
-                            <hr className={css.hr} />
-                            <div className={css.prflDiv}>
                                 <Link to="/" className={css.menuItem}>
                                     Help
                                 </Link>
-                                <Link to="/" className={css.menuItem}>
-                                    Logout
-                                </Link>
                             </div>
                             <hr className={css.hr} />
                             <div className={css.prflDiv}>
-                                <div className={css.menuItem2}>
+                                <Link
+                                    to="/welcome"
+                                    onClick={onLogout}
+                                    className={css.logout}
+                                >
+                                    <span>Logout</span>
                                     <span>
-                                        <div className={css.menuItemTxt1}>
-                                            Udemy Bussiness
-                                        </div>
-                                        <div className={css.menuItemTxt2}>
-                                            Bring learning to your company
-                                        </div>
+                                        <BiLogIn size={20} />
                                     </span>
-                                    <span>
-                                        <img
-                                            src={exitIcon}
-                                            className={css.icon}
-                                            alt="exit icon"
-                                        />
-                                    </span>
-                                </div>
+                                </Link>
                             </div>
                         </div>
                     </div>

@@ -60,7 +60,7 @@
 
 .hovBox:hover,
 .catDropdown:hover {
-    color: var(--purple-dark);
+    color: var(--primary);
 }
 
 .cartBox {
@@ -78,6 +78,14 @@
 .cartIcon:hover {
     filter: brightness(0) saturate(100%) invert(14%) sepia(85%) saturate(4507%)
         hue-rotate(274deg) brightness(95%) contrast(109%);
+}
+
+.iconCart {
+    color: var(--gray);
+}
+
+.iconCart:hover {
+    color: var(--primary);
 }
 
 .profile {
@@ -163,25 +171,17 @@
 }
 
 .menuItem:hover {
-    color: var(--purple-dark);
+    color: var(--primary);
 }
 
 .menuItem2 {
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     font-size: 0.9rem;
     padding: 0 1rem;
-    color: var(--gray);
-}
-
-.menuItem2 > span:last-of-type {
-    display: flex;
-    align-items: center;
-}
-
-.menuItem2 > span:first-of-type {
-    color: var(--purple-dark);
+    color: var(--primary);
 }
 
 .icon {
@@ -225,6 +225,15 @@
     .right {
         display: none;
     }
+}
+
+.logout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem;
+    text-decoration: none;
+    color: var(--primary);
 }
 
 @media screen and (max-width: 430px) {
