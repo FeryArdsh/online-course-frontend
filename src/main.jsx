@@ -26,144 +26,152 @@ import PublicProfile from "./pages/User/PublicProfile/PublicProfile";
 import NotFound from "./pages/NotFound/NotFound";
 import "./index.css";
 import Test from "./pages/Test/Test";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-let login = false;
+import { persistor, store } from "./service/redux";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+
 let routes;
-
-if (login) {
-    routes = [
-        {
-            path: "/",
-            element: <LoggedInUserHomePage />,
-        },
-        {
-            path: "/cart",
-            element: <Cart />,
-        },
-        {
-            path: "/course/:id",
-            element: <CoursePage />,
-        },
-        {
-            path: "/courses",
-            element: <CategoryCoursePage />,
-            children: [
-                {
-                    path: ":catId",
-                    element: <CategoryCoursePage />,
-                    children: [
-                        {
-                            path: ":subCatId",
-                            element: <CategoryCoursePage />,
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            path: "/user/:id",
-            element: <PublicProfile />,
-        },
-        {
-            path: "/user/profile",
-            element: <ProfilePage />,
-            children: [
-                {
-                    path: "courses",
-                    element: <ResourcesComponent />,
-                },
-                {
-                    path: "communication",
-                    element: <ResourcesComponent />,
-                },
-                {
-                    path: "performance",
-                    element: <ResourcesComponent />,
-                },
-                {
-                    path: "settings",
-                    element: <ProfileSettingsComponent />,
-                    children: [
-                        {
-                            path: "basic",
-                            element: <BasicSettingsComponent />,
-                        },
-                        {
-                            path: "photo",
-                            element: <PhotoComponent />,
-                        },
-                        {
-                            path: "privacy",
-                            element: <PrivacyComponent />,
-                        },
-                    ],
-                },
-                {
-                    path: "tools",
-                    element: <ToolsComponent />,
-                },
-                {
-                    path: "resources",
-                    element: <ResourcesComponent />,
-                },
-            ],
-        },
-        {
-            path: "/user/my-courses",
-            element: <MyCoursesPage />,
-            children: [
-                {
-                    path: "learning",
-                    element: <AllCoursesComponent />,
-                },
-                {
-                    path: "lists",
-                    element: <MyListsComponent />,
-                },
-                {
-                    path: "wishlist",
-                    element: <WishListComponent />,
-                },
-                {
-                    path: "archived",
-                    element: <ArchivedComponent />,
-                },
-            ],
-        },
-        {
-            path: "/checkout",
-            element: <Checkout />,
-        },
-        {
-            path: "/test",
-            element: <Test />,
-        },
-        {
-            path: "*",
-            element: <NotFound />,
-        },
-    ];
-} else {
-    routes = [
-        {
-            path: "/welcome",
-            element: <HomePage />,
-        },
-        {
-            path: "/join/login",
-            element: <Login />,
-        },
-        {
-            path: "/join/signup",
-            element: <Signup />,
-        },
-    ];
-}
+routes = [
+    {
+        path: "/",
+        element: <ProtectedRoute />,
+        children: [
+            {
+                path: "/",
+                element: <LoggedInUserHomePage />,
+            },
+            {
+                path: "/cart",
+                element: <Cart />,
+            },
+            {
+                path: "/course/:id",
+                element: <CoursePage />,
+            },
+            {
+                path: "/courses",
+                element: <CategoryCoursePage />,
+                children: [
+                    {
+                        path: ":catId",
+                        element: <CategoryCoursePage />,
+                        children: [
+                            {
+                                path: ":subCatId",
+                                element: <CategoryCoursePage />,
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                path: "/user/:id",
+                element: <PublicProfile />,
+            },
+            {
+                path: "/user/profile",
+                element: <ProfilePage />,
+                children: [
+                    {
+                        path: "courses",
+                        element: <ResourcesComponent />,
+                    },
+                    {
+                        path: "communication",
+                        element: <ResourcesComponent />,
+                    },
+                    {
+                        path: "performance",
+                        element: <ResourcesComponent />,
+                    },
+                    {
+                        path: "settings",
+                        element: <ProfileSettingsComponent />,
+                        children: [
+                            {
+                                path: "basic",
+                                element: <BasicSettingsComponent />,
+                            },
+                            {
+                                path: "photo",
+                                element: <PhotoComponent />,
+                            },
+                            {
+                                path: "privacy",
+                                element: <PrivacyComponent />,
+                            },
+                        ],
+                    },
+                    {
+                        path: "tools",
+                        element: <ToolsComponent />,
+                    },
+                    {
+                        path: "resources",
+                        element: <ResourcesComponent />,
+                    },
+                ],
+            },
+            {
+                path: "/user/my-courses",
+                element: <MyCoursesPage />,
+                children: [
+                    {
+                        path: "learning",
+                        element: <AllCoursesComponent />,
+                    },
+                    {
+                        path: "lists",
+                        element: <MyListsComponent />,
+                    },
+                    {
+                        path: "wishlist",
+                        element: <WishListComponent />,
+                    },
+                    {
+                        path: "archived",
+                        element: <ArchivedComponent />,
+                    },
+                ],
+            },
+            {
+                path: "/checkout",
+                element: <Checkout />,
+            },
+            {
+                path: "/test",
+                element: <Test />,
+            },
+            {
+                path: "*",
+                element: <NotFound />,
+            },
+        ],
+    },
+    {
+        path: "/welcome",
+        element: <HomePage />,
+    },
+    {
+        path: "/join/login",
+        element: <Login />,
+    },
+    {
+        path: "/join/signup",
+        element: <Signup />,
+    },
+];
 
 const router = createBrowserRouter(routes);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <RouterProvider router={router} />
+            </PersistGate>
+        </Provider>
     </React.StrictMode>
 );

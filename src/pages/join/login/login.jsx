@@ -7,9 +7,9 @@ import Layout1 from "../../Layout1/Layout1";
 import InputUtil from "../../../utils/FormUtils/InputUtil/InputUtil";
 import Button1 from "../../../utils/Buttons/Button1/Button1";
 
-import fImg from "/icons/facebook.svg";
-import gImg from "/icons/google.svg";
-import aImg from "/icons/apple-logo.svg";
+// import fImg from "/icons/facebook.svg";
+// import gImg from "/icons/google.svg";
+// import aImg from "/icons/apple-logo.svg";
 import email from "/icons/email.png";
 import lock from "/icons/lock.png";
 
@@ -17,6 +17,8 @@ import css from "./Login.module.css";
 import instance from "../../../config/instance";
 import LOCAL_STORAGE from "../../../service/localStorage";
 import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../../service/redux/user";
 
 const login = () => {
     const [state, setState] = useState({
@@ -25,12 +27,13 @@ const login = () => {
     });
     const [error, setError] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const oauth = [
-        { img: fImg, txt: "Continue with Facebook", link: "/facebook-auth" },
-        { img: gImg, txt: "Continue with Google", link: "/google-auth" },
-        { img: aImg, txt: "Continue with Apple", link: "/apple-auth" },
-    ];
+    // const oauth = [
+    //     { img: fImg, txt: "Continue with Facebook", link: "/facebook-auth" },
+    //     { img: gImg, txt: "Continue with Google", link: "/google-auth" },
+    //     { img: aImg, txt: "Continue with Apple", link: "/apple-auth" },
+    // ];
 
     let changeHanlder = (e) => {
         setState((prev) => {
@@ -49,6 +52,7 @@ const login = () => {
                 email: state.email,
                 password: state.password,
             });
+            dispatch(addUser(response.data));
             await Swal.fire({
                 title: "Berhasil login",
                 icon: "success",

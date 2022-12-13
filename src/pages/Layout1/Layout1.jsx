@@ -11,15 +11,6 @@ import LOCAL_STORAGE from "../../service/localStorage";
 
 const Layout1 = ({ children }) => {
     const allowedBy = LOCAL_STORAGE.getDataUser();
-    if (!allowedBy) {
-        Swal.fire({
-            icon: "error",
-            text: "Kamu belum login",
-            timer: 1500,
-            showConfirmButton: false,
-        });
-        return <Navigate to="/join/login" replace />;
-    }
     let comp = <Navbar />;
 
     if (allowedBy) {
@@ -27,12 +18,6 @@ const Layout1 = ({ children }) => {
     }
     return (
         <>
-            {/* {modal
-                ? createPortal(
-                      <LoginModal setModal={setModal} />,
-                      document.getElementById("modal")
-                  )
-                : ""} */}
             {comp}
             {children}
             <Footer />

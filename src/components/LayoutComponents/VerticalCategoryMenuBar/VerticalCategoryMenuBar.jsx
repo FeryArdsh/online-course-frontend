@@ -5,72 +5,61 @@ import { categoriesSubCategoriesData } from "../../../fakedata/fakedata";
 import rightArrowIcon from "/icons/down-arrow.svg";
 
 import css from "./VerticalCategoryMenuBar.module.css";
+import { Link } from "react-router-dom";
 
 const VerticalCategoryMenuBar = () => {
-  // Adding event listener to toggle VerticalCategoryMenuBar on hover
-  useEffect(() => {
-    const cats = document.getElementById("cats");
-    const catDivs = document.getElementsByClassName("categoryDiv");
-    const subCatDivs = document.getElementsByClassName("subCatDiv");
-    cats.addEventListener("mouseover", (e) => {
-      const catId = e.target.id?.split("-")[1] || 0;
-      const subCatId = "subCat-" + catId;
+    const category = [
+        {
+            ttl: "Teknologi",
+            value: "technology",
+            link: "/technology",
+        },
+        {
+            ttl: "Bisnis",
+            value: "business",
+            link: "/business",
+        },
+        {
+            ttl: "Bahasa",
+            value: "language",
+            link: "/language",
+        },
+        {
+            ttl: "Kesehatan",
+            value: "health",
+            link: "/health",
+        },
+        {
+            ttl: "Hoby",
+            value: "hobby",
+            link: "/hobby",
+        },
+    ];
+    return (
+        <div className={css.outerDiv} id="vouterDiv">
+            <div className={css.innerDiv}>
+                <div className={css.cats} id="cats">
+                    {category?.map((cat, i) => (
+                        <Link
+                            key={i}
+                            to={cat.link}
+                            className={[css.category, "categoryDiv"].join(" ")}
+                        >
+                            {cat.ttl}
+                        </Link>
+                    ))}
+                </div>
 
-      const subCats = document.getElementsByClassName(subCatId);
-
-      for (let i = 0; i < subCats.length; i++) {
-        subCats[i].style = "display: flex";
-      }
-    });
-
-    for (let i = 0; i < catDivs.length; i++) {
-      catDivs[i].addEventListener("mouseleave", () => {
-        subCatDivs[i].style = "display: none";
-      });
-    }
-
-    return () => {
-      cats.removeEventListener("mouseover", (e) => {
-        const catId = e.target.id?.split("-")[1] || 0;
-        const subCatId = "subCat-" + catId;
-
-        const subCats = document.getElementsByClassName(subCatId);
-
-        for (let i = 0; i < subCats.length; i++) {
-          console.log("sub", subCats[i]);
-          subCats[i].style = "display: none";
-        }
-      });
-
-      for (let i = 0; i < catDivs.length; i++) {
-        catDivs[i].removeEventListener("mouseleave", () => {
-          subCatDivs[i].style = "display: none";
-        });
-      }
-    };
-  }, []);
-
-  return (
-    <div className={css.outerDiv} id="vouterDiv">
-      <div className={css.innerDiv}>
-        <div className={css.cats} id="cats">
-          {categoriesSubCategoriesData?.map((cat) => (
-            <div
-              key={cat.id}
-              className={[css.category, "categoryDiv"].join(" ")}
-              id={`cat-${cat.id}`}
-            >
-              {cat.ttl}
+                <div className={css.iconBox}>
+                    <span>Scroll</span>
+                    <img
+                        src={rightArrowIcon}
+                        alt="right arrow"
+                        className={css.icon}
+                    />
+                </div>
             </div>
-          ))}
-        </div>
-
-        <div className={css.iconBox}>
-          <span>Scroll</span>
-          <img src={rightArrowIcon} alt="right arrow" className={css.icon} />
-        </div>
-      </div>
-      {categoriesSubCategoriesData?.map((cat) => (
+            {/* {categoriesSubCategoriesData?.map((cat) => (
         <div
           className={[css.subCat, `subCat-${cat.id}`, "subCatDiv"].join(" ")}
           key={`subcatCat-${cat.id}`}
@@ -86,9 +75,9 @@ const VerticalCategoryMenuBar = () => {
             </div>
           ))}
         </div>
-      ))}
-    </div>
-  );
+      ))} */}
+        </div>
+    );
 };
 
 export default VerticalCategoryMenuBar;
