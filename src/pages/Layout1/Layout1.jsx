@@ -6,7 +6,7 @@ import LoggedInNavbar from "../../components/LayoutComponents/LoggedInNavbar/Log
 import Footer from "../../components/LayoutComponents/Footer/Footer";
 import LoginModal from "../../components/Auth/LoginModal/LoginModal";
 
-const Layout1 = ({ modal = false, setModal = () => {}, children }) => {
+const Layout1 = ({ modal = true, setModal = () => {}, children }) => {
     const [auth, setAuth] = useState(true);
     let comp = <Navbar />;
 
