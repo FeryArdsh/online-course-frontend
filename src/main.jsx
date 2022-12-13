@@ -1,15 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {
-    createBrowserRouter,
-    Navigate,
-    RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import HomePage from "./pages/HomePages/HomePage/HomePage";
 import LoggedInUserHomePage from "./pages/HomePages/LoggedInUserHomePage/LoggedInUserHomePage";
-import Login from "./pages/Join/login/Login";
-import Signup from "./pages/Join/signup/Signup";
+import Login from "./pages/join/login/login";
+import Signup from "./pages/join/signup/signup";
 import Cart from "./pages/Cart/Cart";
 import CoursePage from "./pages/CoursePage/CoursePage";
 import CategoryCoursePage from "./pages/CategoryCoursePage/CategoryCoursePage";
@@ -31,7 +27,7 @@ import NotFound from "./pages/NotFound/NotFound";
 import "./index.css";
 import Test from "./pages/Test/Test";
 
-let login = true;
+let login = false;
 let routes;
 
 if (login) {
@@ -43,14 +39,6 @@ if (login) {
         {
             path: "/cart",
             element: <Cart />,
-        },
-        {
-            path: "/join/login",
-            element: <Login />,
-        },
-        {
-            path: "/join/signup",
-            element: <Signup />,
         },
         {
             path: "/course/:id",
@@ -160,6 +148,14 @@ if (login) {
         {
             path: "/welcome",
             element: <HomePage />,
+        },
+        {
+            path: "/join/login",
+            element: <Login />,
+        },
+        {
+            path: "/join/signup",
+            element: <Signup />,
         },
     ];
 }

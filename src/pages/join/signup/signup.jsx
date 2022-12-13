@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Layout1 from "../../Layout1/Layout1";
 
@@ -13,117 +13,163 @@ import email from "/icons/email.png";
 import lock from "/icons/lock.png";
 
 import css from "./Signup.module.css";
+import instance from "../../../config/instance";
+import Swal from "sweetalert2";
 
 const Signup = () => {
-  const [state, setState] = useState({
-    username: "",
-    email: "",
-    password: "",
-    check: true,
-  });
-
-  let changeHanlder = (e) => {
-    setState((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
+    const [state, setState] = useState({
+        name: "",
+        email: "",
+        password: "",
+        check: true,
     });
-  };
+    const [error, setError] = useState(false);
+    const navigate = useNavigate();
 
-  let checkboxChangeHanlder = (e) => {
-    setState((prev) => {
-      return { ...prev, check: !prev.check };
-    });
-  };
+    let changeHanlder = (e) => {
+        setState((prev) => {
+            return { ...prev, [e.target.name]: e.target.value };
+        });
+    };
 
-  let submitHandler = () => {
-    if (
-      !state.email.includes("@") ||
-      state.password.length < 10 ||
-      state.username.length < 5
-    ) {
-      console.log("Error", state);
-      return;
-    }
-    console.log(state, "Form Values");
-  };
+    let checkboxChangeHanlder = (e) => {
+        setState((prev) => {
+            return { ...prev, check: !prev.check };
+        });
+    };
 
-  return (
-    <>
-      <Layout1>
-        <div className={css.outerDiv}>
-          <div className={css.loginBox}>
-            <div className={css.ttl}>Sign up and start learning</div>
-            <hr />
-            <div className={css.boxBdy}>
-              <InputUtil
-                type="text"
-                name="username"
-                state={state.username}
-                icon={user}
-                placeholderTxt="Username"
-                onChange={changeHanlder}
-              />
-              <InputUtil
-                type="email"
-                name="email"
-                state={state.email}
-                icon={email}
-                placeholderTxt="Email"
-                onChange={changeHanlder}
-              />
-              <InputUtil
-                type="password"
-                name="password"
-                state={state.password}
-                icon={lock}
-                placeholderTxt="Password"
-                onChange={changeHanlder}
-              />
-              <CheckboxUtil
-                label="Send me special offers, personalized recommendations, and learning tips."
-                type="checkbox"
-                name="checkbox"
-                id="checkbox"
-                state={state.check}
-                onChange={checkboxChangeHanlder}
-              />
-              <Button1
-                txt="Signup"
-                color="var(--white)"
-                bck="var(--purple)"
-                hovBck="var(--purple-dark)"
-                extraCss={{
-                  width: "100%",
-                  margin: "0",
-                  border: "none",
-                  padding: "1rem",
-                }}
-                onClick={submitHandler}
-              />
-              <div className={css.blck}>
-                <span className={css.blckTxt}>
-                  By signing up, you agree to our
-                  <Link to="/join/forgot-password" className={css.anchor}>
-                    Terms of Use
-                  </Link>
-                  and
-                  <Link to="/join/forgot-password" className={css.anchor}>
-                    Privacy Policy
-                  </Link>
-                  .
-                </span>
-              </div>
-              <div className={css.blck}>
-                <span className={css.blckTxt2}>Already have an account?</span>
-                <Link to="/join/login" className={css.anchor}>
-                  <b>Log in</b>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Layout1>
-    </>
-  );
+    let submitHandler = async () => {
+        const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+        const regexPassword =
+            /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+        if (
+            !regexEmail.test(state.email) ||
+            !regexPassword.test(state.password) ||
+            state.name.length < 4
+        ) {
+            return setError(true);
+        }
+        setError(false);
+        const { name, email, password } = state;
+        try {
+            const response = await instance.post("signup", {
+                name,
+                email,
+                password,
+            });
+            console.log(response);
+            await Swal.fire({
+                title: "Berhasil mendaftar",
+                icon: "success",
+                timer: 2000,
+            });
+            navigate("/join/login");
+        } catch (error) {
+            Swal.fire({ title: error.response.data.message, icon: "error" });
+            console.log(error);
+        }
+    };
+
+    return (
+        <>
+            <Layout1>
+                <div className={css.outerDiv}>
+                    <div className={css.loginBox}>
+                        <div className={css.ttl}>
+                            Daftar untuk menjadi Siswa atau Instructor
+                        </div>
+                        <hr />
+                        {error && (
+                            <span className={css.errLogin}>
+                                *Input tidak sesuai
+                            </span>
+                        )}
+                        <div className={css.boxBdy}>
+                            <InputUtil
+                                type="text"
+                                name="name"
+                                state={state.name}
+                                icon={user}
+                                placeholderTxt="Nama Lengkap"
+                                onChange={changeHanlder}
+                            />
+                            <InputUtil
+                                type="email"
+                                name="email"
+                                state={state.email}
+                                icon={email}
+                                placeholderTxt="Email"
+                                onChange={changeHanlder}
+                            />
+                            <InputUtil
+                                type="password"
+                                name="password"
+                                state={state.password}
+                                icon={lock}
+                                placeholderTxt="Password"
+                                onChange={changeHanlder}
+                            />
+                            <div className={css.psw}>
+                                <p>*Password minimal 8 karakter</p>
+                                <p>
+                                    *Terdapat minimal 1 huruf kapital, ankga dan
+                                    simbol
+                                </p>
+                            </div>
+                            {/* <CheckboxUtil
+                                label="Send me special offers, personalized recommendations, and learning tips."
+                                type="checkbox"
+                                name="checkbox"
+                                id="checkbox"
+                                state={state.check}
+                                onChange={checkboxChangeHanlder}
+                            /> */}
+                            <Button1
+                                txt="Daftar"
+                                color="var(--white)"
+                                bck="var(--purple)"
+                                hovBck="var(--purple-dark)"
+                                extraCss={{
+                                    width: "100%",
+                                    margin: "7px 0",
+                                    border: "none",
+                                    padding: "1rem",
+                                }}
+                                onClick={submitHandler}
+                            />
+                            <div className={css.blck}>
+                                <span className={css.blckTxt}>
+                                    By signing up, you agree to our
+                                    <Link
+                                        to="/join/forgot-password"
+                                        className={css.anchor}
+                                    >
+                                        Terms of Use
+                                    </Link>
+                                    and
+                                    <Link
+                                        to="/join/forgot-password"
+                                        className={css.anchor}
+                                    >
+                                        Privacy Policy
+                                    </Link>
+                                    .
+                                </span>
+                            </div>
+                            <div className={css.blck}>
+                                <span className={css.blckTxt2}>
+                                    Sudah punya akun?
+                                </span>
+                                <Link to="/join/login" className={css.anchor}>
+                                    <b>Login</b>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Layout1>
+        </>
+    );
 };
 
 export default Signup;
