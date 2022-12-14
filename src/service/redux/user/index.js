@@ -11,9 +11,12 @@ const userSlice = createSlice({
         addUser(state, action) {
             state.data = action.payload;
         },
+        updateInstructor(state) {
+            state.data.isInstructor = true;
+        },
     },
 });
 
-export const { addUser } = userSlice.actions;
+export const { addUser, updateInstructor } = userSlice.actions;
 
 export default userSlice.reducer;

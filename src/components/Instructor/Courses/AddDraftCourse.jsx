@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import instance from "../../../config/instance";
 import css from "./index.module.css";
 
 const AddDraftCourse = () => {
@@ -46,7 +47,15 @@ const AddDraftCourse = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(data);
+        const requirment = data.courseRequirements.map((item) => item.text);
+        try {
+            const response = await instance.post("course", {
+                ...data,
+                courseRequirements: requirment,
+            });
+            console.log(response);
+        } catch (error) {}
+        console.log(requirment);
     };
 
     return (
