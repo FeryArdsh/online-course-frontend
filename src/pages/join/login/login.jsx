@@ -52,15 +52,18 @@ const login = () => {
                 email: state.email,
                 password: state.password,
             });
+            LOCAL_STORAGE.setDataUser(response.data);
+            instance.defaults.headers.common["x-auth-token"] =
+                LOCAL_STORAGE.getDataUser();
+
             await Swal.fire({
                 title: "Berhasil login",
                 icon: "success",
                 timer: 2000,
             });
             navigate("/");
-            LOCAL_STORAGE.setDataUser(response.data);
         } catch (error) {
-            if (error.response.status === 404) {
+            if (error?.response?.status === 404) {
                 return Swal.fire({
                     title: "Email atau password salah",
                     icon: "error",

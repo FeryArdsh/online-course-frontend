@@ -42,6 +42,16 @@ const LoggedInUserHomePage = () => {
                 console.log(error);
             }
         };
+        const fetchUser = async () => {
+            try {
+                const getUserProfile = await instance.get("profile/me");
+
+                dispatch(addUser(getUserProfile.data.student));
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchUser();
         fetchdata();
     }, []);
     const rating = courses?.filter((courses) => courses.avgRating >= 4.8);

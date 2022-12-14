@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import instance from "../../../config/instance";
 import css from "./index.module.css";
 
@@ -17,7 +19,15 @@ const AddDraftCourse = () => {
             },
         ],
     });
+    const navigate = useNavigate();
 
+    const changeImg = (e) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = () => {
+            setData({ ...data, img: reader.result });
+        };
+    };
     let handleChange = (i, e) => {
         let newFormValues = {
             ...data,
@@ -54,12 +64,19 @@ const AddDraftCourse = () => {
                 courseRequirements: requirment,
             });
             console.log(response);
-        } catch (error) {}
-        console.log(requirment);
+            await Swal.fire("Berhasil", "", "success");
+            navigate(
+                "/user/profile/add-courses/" + response?.data?.course?._id
+            );
+        } catch (error) {
+            Swal.fire("Error", "", "error");
+            console.log(error);
+        }
     };
 
     return (
         <div>
+            <h2>Tambah Kursus Baru Anda</h2>
             <form className={css.containerDraf} onSubmit={handleSubmit}>
                 <label htmlFor="ttl">Title</label>
                 <input
@@ -126,12 +143,7 @@ const AddDraftCourse = () => {
                 />
                 {/* ============= */}
                 <label htmlFor="img">Gambar Promosi</label>
-                <input
-                    type="file"
-                    name="img"
-                    onChange={changeHanlder}
-                    required
-                />
+                <input type="file" name="img" onChange={changeImg} required />
                 {/* ============= */}
                 <label htmlFor="courseRequirements">Syarat Kursus</label>
                 {data?.courseRequirements.map((item, i) => (

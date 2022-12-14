@@ -82,7 +82,7 @@ routes = [
                         element: <InstructorCourses />,
                     },
                     {
-                        path: "add-courses",
+                        path: "add-courses/:id",
                         element: <AddCourse />,
                     },
                     {
