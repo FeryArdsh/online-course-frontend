@@ -14,11 +14,12 @@ const CourseCard = (props) => {
         path = "/",
         img = "",
         ttl = "",
-        authDet = "",
+        desc = "",
         prc = 0,
         oldprc = 0,
         stars = {},
-        noOfRats = 0,
+        avgRating = 0,
+        numOfRatings = 0,
         updatedDate = new Intl.DateTimeFormat("en-IN", {
             dateStyle: "long",
         }).format(new Date()),
@@ -70,11 +71,11 @@ const CourseCard = (props) => {
                     </div>
                     <div className={css.cardBdy}>
                         <div className={css.ttl}>{ttl}</div>
-                        <div className={css.authDet}>{authDet}</div>
+                        <div className={css.authDet}>{desc}</div>
                         <div className={css.stats}>
-                            <div className={css.rat1}>{totalRating}</div>
-                            <div className={css.rat2}>{totalRating}</div>
-                            <div className={css.noOfRats}>({noOfRats})</div>
+                            <div className={css.rat1}>{avgRating}</div>
+                            <div className={css.rat2}>{avgRating}</div>
+                            <div className={css.noOfRats}>({numOfRatings})</div>
                         </div>
                         <div className={css.prc}>
                             <span className={css.newPrc}>

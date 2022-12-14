@@ -30,7 +30,7 @@ const VerticalCategoryMenuBar = () => {
             link: "/health",
         },
         {
-            ttl: "Hoby",
+            ttl: "Hobi",
             value: "hobby",
             link: "/hobby",
         },

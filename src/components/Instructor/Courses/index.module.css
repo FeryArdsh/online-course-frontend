@@ -1,0 +1,42 @@
+.containerCourse {
+    padding: 0 200px;
+}
+
+.addCourse {
+    margin-top: 50px;
+    text-align: right;
+    width: 100%;
+    display: inline-block;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.addCourse:hover {
+    color: var(--gray);
+}
+
+.listCourse {
+    border: 1px solid gray;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.listCourse:hover {
+    background-color: rgb(197, 197, 197);
+    cursor: pointer;
+}
+
+.editCourse {
+    display: block;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.containerDraf {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}

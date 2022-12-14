@@ -31,6 +31,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { persistor, store } from "./service/redux";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import InstructorCourses from "./components/Instructor/Courses";
+import AddCourse from "./components/Instructor/Courses/AddCourse";
+import AddDraftCourse from "./components/Instructor/Courses/AddDraftCourse";
 
 let routes;
 routes = [
@@ -76,7 +79,15 @@ routes = [
                 children: [
                     {
                         path: "courses",
-                        element: <ResourcesComponent />,
+                        element: <InstructorCourses />,
+                    },
+                    {
+                        path: "add-courses",
+                        element: <AddCourse />,
+                    },
+                    {
+                        path: "add-courses/draf",
+                        element: <AddDraftCourse />,
                     },
                     {
                         path: "communication",

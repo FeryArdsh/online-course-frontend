@@ -32,14 +32,20 @@ const LoggedInUserHomePage = () => {
 
     useEffect(() => {
         const fetchdata = async () => {
-            const getAllCourse = await instance.get("courses");
-            const getUserProfile = await instance.get("profile/me");
-            dispatch(addUser(getUserProfile.data.student));
-            setCourses(getAllCourse.data.courses);
+            try {
+                const getAllCourse = await instance.get("courses");
+                const getUserProfile = await instance.get("profile/me");
+
+                dispatch(addUser(getUserProfile.data.student));
+                setCourses(getAllCourse.data.courses);
+            } catch (error) {
+                console.log(error);
+            }
         };
         fetchdata();
     }, []);
-
+    const rating = courses?.filter((courses) => courses.avgRating >= 4.8);
+    console.log(courses);
     return (
         <>
             <Layout1>
@@ -51,10 +57,9 @@ const LoggedInUserHomePage = () => {
                     <div className={css.m1}>
                         <h1 className={css.colTtl}>What to learn next</h1>
                         <CourseCarouselComp
-                            ttl="Students are viewing"
+                            ttl="Rating Terbaik"
                             link="/"
-                            linkTxt="Txt for link"
-                            coursesData={coursesData}
+                            coursesData={rating}
                         />
                     </div>
                     <div className={css.m1}>
