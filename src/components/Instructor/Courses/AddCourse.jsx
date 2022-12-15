@@ -18,7 +18,7 @@ const AddCourse = () => {
         <div>
             <h2>Tambah Video Kursus</h2>
             <hr />
-            <h3>{course.ttl}</h3>
+            <h3>{course?.ttl}</h3>
             <h4>Title Section</h4>
             <input type="text" />
             <button>
