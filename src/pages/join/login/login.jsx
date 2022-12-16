@@ -19,6 +19,7 @@ import LOCAL_STORAGE from "../../../service/localStorage";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../../service/redux/user";
+import axios from "axios";
 
 const login = () => {
     const [state, setState] = useState({
@@ -53,8 +54,8 @@ const login = () => {
                 password: state.password,
             });
             LOCAL_STORAGE.setDataUser(response.data);
-            instance.defaults.headers.common["x-auth-token"] =
-                LOCAL_STORAGE.getDataUser();
+            axios.defaults.headers.common["Authorization"] =
+                "feryyyyyyyyyyyyyyyyyyyyyyy";
 
             await Swal.fire({
                 title: "Berhasil login",

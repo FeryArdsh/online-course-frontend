@@ -25,6 +25,7 @@ import "slick-carousel/slick/slick-theme.css";
 import instance from "../../../config/instance";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../../service/redux/user";
+import LOCAL_STORAGE from "../../../service/localStorage";
 
 const LoggedInUserHomePage = () => {
     const [courses, setCourses] = useState(null);
@@ -34,9 +35,6 @@ const LoggedInUserHomePage = () => {
         const fetchdata = async () => {
             try {
                 const getAllCourse = await instance.get("courses");
-                const getUserProfile = await instance.get("profile/me");
-
-                dispatch(addUser(getUserProfile.data.student));
                 setCourses(getAllCourse.data.courses);
             } catch (error) {
                 console.log(error);
@@ -44,7 +42,11 @@ const LoggedInUserHomePage = () => {
         };
         const fetchUser = async () => {
             try {
-                const getUserProfile = await instance.get("profile/me");
+                const getUserProfile = await instance.get("profile/me", {
+                    headers: {
+                        "x-auth-token": LOCAL_STORAGE.getDataUser().token,
+                    },
+                });
 
                 dispatch(addUser(getUserProfile.data.student));
             } catch (error) {
@@ -55,7 +57,7 @@ const LoggedInUserHomePage = () => {
         fetchdata();
     }, []);
     const rating = courses?.filter((courses) => courses.avgRating >= 4.8);
-    console.log(courses);
+
     return (
         <>
             <Layout1>
@@ -66,11 +68,13 @@ const LoggedInUserHomePage = () => {
                     </div>
                     <div className={css.m1}>
                         <h1 className={css.colTtl}>What to learn next</h1>
-                        <CourseCarouselComp
-                            ttl="Rating Terbaik"
-                            link="/"
-                            coursesData={rating}
-                        />
+                        {rating && (
+                            <CourseCarouselComp
+                                ttl="Rating Terbaik"
+                                link="/"
+                                coursesData={rating}
+                            />
+                        )}
                     </div>
                     <div className={css.m1}>
                         <CourseCarouselComp
