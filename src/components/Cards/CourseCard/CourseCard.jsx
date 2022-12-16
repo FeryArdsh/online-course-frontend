@@ -64,7 +64,7 @@ const CourseCard = (props) => {
                 <Link className={css.innerDiv} to={path}>
                     <div className={css.imgBox}>
                         <img
-                            src={img}
+                            src={img.url}
                             alt="course thumbnail"
                             className={css.courseImg}
                         />

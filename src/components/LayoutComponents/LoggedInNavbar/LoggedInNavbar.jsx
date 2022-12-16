@@ -47,9 +47,9 @@ const LoggedInNavbar = () => {
                 <div className={css.searchBox}>
                     <SearchBar />
                 </div>
-                <a className={css.hovBox} href="#" target="_blank">
+                {/* <a className={css.hovBox} href="#" target="_blank">
                     Udemy Bussiness
-                </a>
+                </a> */}
                 <Link className={css.hovBox} to="/user/profile/courses">
                     Instructor
                 </Link>

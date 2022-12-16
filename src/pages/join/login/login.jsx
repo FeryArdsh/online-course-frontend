@@ -134,8 +134,8 @@ const login = () => {
                             <Button1
                                 txt="Login"
                                 color="var(--white)"
-                                bck="var(--purple)"
-                                hovBck="var(--purple-dark)"
+                                bck="var(--primary)"
+                                hovBck="var(--primary-dark)"
                                 extraCss={{
                                     width: "100%",
                                     margin: "7px 0px",

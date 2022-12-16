@@ -66,13 +66,13 @@ const LoggedInUserHomePage = () => {
                     <div className={css.banner}>
                         <BannerComp bannerData={bannerData[2]} />
                     </div>
+                    <h1 className={css.colTtl}>Pelajari kursus lainnya</h1>
                     <div className={css.m1}>
-                        <h1 className={css.colTtl}>What to learn next</h1>
                         {rating && (
                             <CourseCarouselComp
                                 ttl="Rating Terbaik"
                                 link="/"
-                                coursesData={rating}
+                                coursesData={courses}
                             />
                         )}
                     </div>

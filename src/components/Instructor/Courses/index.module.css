@@ -19,11 +19,13 @@
     border: 1px solid gray;
     margin-bottom: 20px;
     padding: 10px;
+    box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.295);
 }
 
 .listCourse:hover {
     background-color: rgb(197, 197, 197);
     cursor: pointer;
+    box-shadow: none;
 }
 
 .editCourse {

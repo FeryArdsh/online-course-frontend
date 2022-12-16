@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -8,17 +8,9 @@ import css from "./index.module.css";
 
 const InstructorCourses = () => {
     const user = useSelector((state) => state.userData.data);
+    const [course, setCourse] = useState(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const yourCourse = [
-        {
-            ttl: "Belajar MERN",
-            totalDuration: 39,
-        },
-        {
-            ttl: "Belajar MERN",
-        },
-    ];
 
     useEffect(() => {
         if (!user.isInstructor) {
@@ -69,6 +61,14 @@ const InstructorCourses = () => {
         }
     }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await instance.get("courses/instructor");
+            setCourse(response.data.courses);
+        };
+        fetchData();
+    }, []);
+
     return (
         <div className={css.containerCourse}>
             <h2>Kursus</h2>
@@ -76,14 +76,11 @@ const InstructorCourses = () => {
                 Tambah Kursus +
             </Link>
             <div>
-                {yourCourse?.map((item, i) => (
+                {course?.map((item, i) => (
                     <div className={css.listCourse} key={i}>
                         <h3>{item.ttl}</h3>
-                        {item.totalDuration ? (
-                            <span>Publik</span>
-                        ) : (
-                            <span>Draf</span>
-                        )}
+                        {item.publish ? <i>Publik</i> : <i>Draf</i>}
+                        <p>Total Durasi Video: {item.totalDuration} menit</p>
                         <Link to="/edit-course" className={css.editCourse}>
                             Edit/Selesaikan
                         </Link>
