@@ -13,162 +13,181 @@ import folderIcon from "/icons/folder.png";
 import { courseDataWithOptions } from "../../../../fakedata/fakedata";
 
 import css from "./AllCoursesComponent.module.css";
+import instance from "../../../../config/instance";
+import LOCAL_STORAGE from "../../../../service/localStorage";
 
 const AllCoursesComponent = () => {
-  const [filters, setFilers] = useState({
-    sortBy: {},
-    filterByCategory: {},
-    filterByState: {},
-    filterByInstructor: {},
-  });
-
-  const [resetBtn, setRestBtn] = useState(false);
-
-  const sortByOptions = [
-    {
-      key: "Recently Accessed",
-      value: "recently accessed",
-    },
-    {
-      key: "Recently Enrolled",
-      value: "recently enrolled",
-    },
-    {
-      key: "Title: A-to-Z",
-      value: "a-z",
-    },
-    {
-      key: "Title: Z-to-A",
-      value: "z-a",
-    },
-  ];
-
-  const filterByCategoryOptions = [
-    [
-      {
-        key: "Favourites",
-        value: "favorites",
-      },
-    ],
-    [
-      {
-        key: "All Categories",
-        value: "all categories",
-      },
-      {
-        key: "Development",
-        value: "development",
-      },
-      {
-        key: "IT & Software",
-        value: "it software",
-      },
-      {
-        key: "Business",
-        value: "business",
-      },
-      {
-        key: "Marketing",
-        value: "marketing",
-      },
-    ],
-    [
-      {
-        key: "Archived",
-        value: "archived",
-      },
-    ],
-  ];
-
-  const filterByStateOptions = [
-    {
-      key: "Completed",
-      value: "completed",
-    },
-    {
-      key: "In Progress",
-      value: "in progress",
-    },
-    {
-      key: "Not Started",
-      value: "not started",
-    },
-  ];
-
-  const filterByInstructorOptions = [
-    {
-      key: "Aaron Wheeler",
-      value: "aaron wheeler",
-    },
-    {
-      key: "Koushil Mankali",
-      value: "koushil",
-    },
-  ];
-
-  useEffect(() => {
-    if (
-      Object.keys(filters.sortBy).length ||
-      Object.keys(filters.filterByCategory).length ||
-      Object.keys(filters.filterByState).length ||
-      Object.keys(filters.filterByInstructor).length
-    ) {
-      return setRestBtn(true);
-    }
-    setRestBtn(false);
-  }, [filters]);
-
-  const resetFiltersHandler = () => {
-    setFilers({
-      sortBy: {},
-      filterByCategory: {},
-      filterByState: {},
-      filterByInstructor: {},
+    const [course, setCourse] = useState(null);
+    const [filters, setFilers] = useState({
+        sortBy: {},
+        filterByCategory: {},
+        filterByState: {},
+        filterByInstructor: {},
     });
-  };
 
-  const optionsComps = [
-    <div className={css.opt}>
-      <div className={css.httl}>Lists</div>
-      <Link to="/" className={css.ctxt}>
-        Dynamics
-      </Link>
-      <Link to="/" className={css.ctxt}>
-        NCloud
-      </Link>
-    </div>,
-    <div className={css.opt}>
-      <Link to="/" className={css.txtBox}>
-        <span className={css.iconBox}>
-          <img src={shareIcon} alt="icon" className={css.icon} />
-        </span>
-        <span className={css.txt}>Share</span>
-      </Link>
-      <Link to="/" className={css.txtBox}>
-        <span className={css.iconBox}>
-          <img src={plusIcon} alt="icon" className={css.icon} />
-        </span>
-        <span className={css.txt}>Create New List</span>
-      </Link>
-      <Link to="/" className={css.txtBox}>
-        <span className={css.iconBox}>
-          <img src={starIcon} alt="icon" className={css.icon} />
-        </span>
-        <span className={css.txt}>Favorite</span>
-      </Link>
-      <Link to="/" className={css.txtBox}>
-        <span className={css.iconBox}>
-          <img src={folderIcon} alt="icon" className={css.icon} />
-        </span>
-        <span className={css.txt}>Unarchive</span>
-      </Link>
-    </div>,
-  ];
+    const [resetBtn, setRestBtn] = useState(false);
 
-  return (
-    <div className={css.outerDiv}>
-      <div className={css.topBar}>
-        <div className={css.filters}>
+    const sortByOptions = [
+        {
+            key: "Recently Accessed",
+            value: "recently accessed",
+        },
+        {
+            key: "Recently Enrolled",
+            value: "recently enrolled",
+        },
+        {
+            key: "Title: A-to-Z",
+            value: "a-z",
+        },
+        {
+            key: "Title: Z-to-A",
+            value: "z-a",
+        },
+    ];
+
+    const filterByCategoryOptions = [
+        [
+            {
+                key: "Favourites",
+                value: "favorites",
+            },
+        ],
+        [
+            {
+                key: "All Categories",
+                value: "all categories",
+            },
+            {
+                key: "Development",
+                value: "development",
+            },
+            {
+                key: "IT & Software",
+                value: "it software",
+            },
+            {
+                key: "Business",
+                value: "business",
+            },
+            {
+                key: "Marketing",
+                value: "marketing",
+            },
+        ],
+        [
+            {
+                key: "Archived",
+                value: "archived",
+            },
+        ],
+    ];
+
+    const filterByStateOptions = [
+        {
+            key: "Completed",
+            value: "completed",
+        },
+        {
+            key: "In Progress",
+            value: "in progress",
+        },
+        {
+            key: "Not Started",
+            value: "not started",
+        },
+    ];
+
+    const filterByInstructorOptions = [
+        {
+            key: "Aaron Wheeler",
+            value: "aaron wheeler",
+        },
+        {
+            key: "Koushil Mankali",
+            value: "koushil",
+        },
+    ];
+
+    useEffect(() => {
+        if (
+            Object.keys(filters.sortBy).length ||
+            Object.keys(filters.filterByCategory).length ||
+            Object.keys(filters.filterByState).length ||
+            Object.keys(filters.filterByInstructor).length
+        ) {
+            return setRestBtn(true);
+        }
+        setRestBtn(false);
+    }, [filters]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const getUserProfile = await instance.get("profile/me", {
+                    headers: {
+                        "x-auth-token": LOCAL_STORAGE.getDataUser().token,
+                    },
+                });
+                setCourse(getUserProfile.data.student.coursesTaken);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    const resetFiltersHandler = () => {
+        setFilers({
+            sortBy: {},
+            filterByCategory: {},
+            filterByState: {},
+            filterByInstructor: {},
+        });
+    };
+
+    const optionsComps = [
+        <div className={css.opt}>
+            <div className={css.httl}>Lists</div>
+            <Link to="/" className={css.ctxt}>
+                Dynamics
+            </Link>
+            <Link to="/" className={css.ctxt}>
+                NCloud
+            </Link>
+        </div>,
+        <div className={css.opt}>
+            <Link to="/" className={css.txtBox}>
+                <span className={css.iconBox}>
+                    <img src={shareIcon} alt="icon" className={css.icon} />
+                </span>
+                <span className={css.txt}>Share</span>
+            </Link>
+            <Link to="/" className={css.txtBox}>
+                <span className={css.iconBox}>
+                    <img src={plusIcon} alt="icon" className={css.icon} />
+                </span>
+                <span className={css.txt}>Create New List</span>
+            </Link>
+            <Link to="/" className={css.txtBox}>
+                <span className={css.iconBox}>
+                    <img src={starIcon} alt="icon" className={css.icon} />
+                </span>
+                <span className={css.txt}>Favorite</span>
+            </Link>
+            <Link to="/" className={css.txtBox}>
+                <span className={css.iconBox}>
+                    <img src={folderIcon} alt="icon" className={css.icon} />
+                </span>
+                <span className={css.txt}>Unarchive</span>
+            </Link>
+        </div>,
+    ];
+    console.log(course);
+    return (
+        <div className={css.outerDiv}>
+            <div className={css.topBar}>
+                {/* <div className={css.filters}>
           <SelectDropdownUtil
             id="filter1"
             label="Sort by"
@@ -213,31 +232,31 @@ const AllCoursesComponent = () => {
           >
             Reset
           </div>
-        </div>
+        </div> */}
 
-        <div className={css.searchBar}>
-          <InputUtil
-            icon={searchIcon}
-            iconPosition="right"
-            placeholderTxt="Search my courses"
-            extraCss={{ padding: "0.3rem", fontSize: "1rem" }}
-          />
+                {/* <div className={css.searchBar}>
+                    <InputUtil
+                        icon={searchIcon}
+                        iconPosition="right"
+                        placeholderTxt="Search my courses"
+                        extraCss={{ padding: "0.3rem", fontSize: "1rem" }}
+                    />
+                </div> */}
+            </div>
+            <div className={css.bdy}>
+                {course?.map((item, inde) => {
+                    return (
+                        <CourseCardWithOptions
+                            key={inde}
+                            data={item}
+                            isOptions={true}
+                            options={optionsComps}
+                        />
+                    );
+                })}
+            </div>
         </div>
-      </div>
-      <div className={css.bdy}>
-        {courseDataWithOptions.map((item) => {
-          return (
-            <CourseCardWithOptions
-              key={item.id}
-              data={item}
-              isOptions={true}
-              options={optionsComps}
-            />
-          );
-        })}
-      </div>
-    </div>
-  );
+    );
 };
 
 export default AllCoursesComponent;

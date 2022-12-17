@@ -51,7 +51,7 @@ const Cart = () => {
             <Layout1>
                 <div className={css.outerDiv}>
                     <div className={css.innerDiv}>
-                        <div className={css.ttl}>Shopping Cart</div>
+                        <div className={css.ttl}>Keranjang Belanja</div>
                         <div className={css.boxs}>
                             <div className={css.box1}>
                                 <div className={css.cnt}>1 Course in Cart</div>
@@ -65,28 +65,27 @@ const Cart = () => {
                                         );
                                     })}
                                 </div>
-                                <div>keep shopping div</div>
                             </div>
                             <div className={css.box2}>
                                 <div className={css.totalTxt}>Total:</div>
                                 <div className={css.currrency}>
                                     {new Intl.NumberFormat("en-IN", {
                                         style: "currency",
-                                        currency: "INR",
+                                        currency: "IDR",
                                     }).format(600)}
                                 </div>
                                 <div className={css.totalDiscount}>
                                     {new Intl.NumberFormat("en-IN", {
                                         style: "currency",
-                                        currency: "INR",
+                                        currency: "IDR",
                                     }).format(3399)}
                                 </div>
                                 <div className={css.ttlDisPer}>81% off</div>
                                 <Button1
                                     link="/checkout"
                                     txt="Checkout"
-                                    bck="var(--purple)"
-                                    hovBck="var(--purple-dark)"
+                                    bck="var(--primary)"
+                                    hovBck="var(--primary-dark)"
                                     extraCss={{
                                         width: "100%",
                                         margin: "1rem 0",
@@ -95,7 +94,7 @@ const Cart = () => {
                                         color: "var(--white)",
                                     }}
                                 />
-                                <div className={css.ctxt}>Coupon code</div>
+                                {/* <div className={css.ctxt}>Coupon code</div>
                                 {appliedCoupon ? (
                                     <div className={css.cpnBox}>
                                         <img
@@ -117,7 +116,7 @@ const Cart = () => {
                                     onChange={setCouponHandler}
                                     btnClick={submitCoupon}
                                     extraCss={{ padding: "0.5rem" }}
-                                />
+                                /> */}
                             </div>
                         </div>
                     </div>

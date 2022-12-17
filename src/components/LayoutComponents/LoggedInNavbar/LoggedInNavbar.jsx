@@ -156,12 +156,8 @@ const LoggedInNavbar = () => {
                                 </Link>
                             </div>
                             <hr className={css.hr} />
-                            <div className={css.prflDiv}>
-                                <Link
-                                    to="/welcome"
-                                    onClick={onLogout}
-                                    className={css.logout}
-                                >
+                            <div className={css.prflDiv} onClick={onLogout}>
+                                <Link to="/welcome" className={css.logout}>
                                     <span>Logout</span>
                                     <span>
                                         <BiLogIn size={20} />

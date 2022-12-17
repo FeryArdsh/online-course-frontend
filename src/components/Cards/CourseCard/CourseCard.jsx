@@ -8,6 +8,8 @@ import CircleButton from "../../../utils/Buttons/CircleButton/CircleButton";
 import css from "./CourseCard.module.css";
 
 import heartIcon from "/icons/heart.png";
+import Rating from "react-rating";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 const CourseCard = (props) => {
     const {
@@ -16,40 +18,18 @@ const CourseCard = (props) => {
         ttl = "",
         desc = "",
         prc = 0,
-        oldprc = 0,
-        stars = {},
+        newPrc = 0,
         avgRating = 0,
         numOfRatings = 0,
         updatedDate = new Intl.DateTimeFormat("en-IN", {
             dateStyle: "long",
         }).format(new Date()),
-        courseDuration = 1000000,
+        totalDuration = 0,
         level = "Beginner Level",
         crsSubtxt = "Python For Beginners : This course is meant for absolute beginners in programming or in python.",
     } = props?.data;
 
     const extraCss = props.extraCss;
-    let totalRating = (
-        (1 * stars?.a +
-            2 * stars?.b +
-            3 * stars?.c +
-            4 * stars?.d +
-            5 * stars?.e) /
-            stars?.a +
-        stars?.b +
-        stars?.c +
-        stars?.d +
-        stars?.e
-    ).toFixed(2);
-
-    let duration = new Date(courseDuration * 1000);
-    let hours = duration.getUTCHours();
-    let minutes = duration.getUTCMinutes();
-
-    let durationInHrs =
-        hours?.toString().padStart(2, "0") +
-        "." +
-        minutes?.toString().padStart(1, "0");
 
     let addToCartHandler = () => {
         alert("Added to cart");
@@ -57,7 +37,6 @@ const CourseCard = (props) => {
     let addToWishListHandler = () => {
         alert("Added to wish list");
     };
-
     return (
         <>
             <div className={css.outerDiv} id={props.id} style={extraCss}>
@@ -72,24 +51,37 @@ const CourseCard = (props) => {
                     <div className={css.cardBdy}>
                         <div className={css.ttl}>{ttl}</div>
                         <div className={css.authDet}>{desc}</div>
+                        <div className={css.authDet}>{totalDuration} menit</div>
                         <div className={css.stats}>
+                            <Rating
+                                initialRating={avgRating}
+                                readonly
+                                emptySymbol={
+                                    <AiOutlineStar size={15} color="orange" />
+                                }
+                                fullSymbol={
+                                    <AiFillStar size={15} color="orange" />
+                                }
+                            />
                             <div className={css.rat1}>{avgRating}</div>
-                            <div className={css.rat2}>{avgRating}</div>
+                            {/* <div className={css.rat2}>{avgRating}</div> */}
                             <div className={css.noOfRats}>({numOfRatings})</div>
                         </div>
                         <div className={css.prc}>
                             <span className={css.newPrc}>
                                 {new Intl.NumberFormat("en-IN", {
                                     style: "currency",
-                                    currency: "INR",
-                                }).format(prc)}
+                                    currency: "IDR",
+                                }).format(newPrc)}
                             </span>
-                            <span className={css.oldPrc}>
-                                {new Intl.NumberFormat("en-IN", {
-                                    style: "currency",
-                                    currency: "INR",
-                                }).format(oldprc)}
-                            </span>
+                            {newPrc !== prc && (
+                                <span className={css.oldPrc}>
+                                    {new Intl.NumberFormat("en-IN", {
+                                        style: "currency",
+                                        currency: "IDR",
+                                    }).format(prc)}
+                                </span>
+                            )}
                         </div>
                         <div className={css.tags}>
                             <TAG1 />
@@ -99,54 +91,14 @@ const CourseCard = (props) => {
                 <div className={css.hovCard}>
                     <div className={css.innerBox}>
                         <div className={css.ttl}>{ttl}</div>
-                        <div className={css.shrtDet}>
-                            <div className={css.tags}>
-                                <TAG1 />
-                            </div>
-                            <div className={css.lstUpdt}>
-                                Updated <b>{updatedDate}</b>
-                            </div>
-                        </div>
-                        <div className={css.crseDet}>
-                            <div className={css.crseDetInerS}>
-                                {durationInHrs} total hours
-                            </div>
-                            <div className={css.crseDetInerM}>{level}</div>
-                            <div className={css.crseDetInerE}>Subtitles</div>
-                        </div>
-                        <div className={css.crsSubtxt}>{crsSubtxt}</div>
-                        <ul className={css.list}>
-                            <li className={css.listItem}>
-                                <span className={css.tick}></span>
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Atque dolore reiciendis ea
-                                maiores eos eligendi architecto illo. Cupiditate
-                                iure, vero, laboriosam laudantium perferendis
-                                odio expedita quisquam culpa quae earum
-                                provident.
-                            </li>
-                            <li className={css.listItem}>
-                                <span className={css.tick}></span>
-                                Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Tempora ullam autem impedit
-                                porro veniam, laboriosam debitis eveniet
-                                reprehenderit numquam atque inventore recusandae
-                                hic veritatis similique officia? Rerum,
-                                nesciunt! Repudiandae, sint.
-                            </li>
-                        </ul>
                         <div className={css.btns}>
                             <Button1
                                 onClick={addToCartHandler}
                                 txt="Add to cart"
                                 color="#fff"
-                                bck="#a435f0"
-                                hovBck="#8710d8"
+                                bck="var(--primary)"
+                                hovBck="var(--primary-dark)"
                                 extraCss={{ width: "100%", border: "none" }}
-                            />
-                            <CircleButton
-                                onClick={addToWishListHandler}
-                                img={heartIcon}
                             />
                         </div>
                     </div>

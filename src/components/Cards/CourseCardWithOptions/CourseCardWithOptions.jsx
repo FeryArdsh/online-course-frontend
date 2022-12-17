@@ -12,8 +12,8 @@ const CourseCardWithOptions = (props) => {
     const [modal, setModal] = useState(false);
     const {
         path = "",
-        img = "",
-        id = 0,
+        img = {},
+        _id = 0,
         ttl = "",
         author = "",
         ratings = 0,
@@ -23,14 +23,14 @@ const CourseCardWithOptions = (props) => {
 
     useEffect(() => {
         window.addEventListener("click", (e) => {
-            if (e.target.id !== `cwo-${id}`) {
+            if (e.target.id !== `cwo-${_id}`) {
                 return setMenuBox(false);
             }
         });
 
         return () => {
             window.removeEventListener("click", (e) => {
-                if (e.target.id !== `cwo-${id}`) {
+                if (e.target.id !== `cwo-${_id}`) {
                     return setMenuBox(false);
                 }
             });
@@ -82,14 +82,14 @@ l11.547-1.2L16.026,0.6L20.388,10.918z"
             {modal ? (
                 <PlanModalUtil setModal={setModal} content={content} />
             ) : null}
-            <Link to={path} className={css.outerDiv}>
+            <Link to={`/course/view/${_id}`} className={css.outerDiv}>
                 {isOptions ? (
                     <div
                         className={css.optionsBox}
                         onClickCapture={(e) => e.preventDefault()}
                     >
                         <button
-                            id={`cwo-${id}`}
+                            id={`cwo-${_id}`}
                             type="button"
                             className={css.menuBtn}
                             onClick={() => setMenuBox((prev) => !prev)}
@@ -97,15 +97,15 @@ l11.547-1.2L16.026,0.6L20.388,10.918z"
                             <img
                                 src={dotsIcon}
                                 className={css.menuIcon}
-                                id={`cwo-${id}`}
+                                id={`cwo-${_id}`}
                             />
                             {menuBox ? (
                                 <div className={css.menuBox}>
-                                    {options?.map((Option, id) => {
+                                    {options?.map((Option, index) => {
                                         return (
                                             <div
+                                                key={index}
                                                 className={css.optionComp}
-                                                key={id}
                                             >
                                                 {Option}
                                             </div>
@@ -117,7 +117,7 @@ l11.547-1.2L16.026,0.6L20.388,10.918z"
                     </div>
                 ) : null}
                 <div className={css.imgBox}>
-                    <img src={img} alt="course image" className={css.img} />
+                    <img src={img.url} alt="course image" className={css.img} />
                     <div className={css.hovImgBox}>
                         <img
                             src={playIcon}
@@ -129,15 +129,16 @@ l11.547-1.2L16.026,0.6L20.388,10.918z"
                 <div className={css.bdy}>
                     <div className={css.ttl}>{ttl}</div>
                     <div className={css.author}>{author}</div>
-                    <progress
+                    {/* <progress
                         value={76}
                         max="100"
                         className={css.progressBar}
-                    />
+                    /> */}
                     <div className={css.footerBox}>
-                        <span className={css.txt}>
+                        {/* <span className={css.txt}>
                             {courseCoveredPercent}% complete
-                        </span>
+                        </span> */}
+                        <span className={css.txt}>Lanjut belajar</span>
                         <span className={css.starsRatings}>
                             <span></span>
                             <span onClick={modalHandler}>Leave a rating</span>

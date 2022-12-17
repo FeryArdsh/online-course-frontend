@@ -100,7 +100,7 @@ const Checkout = () => {
                                                         "en-IN",
                                                         {
                                                             style: "currency",
-                                                            currency: "INR",
+                                                            currency: "IDR",
                                                         }
                                                     ).format(item.price)}
                                                 </div>
@@ -119,7 +119,7 @@ const Checkout = () => {
                                 <span>
                                     {new Intl.NumberFormat("en-IN", {
                                         style: "currency",
-                                        currency: "INR",
+                                        currency: "IDR",
                                     }).format(3399)}
                                 </span>
                             </div>
@@ -129,7 +129,7 @@ const Checkout = () => {
                                 <span>
                                     {new Intl.NumberFormat("en-IN", {
                                         style: "currency",
-                                        currency: "INR",
+                                        currency: "IDR",
                                     }).format(3399)}
                                 </span>
                             </div>

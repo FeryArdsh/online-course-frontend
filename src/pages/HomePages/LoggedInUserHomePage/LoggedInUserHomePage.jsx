@@ -57,6 +57,7 @@ const LoggedInUserHomePage = () => {
         fetchdata();
     }, []);
     const rating = courses?.filter((courses) => courses.avgRating >= 4.8);
+    const laris = courses?.filter((courses) => courses.numOfRatings >= 2);
 
     return (
         <>
@@ -71,18 +72,29 @@ const LoggedInUserHomePage = () => {
                         {rating && (
                             <CourseCarouselComp
                                 ttl="Rating Terbaik"
-                                link="/"
                                 coursesData={courses}
                             />
                         )}
                     </div>
                     <div className={css.m1}>
-                        <CourseCarouselComp
-                            ttl="Recommended for you"
-                            coursesData={coursesData}
-                        />
+                        {laris && (
+                            <CourseCarouselComp
+                                ttl="Paling Banyak di Ulas"
+                                link="/"
+                                coursesData={laris}
+                            />
+                        )}
                     </div>
                     <div className={css.m1}>
+                        {courses && (
+                            <CourseCarouselComp
+                                ttl="Kursus Terpopuler"
+                                link="/"
+                                coursesData={courses}
+                            />
+                        )}
+                    </div>
+                    {/* <div className={css.m1}>
                         <TabbedCourseCarouselComp
                             ttl="Featured courses in"
                             link="/"
@@ -103,7 +115,7 @@ const LoggedInUserHomePage = () => {
                             ttl="Students are viewing"
                             coursesData={coursesData}
                         />
-                    </div>
+                    </div> */}
                 </div>
             </Layout1>
         </>

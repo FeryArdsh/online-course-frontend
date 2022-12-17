@@ -34,6 +34,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import InstructorCourses from "./components/Instructor/Courses";
 import AddCourse from "./components/Instructor/Courses/AddCourse";
 import AddDraftCourse from "./components/Instructor/Courses/AddDraftCourse";
+import CoursePageView from "./pages/CoursePageView";
 
 let routes;
 routes = [
@@ -150,6 +151,10 @@ routes = [
             {
                 path: "/checkout",
                 element: <Checkout />,
+            },
+            {
+                path: "/course/view/:id",
+                element: <CoursePageView />,
             },
             {
                 path: "/test",
