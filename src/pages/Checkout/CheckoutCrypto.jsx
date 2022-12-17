@@ -1,9 +1,16 @@
 import { ethers } from "ethers";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import instance from "../../config/instance";
 import Button1 from "../../utils/Buttons/Button1/Button1";
 
-const CheckoutCrypto = ({ amount }) => {
+const CheckoutCrypto = ({ amount, courseId }) => {
     const [error, setError] = useState("");
+    const fixAmount = amount.toFixed(2);
+    const getIds = courseId?.cart?.map((item) => item._id);
+    const navigate = useNavigate();
+
     const sendTrans = async (e) => {
         e.preventDefault();
         try {
@@ -19,10 +26,20 @@ const CheckoutCrypto = ({ amount }) => {
             );
             const tx = await signer.sendTransaction({
                 to: "0x98475D04ECe6B74F9C391A778Dd672e2a95e934d",
-                value: ethers.utils.parseEther(amount.toString()),
+                value: ethers.utils.parseEther(fixAmount.toString()),
             });
-            const confirm = [tx];
-            if (confirm.length >= 1) {
+            if (tx.hash) {
+                try {
+                    const response = await instance.post("course/purchase", {
+                        data: getIds,
+                    });
+                    console.log(response);
+                    await Swal.fire("Berhasil membeli kursus", "", "success");
+                    navigate("/user/my-courses/learning");
+                } catch (error) {
+                    Swal.fire("Error", "", "error");
+                    console.log(error);
+                }
             }
         } catch (err) {
             setError(err.message);

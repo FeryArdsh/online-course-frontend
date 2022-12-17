@@ -59,7 +59,7 @@ routes = [
                 element: <CategoryCoursePage />,
                 children: [
                     {
-                        path: ":catId",
+                        path: ":categoryPage",
                         element: <CategoryCoursePage />,
                         children: [
                             {

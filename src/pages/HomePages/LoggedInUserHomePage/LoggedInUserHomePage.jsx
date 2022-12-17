@@ -9,7 +9,7 @@ import HomeShowcaseCard from "../../../components/Cards/HomeShowcaseCard/HomeSho
 import CourseCarouselComp from "../../../components/CarouselComponents/CourseCarouselComp/CourseCarouselComp";
 import BannerComp from "../../../components/HomePageComponents/BannerComp/BannerComp";
 import TabbedCourseCarouselComp from "../../../components/CarouselComponents/TabbedCourseCarouselComp/TabbedCourseCarouselComp";
-
+import ReactLoading from "react-loading";
 import {
     coursesData,
     det,
@@ -29,14 +29,19 @@ import LOCAL_STORAGE from "../../../service/localStorage";
 
 const LoggedInUserHomePage = () => {
     const [courses, setCourses] = useState(null);
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchdata = async () => {
             try {
+                setLoading(true);
                 const getAllCourse = await instance.get("courses");
                 setCourses(getAllCourse.data.courses);
+                setLoading(false);
             } catch (error) {
+                setLoading(false);
+
                 console.log(error);
             }
         };
@@ -68,6 +73,9 @@ const LoggedInUserHomePage = () => {
                         <BannerComp bannerData={bannerData[2]} />
                     </div>
                     <h1 className={css.colTtl}>Pelajari kursus lainnya</h1>
+                    {loading && (
+                        <ReactLoading color="#306de4" width={64} height={64} />
+                    )}
                     <div className={css.m1}>
                         {rating && (
                             <CourseCarouselComp

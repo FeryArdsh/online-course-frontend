@@ -8,108 +8,117 @@ import Button2 from "../../../utils/Buttons/Button2/Button2";
 import css from "./CheckoutCourseCard.module.css";
 
 import labelIcon from "/icons/label.png";
+import ReactRating from "react-rating";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { deleteCart } from "../../../service/redux/cart";
 
 const CheckoutCourseCard = (props) => {
     const { data } = props;
     const {
-        id = 1,
-        img = "",
+        _id = 0,
+        img = {},
         link = "/",
         ttl = "xxx",
-        authors = ["xxx"],
-        ratings = { totalratings: 0, count: 0 },
-        duration = 0,
-        lectures = 0,
+        avgRating = 0,
+        totalDuration = 0,
         level = "All",
-        price = 0,
-        discount = 0,
-        couponApplied = "xxx",
+        newPrc = 0,
+        prc = 0,
+        disc = 0,
         bestSeller = false,
+        numOfRatings = 0,
+        category = "",
     } = data;
+    const dispatch = useDispatch();
 
     return (
         <Link className={css.outerDiv} to={link}>
             <div className={css.box1}>
                 <div className={css.imgBox}>
-                    <img src={img} alt="course thumbnail" className={css.img} />
+                    <img
+                        src={img.url}
+                        alt="course thumbnail"
+                        className={css.img}
+                    />
                 </div>
                 <div className={css.det}>
                     <div className={css.ttl}>{ttl}</div>
-                    <div className={css.authors}>
+                    {/* <div className={css.authors}>
                         By {authors?.join(", ")?.toString()}
-                    </div>
+                    </div> */}
                     <div className={css.ratings}>
                         {bestSeller ? <TagUtil /> : ""}
                         <div className={css.rats}>
-                            <span className={css.num}>
-                                {ratings.totalratings}
-                            </span>
-                            <span className={css.count}>
-                                ({ratings.count} ratings)
-                            </span>
+                            <ReactRating
+                                initialRating={avgRating}
+                                readonly
+                                emptySymbol={
+                                    <AiOutlineStar size={15} color="orange" />
+                                }
+                                fullSymbol={
+                                    <AiFillStar size={15} color="orange" />
+                                }
+                            />
+                            <span className={css.num}>{avgRating}</span>
+                            <span className={css.count}>({numOfRatings})</span>
                         </div>
                     </div>
                     <div className={css.crsDet}>
                         <span className={css.crsDet}>
-                            {duration} total hours
+                            {totalDuration} Menit
                         </span>
                         <span className={[css.crsDet, css.mid].join(" ")}>
-                            {lectures} lectures
+                            Jenis Kategori {category}
                         </span>
-                        <span className={css.crsDet}>{level} Levels</span>
+                        <span className={css.crsDet}>
+                            {level} Tingkat Kursus
+                        </span>
                     </div>
                 </div>
             </div>
             <div className={css.box23}>
-                <div
-                    className={css.box2}
-                    onClickCapture={(e) => {
-                        e.preventDefault();
-                    }}
-                >
-                    <Button2
-                        txt="Remove"
-                        hovBck=""
-                        extraCss={{
-                            fontWeight: "400",
-                            fontSize: "0.9rem",
-                            color: "var(--purple)",
-                            margin: "0.2rem",
-                            padding: "0",
-                        }}
-                    />
-                    <Button2
-                        txt="Save for Later"
-                        hovBck=""
-                        extraCss={{
-                            fontWeight: "400",
-                            fontSize: "0.9rem",
-                            color: "var(--purple)",
-                            margin: "0.2rem",
-                            padding: "0",
-                        }}
-                    />
-                </div>
                 <div className={css.box3}>
                     <div className={css.priceDet}>
                         <div className={css.price}>
                             {new Intl.NumberFormat("en-IN", {
                                 style: "currency",
                                 currency: "IDR",
-                            }).format(price)}
+                            }).format(newPrc)}
                         </div>
                         <img
                             src={labelIcon}
                             alt="price tag"
                             className={css.icon}
                         />
+                        <div
+                            className={css.box2}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                dispatch(deleteCart(_id));
+                            }}
+                        >
+                            <Button2
+                                txt="Hapus"
+                                hovBck="var(--light-orangish)"
+                                extraCss={{
+                                    fontWeight: "400",
+                                    fontSize: "0.9rem",
+                                    color: "red",
+                                    margin: "0.2rem",
+                                    padding: "2px",
+                                }}
+                            />
+                        </div>
                     </div>
-                    <div className={css.dis}>
-                        {new Intl.NumberFormat("en-IN", {
-                            style: "currency",
-                            currency: "IDR",
-                        }).format(discount)}
-                    </div>
+                    {disc >= 1 && (
+                        <div className={css.dis}>
+                            {new Intl.NumberFormat("en-IN", {
+                                style: "currency",
+                                currency: "IDR",
+                            }).format(prc)}
+                        </div>
+                    )}
                 </div>
             </div>
         </Link>

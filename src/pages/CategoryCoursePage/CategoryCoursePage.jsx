@@ -9,52 +9,65 @@ import InstructorCard from "../../components/Cards/InstructorCard/InstructorCard
 import CourseSearchResultsComponent from "../../components/CourseSearchResultsComponent/CourseSearchResultsComponent";
 
 import {
-  BigVerticalCourseCardData,
-  popularInstructorsData,
+    BigVerticalCourseCardData,
+    popularInstructorsData,
 } from "../../fakedata/fakedata";
 
 import css from "./CategoryCoursePage.module.css";
+import VerticalCategoryMenuBar from "../../components/LayoutComponents/VerticalCategoryMenuBar/VerticalCategoryMenuBar";
 
 const CategoryCoursePage = () => {
-  const match = useMatch("/courses/search");
-  const { catId } = useParams();
+    const match = useMatch("/courses/search");
+    const { categoryPage } = useParams();
 
-  return (
-    <Layout1>
-      <div className={css.outerDiv}>
-        <BreadcrumbVerticalCategoryMenuBar />
-      </div>
-      <div className={css.bdy}>
-        {!match ? (
-          <>
-            <h2 className={css.pageTtl}>{catId || "Category Page"} Courses</h2>
-            <div className={css.box}>
-              <TabbedCourseCarouselComp ttl="Courses to get you started" />
+    return (
+        <Layout1>
+            <div className={css.outerDiv}>
+                <VerticalCategoryMenuBar />
             </div>
-            <div className={css.box}>
-              <h2 className={css.ttl}>Featured Courses</h2>
-              <CarouselLayout autoplay={true}>
-                {BigVerticalCourseCardData?.map((item) => {
-                  return <BigVerticalCourseCard data={item} key={item.id} />;
-                })}
-              </CarouselLayout>
+            <div className={css.bdy}>
+                {!match ? (
+                    <>
+                        <h2 className={css.pageTtl}>
+                            {categoryPage || "Category Page"} Courses
+                        </h2>
+                        <div className={css.box}>
+                            <TabbedCourseCarouselComp ttl="Courses to get you started" />
+                        </div>
+                        <div className={css.box}>
+                            <h2 className={css.ttl}>Featured Courses</h2>
+                            <CarouselLayout autoplay={true}>
+                                {BigVerticalCourseCardData?.map((item) => {
+                                    return (
+                                        <BigVerticalCourseCard
+                                            data={item}
+                                            key={item.id}
+                                        />
+                                    );
+                                })}
+                            </CarouselLayout>
+                        </div>
+                        <div className={css.box}>
+                            <h2 className={css.ttl}>Popular Instructors</h2>
+                            <CarouselLayout slidesToShow={4} slidesToScroll={3}>
+                                {popularInstructorsData?.map((item) => {
+                                    return (
+                                        <InstructorCard
+                                            data={item}
+                                            key={item.id}
+                                        />
+                                    );
+                                })}
+                            </CarouselLayout>
+                        </div>
+                    </>
+                ) : null}
+                <div className={css.box}>
+                    <CourseSearchResultsComponent />
+                </div>
             </div>
-            <div className={css.box}>
-              <h2 className={css.ttl}>Popular Instructors</h2>
-              <CarouselLayout slidesToShow={4} slidesToScroll={3}>
-                {popularInstructorsData?.map((item) => {
-                  return <InstructorCard data={item} key={item.id} />;
-                })}
-              </CarouselLayout>
-            </div>
-          </>
-        ) : null}
-        <div className={css.box}>
-          <CourseSearchResultsComponent />
-        </div>
-      </div>
-    </Layout1>
-  );
+        </Layout1>
+    );
 };
 
 export default CategoryCoursePage;

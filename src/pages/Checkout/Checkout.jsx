@@ -10,6 +10,7 @@ import PaypalBtn from "../../components/Payment/PaypalBtn";
 import CheckoutCrypto from "./CheckoutCrypto";
 import axios from "axios";
 import instance from "../../config/instance";
+import { useSelector } from "react-redux";
 
 const Checkout = () => {
     const [idr, setIdr] = useState(null);
@@ -18,6 +19,11 @@ const Checkout = () => {
         txt: "Pilih metode pembayaran",
         value: "",
     });
+    const courseInCart = useSelector((state) => state.cartData);
+
+    const totalPrice = courseInCart?.cart?.reduce((accumulator, object) => {
+        return accumulator + object.newPrc;
+    }, 0);
 
     const paymentOption = [
         {
@@ -40,10 +46,7 @@ const Checkout = () => {
                 const response = await axios.get(
                     "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=IDR"
                 );
-                const getCourse = await instance.get(
-                    "course/6399d43ba136dce1ea48cf06"
-                );
-                setPrice(getCourse.data.course.prc);
+                setPrice(totalPrice);
                 setIdr(response.data.IDR);
             } catch (error) {
                 console.log(error);
@@ -80,15 +83,15 @@ const Checkout = () => {
                             <div className={css.bx}>
                                 <h2 className={css.cbdyTtl}>Pesanan</h2>
                                 <div className={css.crsBox}>
-                                    {coursesInCartData?.map((item) => {
+                                    {courseInCart?.cart?.map((item) => {
                                         return (
                                             <div
                                                 className={css.cres}
-                                                key={item.id}
+                                                key={item._id}
                                             >
                                                 <div className={css.crsebx1}>
                                                     <img
-                                                        src={item.img}
+                                                        src={item.img.url}
                                                         className={css.img}
                                                     />
                                                     <div className={css.crsTtl}>
@@ -102,7 +105,7 @@ const Checkout = () => {
                                                             style: "currency",
                                                             currency: "IDR",
                                                         }
-                                                    ).format(item.price)}
+                                                    ).format(item.newPrc)}
                                                 </div>
                                             </div>
                                         );
@@ -120,7 +123,7 @@ const Checkout = () => {
                                     {new Intl.NumberFormat("en-IN", {
                                         style: "currency",
                                         currency: "IDR",
-                                    }).format(3399)}
+                                    }).format(totalPrice)}
                                 </span>
                             </div>
                             <hr className={css.hr} />
@@ -130,12 +133,12 @@ const Checkout = () => {
                                     {new Intl.NumberFormat("en-IN", {
                                         style: "currency",
                                         currency: "IDR",
-                                    }).format(3399)}
+                                    }).format(totalPrice)}
                                 </span>
                             </div>
                             <div className={css.note}>
                                 By completing your purchase you agree to these
-                                <Link to="/" className={css.noteLink}>
+                                <Link to="#" className={css.noteLink}>
                                     Terms of Service
                                 </Link>
                                 .
@@ -166,6 +169,7 @@ const Checkout = () => {
                             {state?.value === "eth" && (
                                 <CheckoutCrypto
                                     amount={price / idr && price / idr}
+                                    courseId={courseInCart}
                                 />
                             )}
                         </div>

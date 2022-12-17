@@ -42,7 +42,7 @@ const VerticalCategoryMenuBar = () => {
                     {category?.map((cat, i) => (
                         <Link
                             key={i}
-                            to={cat.link}
+                            to={"/courses" + cat.link}
                             className={[css.category, "categoryDiv"].join(" ")}
                         >
                             {cat.ttl}

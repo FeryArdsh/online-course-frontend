@@ -53,7 +53,7 @@ const LoggedInNavbar = () => {
                 <Link className={css.hovBox} to="/user/profile/courses">
                     Instructor
                 </Link>
-                <Link className={css.hovBox} to="/user/my-courses">
+                <Link className={css.hovBox} to="/user/my-courses/learning">
                     Pembelajaran Saya
                 </Link>
                 {/* <Link to="/cart" className={css.cartBox}>

@@ -10,6 +10,8 @@ import css from "./CourseCard.module.css";
 import heartIcon from "/icons/heart.png";
 import Rating from "react-rating";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { addCart } from "../../../service/redux/cart";
 
 const CourseCard = (props) => {
     const {
@@ -28,11 +30,11 @@ const CourseCard = (props) => {
         level = "Beginner Level",
         crsSubtxt = "Python For Beginners : This course is meant for absolute beginners in programming or in python.",
     } = props?.data;
-
+    const dispatch = useDispatch();
     const extraCss = props.extraCss;
 
     let addToCartHandler = () => {
-        alert("Added to cart");
+        dispatch(addCart(props?.data));
     };
     let addToWishListHandler = () => {
         alert("Added to wish list");

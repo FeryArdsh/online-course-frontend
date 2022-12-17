@@ -10,41 +10,14 @@ import CheckoutCourseCard from "../../components/Cards/CheckoutCourseCard/Checko
 
 import cardImg from "/images/card.jpg";
 import crossIcon from "/icons/close.png";
+import { useSelector } from "react-redux";
 
 const Cart = () => {
-    const [coupon, setCoupon] = useState("");
-    const [appliedCoupon, setAppliedCoupon] = useState("");
+    const courseInCart = useSelector((state) => state.cartData);
 
-    const cartData = [
-        {
-            id: 1,
-            img: cardImg,
-            link: "/course/python",
-            ttl: "Learn Python: The complete python programming course",
-            authors: ["Koushil", "Nani"],
-            ratings: { totalratings: 4.3, count: 3445 },
-            duration: 10000,
-            lectures: 146,
-            level: "All",
-            price: 649,
-            discount: 3399,
-            couponApplied: "koushil mankali",
-            bestSeller: true,
-        },
-    ];
-
-    let clearCouponHandler = () => {
-        setAppliedCoupon("");
-    };
-
-    let setCouponHandler = (e) => {
-        setCoupon(e.target.value);
-    };
-
-    let submitCoupon = () => {
-        setAppliedCoupon(coupon);
-        console.log(coupon, "coupon");
-    };
+    const totalPrice = courseInCart?.cart?.reduce((accumulator, object) => {
+        return accumulator + object.newPrc;
+    }, 0);
 
     return (
         <>
@@ -54,13 +27,16 @@ const Cart = () => {
                         <div className={css.ttl}>Keranjang Belanja</div>
                         <div className={css.boxs}>
                             <div className={css.box1}>
-                                <div className={css.cnt}>1 Course in Cart</div>
+                                <div className={css.cnt}>
+                                    {courseInCart?.cart?.length} Kursus dalam
+                                    Keranjang
+                                </div>
                                 <div className={css.courses}>
-                                    {cartData?.map((item) => {
+                                    {courseInCart?.cart?.map((item) => {
                                         return (
                                             <CheckoutCourseCard
                                                 data={item}
-                                                key={item.id}
+                                                key={item._id}
                                             />
                                         );
                                     })}
@@ -72,15 +48,17 @@ const Cart = () => {
                                     {new Intl.NumberFormat("en-IN", {
                                         style: "currency",
                                         currency: "IDR",
-                                    }).format(600)}
+                                    }).format(totalPrice)}
                                 </div>
-                                <div className={css.totalDiscount}>
+                                {/* <div className={css.totalDiscount}>
                                     {new Intl.NumberFormat("en-IN", {
                                         style: "currency",
                                         currency: "IDR",
                                     }).format(3399)}
                                 </div>
-                                <div className={css.ttlDisPer}>81% off</div>
+                                <div className={css.ttlDisPer}>
+                                    {courseInCart.disc}% off
+                                </div> */}
                                 <Button1
                                     link="/checkout"
                                     txt="Checkout"
