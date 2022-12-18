@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
 
 const initialState = {
     cart: [],
@@ -9,6 +9,12 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addCart(state, action) {
+            const findId = state.cart.find(
+                (item) => item._id === action.payload._id
+            );
+            if (findId) {
+                return isRejectedWithValue("Kursus sudah ada di keranjang");
+            }
             state.cart.push(action.payload);
         },
         deleteCart(state, action) {

@@ -8,13 +8,14 @@ import InputUtil from "../../../utils/FormUtils/InputUtil/InputUtil";
 import alarmIcon from "/icons/alarm.png";
 import playIcon from "/icons/play.png";
 import heartIcon from "/icons/heart.png";
+import { AiOutlineShareAlt } from "react-icons/ai";
 
 const CourseFloatingBuyCard = (props) => {
     const {
-        img = "",
+        img = {},
         ttl = "xxxx",
         desc = "xxxx",
-        price = 0,
+        newPrc = 0,
         discPrice = 0,
         disc = 0,
         tmLeft = 0,
@@ -45,7 +46,7 @@ const CourseFloatingBuyCard = (props) => {
             <div className={css.innRightDiv} style={scrolled ? styleGuide : {}}>
                 <div className={css.imgBox}>
                     <img
-                        src={img}
+                        src={img.url}
                         alt="course thumbnail"
                         className={css.crsThumb}
                     />
@@ -64,17 +65,21 @@ const CourseFloatingBuyCard = (props) => {
                         {new Intl.NumberFormat("en-IN", {
                             style: "currency",
                             currency: "IDR",
-                        }).format(price)}
+                        }).format(newPrc)}
                     </div>
-                    <div className={css.dscPrc}>
-                        {new Intl.NumberFormat("en-IN", {
-                            style: "currency",
-                            currency: "IDR",
-                        }).format(discPrice)}
-                    </div>
-                    <div className={css.desc}>{disc}% off</div>
+                    {disc >= 1 && (
+                        <>
+                            <div className={css.dscPrc}>
+                                {new Intl.NumberFormat("en-IN", {
+                                    style: "currency",
+                                    currency: "IDR",
+                                }).format(discPrice)}
+                            </div>
+                            <div className={css.desc}>{disc}% off</div>
+                        </>
+                    )}
                 </div>
-                <div className={css.tmLeft}>
+                {/* <div className={css.tmLeft}>
                     <img
                         src={alarmIcon}
                         alt="clock icon"
@@ -83,22 +88,22 @@ const CourseFloatingBuyCard = (props) => {
                     <span>
                         <b>{tmLeft} hours</b> left at this price!
                     </span>
-                </div>
+                </div> */}
                 <div className={css.btns}>
                     <div className={css.btnsSec1}>
                         <Button1
-                            txt="Add to cart"
+                            txt="Beli Sekarang"
                             color="var(--white)"
-                            bck="var(--purple)"
-                            hovBck="var(--purple-dark)"
+                            bck="var(--primary)"
+                            hovBck="var(--primary-dark)"
                             extraCss={{
-                                width: "83%",
+                                width: "100%",
                                 padding: "0.7rem",
                                 margin: "0",
-                                border: "1px solid var(--purple)",
+                                border: "1px solid var(--primary)",
                             }}
                         />
-                        <Button1
+                        {/* <Button1
                             txt={null}
                             img={heartIcon}
                             extraCss={{
@@ -106,9 +111,9 @@ const CourseFloatingBuyCard = (props) => {
                                 margin: "0",
                                 padding: "0.7rem",
                             }}
-                        />
+                        /> */}
                     </div>
-                    <div className={css.btnsSec2}>
+                    {/* <div className={css.btnsSec2}>
                         <Button1
                             txt="Buy now"
                             extraCss={{
@@ -117,7 +122,7 @@ const CourseFloatingBuyCard = (props) => {
                                 margin: "0.5rem 0",
                             }}
                         />
-                    </div>
+                    </div> */}
                 </div>
                 <div className={css.crsePmtDtTxt}>
                     30-Day Money-Back Guarantee
@@ -128,9 +133,10 @@ const CourseFloatingBuyCard = (props) => {
                         className={css.innCrsePmtDtExSec}
                         onClick={() => setShareModal((prev) => !prev)}
                     >
-                        Share
+                        Bagikan Kursus
+                        <AiOutlineShareAlt size={24} />
                     </div>
-                    <div className={css.innCrsePmtDtExSec}>
+                    {/* <div className={css.innCrsePmtDtExSec}>
                         Gift this course
                     </div>
                     <div
@@ -138,7 +144,7 @@ const CourseFloatingBuyCard = (props) => {
                         onClick={() => setApplyCoupon((prev) => !prev)}
                     >
                         Apply the Coupon
-                    </div>
+                    </div> */}
                 </div>
                 <div className={css.inptBox}>
                     {applyCoupon ? (
@@ -154,7 +160,7 @@ const CourseFloatingBuyCard = (props) => {
                 </div>
             </div>
             <hr />
-            <div className={css.footerSec}>
+            {/* <div className={css.footerSec}>
                 <div className={css.fooTtl}>Training 5 or more people?</div>
                 <div className={css.fooDesc}>
                     Get your team access to 17,000+ top Udemy courses anytime,
@@ -164,7 +170,7 @@ const CourseFloatingBuyCard = (props) => {
                     txt="Try Udemy Business"
                     extraCss={{ width: "100%", padding: "0.7rem", margin: 0 }}
                 />
-            </div>
+            </div> */}
         </div>
     );
 };

@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 import {
-  Learnings,
-  courseIncludes,
-  courseDetails,
-  courseData,
-  courseReq,
-  desc,
-  courseDetData,
-  moreCourses,
-  instructorData,
-  featuredReviewUserData,
+    Learnings,
+    courseIncludes,
+    courseDetails,
+    courseData,
+    courseReq,
+    desc,
+    courseDetData,
+    moreCourses,
+    instructorData,
+    featuredReviewUserData,
 } from "../../fakedata/fakedata.js";
 
 import Layout1 from "../Layout1/Layout1";
@@ -30,87 +30,131 @@ import CourseDetailsTabComp from "../../components/CourseComponents/CourseDetail
 import Button1 from "../../utils/Buttons/Button1/Button1";
 
 import css from "./CoursePage.module.css";
+import instance from "../../config/instance.js";
 
 const CoursePage = () => {
-  const [shareModal, setShareModal] = useState(false);
+    const [shareModal, setShareModal] = useState(false);
+    const [course, setCourse] = useState(null);
+    const [corsInstructor, setCorsInstructor] = useState(null);
+    const { id } = useParams();
+    useEffect(() => {
+        const fetchCourse = async () => {
+            try {
+                const response = await instance.get("course/" + id);
+                const res = await instance.get("courses/instructor");
+                setCourse(response.data.course);
+                setCorsInstructor(res.data.courses);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchCourse();
+    }, []);
 
-  return (
-    <>
-      {shareModal ? (
-        <ShareCourseCard
-          ttl="Share this Course"
-          txt={location.href}
-          btnTxt="Copy"
-          closeModal={() => setShareModal(false)}
-        />
-      ) : null}
-      <Layout1>
-        <div className={css.outerDiv}>
-          <CourseHeaderComp
-            data={courseDetData}
-            setShareModal={setShareModal}
-          />
-          <div className={css.innerDiv}>
-            <div className={css.bodySec}>
-              <TextPointsNoter data={Learnings} />
-              <div className={css.boxSection}>
-                <div className={css.secTtl}>This course includes:</div>
-                <div className={css.secBdy}>
-                  {courseIncludes?.map((item) => {
-                    return <CourseIncludesCard key={item.id} data={item} />;
-                  })}
-                </div>
-              </div>
-              <div className={css.boxSection}>
-                <div className={css.secTtl}>Course content</div>
-                <div className={css.secBdy}>
-                  <CourseDetailsTabComp courseData={courseData} />
-                </div>
-              </div>
-              <div className={css.boxSection}>
-                <CourseReqComp data={courseReq} />
-              </div>
-              <div className={css.boxSection}>
-                <CourseDescriptionComp ttl="Description" desc={desc} />
-              </div>
-              <div className={css.boxSection}>
-                <StudentsAlsoBought ttl="Students also bought" />
-              </div>
-              <div className={css.boxSection}>
-                <FeaturedReviewComp data={featuredReviewUserData} />
-              </div>
-              <div className={css.boxSection}>
-                <div className={css.secTtl}>
-                  {instructorData?.length > 1 ? "Instructors" : "Instructor"}
-                </div>
-                {instructorData?.map((item) => {
-                  return <CourseInstructorComp key={item.id} data={item} />;
-                })}
-              </div>
-              {moreCourses?.map((course, id) => {
-                return (
-                  <div className={css.boxSection} key={id}>
-                    <div className={css.secTtl}>
-                      More courses by
-                      <Link to={course.link}>{course.instructor}</Link>
+    console.log(course);
+    // console.log(corsInstructor);
+    return (
+        <>
+            {shareModal ? (
+                <ShareCourseCard
+                    ttl="Bagikan Kursus ini"
+                    txt={location.href}
+                    btnTxt="Copy"
+                    closeModal={() => setShareModal(false)}
+                />
+            ) : null}
+            <Layout1>
+                <div className={css.outerDiv}>
+                    {course && (
+                        <CourseHeaderComp
+                            data={course}
+                            setShareModal={setShareModal}
+                        />
+                    )}
+                    <div className={css.innerDiv}>
+                        <div className={css.bodySec}>
+                            {/* <TextPointsNoter data={Learnings} /> */}
+                            {/* <div className={css.boxSection}>
+                                <div className={css.secTtl}>
+                                    This course includes:
+                                </div>
+                                <div className={css.secBdy}>
+                                    {courseIncludes?.map((item) => {
+                                        return (
+                                            <CourseIncludesCard
+                                                key={item.id}
+                                                data={item}
+                                            />
+                                        );
+                                    })}
+                                </div>
+                            </div> */}
+                            <div className={css.boxSection}>
+                                <div className={css.secTtl}>Course content</div>
+                                <div className={css.secBdy}>
+                                    <CourseDetailsTabComp
+                                        courseData={course?.videos}
+                                    />
+                                </div>
+                            </div>
+                            <div className={css.boxSection}>
+                                <CourseReqComp
+                                    data={course?.courseRequirements}
+                                />
+                            </div>
+                            <div className={css.boxSection}>
+                                <CourseDescriptionComp
+                                    ttl="Deskripsi"
+                                    desc={course?.fullDesc}
+                                />
+                            </div>
+                            {/* <div className={css.boxSection}>
+                                <StudentsAlsoBought ttl="Students also bought" />
+                            </div> */}
+                            <div className={css.boxSection}>
+                                <FeaturedReviewComp
+                                    data={featuredReviewUserData}
+                                />
+                            </div>
+                            <div className={css.boxSection}>
+                                <div className={css.secTtl}>
+                                    {course && (
+                                        <CourseInstructorComp
+                                            data={course?.createdBy}
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                            <div className={css.boxSection} key={id}>
+                                <div className={css.secTtl}>
+                                    More courses by
+                                    {/* <Link to={course.link}>
+                                        {course.instructor}
+                                    </Link> */}
+                                </div>
+                                <div className={css.secBdy}>
+                                    {corsInstructor?.map((item) => {
+                                        return (
+                                            <CourseCard
+                                                key={item.id}
+                                                data={item}
+                                            />
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                            <hr />
+                            {/* <Button1
+                                txt="Report abuse"
+                                extraCss={{ width: "100%" }}
+                            /> */}
+                        </div>
+                        <div className={css.rightSidebar}></div>
                     </div>
-                    <div className={css.secBdy}>
-                      {course.courses?.map((item) => {
-                        return <CourseCard key={item.id} data={item} />;
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-              <hr />
-              <Button1 txt="Report abuse" extraCss={{ width: "100%" }} />
-            </div>
-            <div className={css.rightSidebar}></div>
-          </div>
-        </div>
-      </Layout1>
-    </>
-  );
+                </div>
+            </Layout1>
+        </>
+    );
 };
 
 export default CoursePage;

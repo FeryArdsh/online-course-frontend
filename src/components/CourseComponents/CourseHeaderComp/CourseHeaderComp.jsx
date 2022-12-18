@@ -11,6 +11,8 @@ import globIcon from "/icons/globe.png";
 import warningIcon from "/icons/warning.png";
 import playIcon from "/icons/play.png";
 import alarmIcon from "/icons/alarm.png";
+import { Link } from "react-router-dom";
+import ReactStars from "react-stars";
 
 const CourseHeaderComp = (props) => {
     const { setShareModal } = props;
@@ -19,18 +21,18 @@ const CourseHeaderComp = (props) => {
     const [coupon, setCoupon] = useState("");
 
     const {
-        img = "",
-        ttl = "xxxx",
-        desc = "xxxx",
-        price = 0,
-        discPrice = 0,
+        img = {},
+        ttl = "",
+        desc = "",
+        newPrc = 0,
+        prc = 0,
         disc = 0,
         tmLeft = 0,
-        rating = 0,
-        rats = 0,
+        avgRating = 0,
+        numOfRatings = 0,
         enrolled = 0,
-        authors = ["xxx", "yyy"],
-        lastUpdated = new Date(),
+        createdBy = "",
+        updatedAt = new Date(),
         lang = "English",
         subTtl = "English",
     } = props?.data;
@@ -49,7 +51,7 @@ const CourseHeaderComp = (props) => {
         <div className={css.outerDiv}>
             <CourseFloatingBuyCard
                 scrolled={scrolled}
-                data={props.data}
+                data={props?.data}
                 setCoupon={setCoupon}
                 applyCoupon={applyCoupon}
                 setApplyCoupon={setApplyCoupon}
@@ -60,30 +62,14 @@ const CourseHeaderComp = (props) => {
                     <div className={css.ttl}>{ttl}</div>
                     <div className={css.desc}>{desc}</div>
                     <div className={css.rats}>
-                        <div className={css.rating}>{rating}</div>
-                        <div className={css.ratss}>({rats})</div>
-                        <div className={css.enrolled}>{enrolled}</div>
+                        <ReactStars value={avgRating} size={16} edit={false} />
+                        <div className={css.rating}>{avgRating}</div>
+                        <div className={css.ratss}>({numOfRatings})</div>
+                        <div className={css.enrolled}>{enrolled} terjual</div>
                     </div>
                     <div className={css.authors}>
                         Created by
-                        {authors?.map((user, id) => {
-                            if (authors.length === id + 1) {
-                                return (
-                                    <a key={id} href={`#author-${user}`}>
-                                        {user}
-                                    </a>
-                                );
-                            }
-                            return (
-                                <a
-                                    key={id}
-                                    href={`#author-${user}`}
-                                    className={css.authorSpn}
-                                >
-                                    {user}
-                                </a>
-                            );
-                        })}
+                        <Link to="#">{createdBy?.studentID?.name}</Link>
                     </div>
                     <div className={css.det}>
                         <div className={css.lastUpdated}>
@@ -92,12 +78,10 @@ const CourseHeaderComp = (props) => {
                                 alt="warning icon"
                                 className={css.icon}
                             />
-                            Last updated
-                            {` ${
-                                lastUpdated?.getMonth() + 1
-                            }/${lastUpdated?.getFullYear()} `}
+                            Terakhir diperbarui
+                            {" " + updatedAt.split("T")[0]}
                         </div>
-                        <div className={css.lang}>
+                        {/* <div className={css.lang}>
                             <img
                                 src={globIcon}
                                 alt="warning icon"
@@ -113,7 +97,7 @@ const CourseHeaderComp = (props) => {
                                 className={css.icon}
                             />
                             {subTtl}
-                        </div>
+                        </div> */}
                     </div>
                     <div className={css.crsePmtDt}>
                         <div className={css.prcDet}>
@@ -121,13 +105,13 @@ const CourseHeaderComp = (props) => {
                                 {new Intl.NumberFormat("en-IN", {
                                     style: "currency",
                                     currency: "IDR",
-                                }).format(price)}
+                                }).format(newPrc)}
                             </div>
                             <div className={css.dscPrc}>
                                 {new Intl.NumberFormat("en-IN", {
                                     style: "currency",
                                     currency: "IDR",
-                                }).format(discPrice)}
+                                }).format(prc)}
                             </div>
                             <div className={css.desc}>{disc}% off</div>
                         </div>
@@ -191,7 +175,7 @@ const CourseHeaderComp = (props) => {
                     <div className={css.innRightDiv}>
                         <div className={css.imgBox}>
                             <img
-                                src={img}
+                                src={img?.url}
                                 alt="course thumbnail"
                                 className={css.crsThumb}
                             />
