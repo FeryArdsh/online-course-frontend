@@ -1,115 +1,122 @@
 .outerDiv {
-  width: 100%;
-  height: auto;
-  min-height: calc(100vh - 70px);
-  padding: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  color: var(--gray);
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 70px);
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    color: var(--gray);
 }
 
 .innerDiv {
-  width: 80%;
-  height: auto;
+    width: 80%;
+    height: auto;
 }
 
 .ttl {
-  font-size: 2.5rem;
-  font-weight: 700;
+    font-size: 2.5rem;
+    font-weight: 700;
 }
 
 .boxs {
-  margin: 2rem 0;
-  display: flex;
-  justify-content: space-between;
+    margin: 2rem 0;
+    display: flex;
+    justify-content: space-between;
 }
 
 .box1 {
-  width: 73%;
+    width: 73%;
 }
 
 .courses {
-  /* margin: 0.5rem 0; */
+    /* margin: 0.5rem 0; */
 }
 
 .cnt,
 .totalTxt {
-  margin: 0.5rem 0;
-  font-size: 1.1rem;
-  font-weight: 500;
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 
 .box2 {
-  width: 25%;
+    width: 25%;
 }
 
 .currrency {
-  font-size: 2rem;
-  font-weight: 700;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 .totalDiscount,
 .ttlDisPer {
-  color: var(--light-gray);
-  font-size: 1rem;
-  font-weight: 400;
+    color: var(--light-gray);
+    font-size: 1rem;
+    font-weight: 400;
 }
 
 .totalDiscount {
-  text-decoration: line-through;
+    text-decoration: line-through;
 }
 
 .ctxt {
-  font-size: 1rem;
-  font-weight: 700;
+    font-size: 1rem;
+    font-weight: 700;
 }
 
 .cpnBox {
-  margin: 1rem 0;
-  display: flex;
-  justify-content: start;
-  align-items: center;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: start;
+    align-items: center;
 }
 
 .icon {
-  width: 14px;
-  height: 14px;
-  cursor: pointer;
-  margin: 0 1rem;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    margin: 0 1rem;
 }
 
 .cpnCode {
-  font-size: 1rem;
+    font-size: 1rem;
 }
 
 @media screen and (max-width: 1024px) {
-  .innerDiv {
-    width: 100%;
-  }
+    .innerDiv {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 768px) {
-  .ttl {
-    font-size: 2rem;
-  }
-  .boxs {
+    .ttl {
+        font-size: 2rem;
+    }
+    .boxs {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .box1 {
+        margin: 1rem 0;
+        width: 100%;
+    }
+
+    .box2 {
+        width: 100%;
+    }
+}
+
+.emptyCart {
     display: flex;
-    flex-direction: column-reverse;
-  }
-
-  .box1 {
-    margin: 1rem 0;
-    width: 100%;
-  }
-
-  .box2 {
-    width: 100%;
-  }
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 @media screen and (max-width: 425px) {
-  .outerDiv {
-    padding: 1rem;
-  }
+    .outerDiv {
+        padding: 1rem;
+    }
 }

@@ -1,23 +1,46 @@
 .outerDiv {
-  width: 100%;
-  height: auto;
-  color: var(--gray);
+    width: 100%;
+    height: auto;
+    color: var(--gray);
 }
 
 .ttl {
-  font-size: 2rem;
-  font-weight: 700;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 .cards {
-  margin: 1rem;
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+    margin: 1rem;
+    padding: 20px;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border: 1px solid rgba(0, 0, 0, 0.11);
+    flex-direction: column;
 }
 
+.inerCard {
+    border: 1px solid rgba(0, 0, 0, 0.11);
+    display: flex;
+    width: 200px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 5px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.041);
+}
+.income {
+    font-size: 30px;
+}
+
+.month {
+    background-color: var(--gray86);
+    cursor: pointer;
+    padding: 3px 12px;
+    display: inline-block;
+}
 @media screen and (max-width: 768px) {
-  .cards {
-    gap: none;
-  }
+    .cards {
+        gap: none;
+    }
 }

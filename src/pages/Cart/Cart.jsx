@@ -10,7 +10,9 @@ import CheckoutCourseCard from "../../components/Cards/CheckoutCourseCard/Checko
 
 import cardImg from "/images/card.jpg";
 import crossIcon from "/icons/close.png";
+import { BsCartX } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
     const courseInCart = useSelector((state) => state.cartData);
@@ -32,14 +34,22 @@ const Cart = () => {
                                     Keranjang
                                 </div>
                                 <div className={css.courses}>
-                                    {courseInCart?.cart?.map((item) => {
-                                        return (
-                                            <CheckoutCourseCard
-                                                data={item}
-                                                key={item._id}
-                                            />
-                                        );
-                                    })}
+                                    {courseInCart?.cart?.length >= 1 ? (
+                                        courseInCart.cart.map((item) => {
+                                            return (
+                                                <CheckoutCourseCard
+                                                    data={item}
+                                                    key={item._id}
+                                                />
+                                            );
+                                        })
+                                    ) : (
+                                        <div className={css.emptyCart}>
+                                            <BsCartX size={100} />
+                                            <h3>Opss, keranjang kamu kosong</h3>
+                                            <Link to="/">Tambah Kursus</Link>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div className={css.box2}>

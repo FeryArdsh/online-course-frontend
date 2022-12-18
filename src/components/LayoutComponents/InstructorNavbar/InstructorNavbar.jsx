@@ -10,10 +10,6 @@ import { useSelector } from "react-redux";
 
 const InstructorNavbar = () => {
     const user = useSelector((state) => state.userData.data);
-    console.log(
-        "🚀 ~ file: InstructorNavbar.jsx:13 ~ InstructorNavbar ~ user",
-        user
-    );
 
     return (
         <div className={css.navbar}>
