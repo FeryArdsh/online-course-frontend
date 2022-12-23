@@ -62,13 +62,15 @@ const InstructorCourses = () => {
     }, []);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await instance.get("courses/instructor");
-            setCourse(response.data.courses);
-        };
-        fetchData();
+        if (user.isInstructor) {
+            const fetchData = async () => {
+                const response = await instance.get("courses/instructor");
+                setCourse(response.data.courses);
+            };
+            fetchData();
+        }
     }, []);
-
+    console.log(course);
     return (
         <div className={css.containerCourse}>
             <h2>Kursus</h2>
@@ -76,6 +78,14 @@ const InstructorCourses = () => {
                 Tambah Kursus +
             </Link>
             <div>
+                {course?.length === 0 && (
+                    <div className={css.listCourse}>
+                        <h2 className={css.editCourse}>
+                            Kamu belum punya kursus
+                        </h2>
+                        <h4 className={css.editCourse}>Yuk buat kursus baru</h4>
+                    </div>
+                )}
                 {course?.map((item, i) => (
                     <div className={css.listCourse} key={i}>
                         <h3>{item.ttl}</h3>

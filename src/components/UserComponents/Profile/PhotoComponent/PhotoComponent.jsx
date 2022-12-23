@@ -20,12 +20,9 @@ const PhotoComponent = () => {
     };
     const handleClickImage = async () => {
         try {
-            const response = await instance.put(
-                "http://localhost:5000/profile/me/img",
-                {
-                    image,
-                }
-            );
+            const response = await instance.put("profile/me/img", {
+                image,
+            });
             await Swal.fire(response.data.message, "", "success");
             window.location.reload();
         } catch (error) {

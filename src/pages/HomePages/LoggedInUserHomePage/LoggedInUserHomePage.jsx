@@ -47,11 +47,7 @@ const LoggedInUserHomePage = () => {
         };
         const fetchUser = async () => {
             try {
-                const getUserProfile = await instance.get("profile/me", {
-                    headers: {
-                        "x-auth-token": LOCAL_STORAGE.getDataUser().token,
-                    },
-                });
+                const getUserProfile = await instance.get("profile/me");
 
                 dispatch(addUser(getUserProfile.data.student));
             } catch (error) {
@@ -80,7 +76,7 @@ const LoggedInUserHomePage = () => {
                         {rating && (
                             <CourseCarouselComp
                                 ttl="Rating Terbaik"
-                                coursesData={courses}
+                                coursesData={rating}
                             />
                         )}
                     </div>
@@ -89,7 +85,7 @@ const LoggedInUserHomePage = () => {
                             <CourseCarouselComp
                                 ttl="Paling Banyak di Ulas"
                                 link="/"
-                                coursesData={laris}
+                                coursesData={courses}
                             />
                         )}
                     </div>

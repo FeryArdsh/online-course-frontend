@@ -183,7 +183,6 @@ const AllCoursesComponent = () => {
             </Link>
         </div>,
     ];
-    console.log(course);
     return (
         <div className={css.outerDiv}>
             <div className={css.topBar}>

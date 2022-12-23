@@ -14,9 +14,9 @@ const LoggedInNavbar = () => {
     const user = useSelector((state) => state.userData);
 
     const onLogout = async () => {
-        LOCAL_STORAGE.clearLocalStorage();
         try {
             await instance.post("logout/all");
+            LOCAL_STORAGE.clearLocalStorage();
         } catch (error) {
             console.log(error);
         }

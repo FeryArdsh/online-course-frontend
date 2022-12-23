@@ -11,10 +11,6 @@ import queryIcon from "/icons/question-sign.png";
 
 const CourseDetailsTabComp = (props) => {
     const courseData = props.courseData;
-    console.log(
-        "🚀 ~ file: CourseDetailsTabComp.jsx:16 ~ CourseDetailsTabComp ~ courseData",
-        courseData
-    );
     const [stopId, setStopId] = useState(9);
     const [crseDataTab, setCrseDataTab] = useState({
         total: courseData?.length,

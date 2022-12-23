@@ -55,7 +55,7 @@ const Cart = () => {
                             <div className={css.box2}>
                                 <div className={css.totalTxt}>Total:</div>
                                 <div className={css.currrency}>
-                                    {new Intl.NumberFormat("en-IN", {
+                                    {new Intl.NumberFormat("id-ID", {
                                         style: "currency",
                                         currency: "IDR",
                                     }).format(totalPrice)}

@@ -34,20 +34,19 @@ const CourseCard = (props) => {
     const extraCss = props.extraCss;
 
     let addToCartHandler = () => {
-        const findId = cart.find((item) => item._id === props?.data._id);
+        const findId = cart.find((item) => item._id === props?.data?._id);
         if (findId) {
             return Swal.fire("Kursus sudah ada", "", "error");
         }
         dispatch(addCart(props?.data));
         Swal.fire("Berhasil menambah kursus", "", "success");
     };
-
     return (
         <>
             <div className={css.outerDiv} id={props.id} style={extraCss}>
                 <Link
                     className={css.innerDiv}
-                    to={`/course/${props?.data._id}`}
+                    to={`/course/${props?.data?._id}`}
                 >
                     <div className={css.imgBox}>
                         <img
@@ -77,23 +76,23 @@ const CourseCard = (props) => {
                         </div>
                         <div className={css.prc}>
                             <span className={css.newPrc}>
-                                {new Intl.NumberFormat("en-IN", {
+                                {new Intl.NumberFormat("id-ID", {
                                     style: "currency",
                                     currency: "IDR",
                                 }).format(newPrc)}
                             </span>
                             {newPrc !== prc && (
                                 <span className={css.oldPrc}>
-                                    {new Intl.NumberFormat("en-IN", {
+                                    {new Intl.NumberFormat("id-ID", {
                                         style: "currency",
                                         currency: "IDR",
                                     }).format(prc)}
                                 </span>
                             )}
                         </div>
-                        <div className={css.tags}>
+                        {/* <div className={css.tags}>
                             <TAG1 />
-                        </div>
+                        </div> */}
                     </div>
                 </Link>
                 <div className={css.hovCard}>

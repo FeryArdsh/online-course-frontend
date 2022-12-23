@@ -127,8 +127,8 @@ const Signup = () => {
                             <Button1
                                 txt="Daftar"
                                 color="var(--white)"
-                                bck="var(--purple)"
-                                hovBck="var(--purple-dark)"
+                                bck="var(--primary)"
+                                hovBck="var(--primary-dark)"
                                 extraCss={{
                                     width: "100%",
                                     margin: "7px 0",

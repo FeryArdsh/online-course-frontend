@@ -100,7 +100,7 @@ const Checkout = () => {
                                                 </div>
                                                 <div className={css.crsPrc}>
                                                     {new Intl.NumberFormat(
-                                                        "en-IN",
+                                                        "id-ID",
                                                         {
                                                             style: "currency",
                                                             currency: "IDR",
@@ -120,7 +120,7 @@ const Checkout = () => {
                             <div className={css.p1}>
                                 <span>Harga Asli</span>
                                 <span>
-                                    {new Intl.NumberFormat("en-IN", {
+                                    {new Intl.NumberFormat("id-ID", {
                                         style: "currency",
                                         currency: "IDR",
                                     }).format(totalPrice)}
@@ -130,7 +130,7 @@ const Checkout = () => {
                             <div className={css.p2}>
                                 <span>Total:</span>
                                 <span>
-                                    {new Intl.NumberFormat("en-IN", {
+                                    {new Intl.NumberFormat("id-ID", {
                                         style: "currency",
                                         currency: "IDR",
                                     }).format(totalPrice)}
@@ -162,6 +162,7 @@ const Checkout = () => {
                                         currency="USD"
                                         amount={usd && usd.toString()}
                                         showSpinner={false}
+                                        courseId={courseInCart}
                                     />
                                 </PayPalScriptProvider>
                             </div>

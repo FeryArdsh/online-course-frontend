@@ -38,21 +38,26 @@ const CoursePage = () => {
     const [corsInstructor, setCorsInstructor] = useState(null);
     const { id } = useParams();
     useEffect(() => {
-        const fetchCourse = async () => {
+        const fetchInstructor = async () => {
             try {
-                const response = await instance.get("course/" + id);
                 const res = await instance.get("courses/instructor");
-                setCourse(response.data.course);
                 setCorsInstructor(res.data.courses);
             } catch (error) {
                 console.log(error);
             }
         };
+        const fetchCourse = async () => {
+            try {
+                const response = await instance.get("course/" + id);
+                setCourse(response.data.course);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchInstructor();
         fetchCourse();
     }, []);
-
     console.log(course);
-    // console.log(corsInstructor);
     return (
         <>
             {shareModal ? (
@@ -112,9 +117,10 @@ const CoursePage = () => {
                                 <StudentsAlsoBought ttl="Students also bought" />
                             </div> */}
                             <div className={css.boxSection}>
-                                <FeaturedReviewComp
-                                    data={featuredReviewUserData}
-                                />
+                                <h2>Nilai Rating</h2>
+                                {course?.courseReviews?.map((item, i) => (
+                                    <FeaturedReviewComp key={i} data={item} />
+                                ))}
                             </div>
                             <div className={css.boxSection}>
                                 <div className={css.secTtl}>
@@ -127,10 +133,7 @@ const CoursePage = () => {
                             </div>
                             <div className={css.boxSection} key={id}>
                                 <div className={css.secTtl}>
-                                    More courses by
-                                    {/* <Link to={course.link}>
-                                        {course.instructor}
-                                    </Link> */}
+                                    Kursus Lain dari Instructor
                                 </div>
                                 <div className={css.secBdy}>
                                     {corsInstructor?.map((item) => {

@@ -50,7 +50,7 @@ const CourseSearchResultsComponent = () => {
                     ) : (
                         <div className={css.ttl}>
                             <span>
-                                {new Intl.NumberFormat("en-IN", {
+                                {new Intl.NumberFormat("id-ID", {
                                     maximumSignificantDigits: 3,
                                 }).format("10000")}
                             </span>
@@ -87,7 +87,7 @@ const CourseSearchResultsComponent = () => {
                         </div>
                     </div>
                     <div className={css.rightTopBar}>
-                        {new Intl.NumberFormat("en-IN", {
+                        {new Intl.NumberFormat("id-ID", {
                             maximumSignificantDigits: 3,
                         }).format(courses?.length)}
                         Hasil

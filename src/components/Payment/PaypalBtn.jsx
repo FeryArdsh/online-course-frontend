@@ -1,11 +1,16 @@
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import instance from "../../config/instance";
 
 const nameCourse = "How to be rich";
 const style = { layout: "vertical" };
 
-const PaypalBtn = ({ currency, showSpinner, amount }) => {
+const PaypalBtn = ({ currency, showSpinner, amount, courseId }) => {
     const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
+    const getIds = courseId?.cart?.map((item) => item._id);
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch({
@@ -17,9 +22,17 @@ const PaypalBtn = ({ currency, showSpinner, amount }) => {
         });
     }, [currency, showSpinner]);
 
-    const handleApprove = (e) => {
-        console.log(e);
-        alert("Success");
+    const handleApprove = async (e) => {
+        try {
+            const res = await instance.post("course/purchase", {
+                data: getIds,
+            });
+            console.log(res);
+            await Swal.fire("Berhasil membeli kursus", "", "success");
+            navigate("/user/my-courses/learning");
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (

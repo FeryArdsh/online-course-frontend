@@ -54,8 +54,6 @@ const login = () => {
                 password: state.password,
             });
             LOCAL_STORAGE.setDataUser(response.data);
-            axios.defaults.headers.common["Authorization"] =
-                "feryyyyyyyyyyyyyyyyyyyyyyy";
 
             await Swal.fire({
                 title: "Berhasil login",

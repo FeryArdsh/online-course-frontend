@@ -62,7 +62,7 @@ const CourseFloatingBuyCard = (props) => {
             <div className={css.crsePmtDt}>
                 <div className={css.prcDet}>
                     <div className={css.prc}>
-                        {new Intl.NumberFormat("en-IN", {
+                        {new Intl.NumberFormat("id-ID", {
                             style: "currency",
                             currency: "IDR",
                         }).format(newPrc)}
@@ -70,7 +70,7 @@ const CourseFloatingBuyCard = (props) => {
                     {disc >= 1 && (
                         <>
                             <div className={css.dscPrc}>
-                                {new Intl.NumberFormat("en-IN", {
+                                {new Intl.NumberFormat("id-ID", {
                                     style: "currency",
                                     currency: "IDR",
                                 }).format(discPrice)}

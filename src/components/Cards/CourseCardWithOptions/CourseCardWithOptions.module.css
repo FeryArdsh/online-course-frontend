@@ -144,6 +144,10 @@
     display: flex;
 }
 
+.starsRatings:hover {
+    color: var(--primary);
+}
+
 .mHeader {
     text-align: center;
     font-size: 1.5rem;
@@ -166,4 +170,8 @@
 .star {
     margin: 0 1rem;
     cursor: pointer;
+}
+
+.textarea {
+    width: 100%;
 }

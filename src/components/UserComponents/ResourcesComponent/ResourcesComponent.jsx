@@ -20,7 +20,7 @@ const ResourcesComponent = () => {
     const income = instructor?.income?.reduce((accumulator, object) => {
         return accumulator + object.amount;
     }, 0);
-
+    const peserta = instructor?.income?.length;
     return (
         <div className={css.outerDiv}>
             <div className={css.ttl}>Pendapatan Instructor</div>
@@ -29,14 +29,14 @@ const ResourcesComponent = () => {
                     <h4>Total Pendapatan Tahun {new Date().getFullYear()}</h4>
                     {income ? (
                         <p className={css.income}>
-                            {new Intl.NumberFormat("en-IN", {
+                            {new Intl.NumberFormat("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
                             }).format(income)}
                         </p>
                     ) : (
                         <p className={css.income}>
-                            {new Intl.NumberFormat("en-IN", {
+                            {new Intl.NumberFormat("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
                             }).format(0)}
@@ -48,7 +48,7 @@ const ResourcesComponent = () => {
                     </div>
                     {income ? (
                         <div className={css.inerCard}>
-                            <h4>{income}</h4>
+                            <h4>{peserta}</h4>
                             total peserta Anda
                         </div>
                     ) : (

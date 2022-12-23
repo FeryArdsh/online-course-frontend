@@ -81,7 +81,7 @@ const CheckoutCourseCard = (props) => {
                 <div className={css.box3}>
                     <div className={css.priceDet}>
                         <div className={css.price}>
-                            {new Intl.NumberFormat("en-IN", {
+                            {new Intl.NumberFormat("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
                             }).format(newPrc)}
@@ -113,7 +113,7 @@ const CheckoutCourseCard = (props) => {
                     </div>
                     {disc >= 1 && (
                         <div className={css.dis}>
-                            {new Intl.NumberFormat("en-IN", {
+                            {new Intl.NumberFormat("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
                             }).format(prc)}

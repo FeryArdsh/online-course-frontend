@@ -6,17 +6,24 @@ import css from "./CourseCardWithOptions.module.css";
 
 import playIcon from "/icons/play-button.png";
 import dotsIcon from "/icons/dots.png";
+import Rating from "react-rating";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import Button1 from "../../../utils/Buttons/Button1/Button1";
+import instance from "../../../config/instance";
+import Swal from "sweetalert2";
 
 const CourseCardWithOptions = (props) => {
     const { isOptions = false, options, data } = props;
     const [modal, setModal] = useState(false);
+    const [rate, setRate] = useState(0);
+    const [reviewText, setReviewText] = useState("");
     const {
         path = "",
         img = {},
         _id = 0,
         ttl = "",
         author = "",
-        ratings = 0,
+        rating = 0,
         courseCoveredPercent = 0,
     } = data;
     const [menuBox, setMenuBox] = useState(false);
@@ -36,39 +43,58 @@ const CourseCardWithOptions = (props) => {
             });
         };
     }, []);
-    let stars = [];
 
-    for (let i = 0; i < 5; i++) {
-        stars.push(
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="40px"
-                height="40px"
-                viewBox="0 0 32 32"
-                className={css.star}
-            >
-                <defs>
-                    <linearGradient id="grad">
-                        <stop offset="50%" stop-color="gold" />
-                        <stop offset="50%" stop-color="white" />
-                    </linearGradient>
-                </defs>
-                <path
-                    fill="url(#grad)"
-                    d="M20.388,10.918L32,12.118l-8.735,7.749L25.914,31.4l-9.893-6.088L6.127,31.4l2.695-11.533L0,12.118
-l11.547-1.2L16.026,0.6L20.388,10.918z"
-                    stroke-width="3"
-                    stroke="gold"
-                />
-            </svg>
-        );
-    }
+    const handleChangeComment = (e) => {
+        setReviewText(e.target.value);
+    };
+    const onSubmitRating = async () => {
+        try {
+            const response = await instance.post(`course/${_id}/reviews`, {
+                reviewText,
+                rating: rate,
+            });
+            console.log(response);
+            Swal.fire("Berhasil memberikan rating", "", "success");
+        } catch (error) {
+            console.log(error);
+            Swal.fire(error?.response?.data?.message, "", "error");
+        }
+        setModal(false);
+    };
 
     const content = (
         <>
-            <h3 className={css.mHeader}>How would you rate this course?</h3>
-            <p className={css.mtxt}>Select Rating</p>
-            <div className={css.stars}>{stars}</div>
+            <h3 className={css.mHeader}>Beri Rating Pada Kursus Ini</h3>
+            <p className={css.mtxt}>Pilih Rating</p>
+            <div className={css.stars}>
+                <Rating
+                    onClick={setRate}
+                    initialRating={rate}
+                    emptySymbol={<AiOutlineStar size={40} color="black" />}
+                    fullSymbol={<AiFillStar size={40} color="orange" />}
+                />
+            </div>
+            <label>Tambahkan Komentar Anda :</label>
+            <textarea
+                onChange={handleChangeComment}
+                className={css.textarea}
+                name="comment"
+                cols="50"
+                rows="10"
+            ></textarea>
+            <Button1
+                onClick={onSubmitRating}
+                txt="Kirim"
+                bck="var(--primary)"
+                hovBck="var(--primary-dark)"
+                extraCss={{
+                    width: "100%",
+                    margin: "1rem 0",
+                    padding: "1rem",
+                    border: "none",
+                    color: "var(--white)",
+                }}
+            />
         </>
     );
 

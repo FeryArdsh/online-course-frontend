@@ -67,13 +67,13 @@ const MedVerticalCourseCard = (props) => {
                     </div>
                     <div className={css.rightDetBox}>
                         <div className={css.prc}>
-                            {new Intl.NumberFormat("en-IN", {
+                            {new Intl.NumberFormat("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
                             }).format(newPrc)}
                         </div>
                         <div className={css.oPrc}>
-                            {new Intl.NumberFormat("en-IN", {
+                            {new Intl.NumberFormat("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
                             }).format(prc)}
