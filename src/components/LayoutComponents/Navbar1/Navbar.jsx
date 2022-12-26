@@ -44,9 +44,9 @@ const Navbar = () => {
                     </div>
                     <div>
                         <div className={css.btnAuth}>
-                            <a className={css.hovBox} href="#" target="_blank">
+                            <Link className={css.hovBox} to={"/join/signup"}>
                                 Mengajar di CourseIn
-                            </a>
+                            </Link>
                             <Button1 txt="Login" link="/join/login" />
                             <Button1
                                 txt="Sign up"

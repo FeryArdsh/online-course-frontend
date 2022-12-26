@@ -7,6 +7,8 @@ import cardImg3 from "/images/card3.jpg";
 import showcaseImg from "/images/showcase.jpg";
 import showcaseImg2 from "/images/showcase2.jpg";
 import showcaseImg3 from "/images/showcase3.jpg";
+import becomeInstruktor from "/images/becomeInstruktor.png";
+import becomeStudent from "/images/becomeStudent.png";
 import bannerImg1 from "/images/banners/banner1.jpg";
 import bannerImg2 from "/images/banners/banner2.jpg";
 import bannerImg3 from "/images/banners/banner3.jpg";
@@ -3692,11 +3694,11 @@ const courseDataWithOptions = [
 ];
 
 const det = {
-    ttl: "Become an instructor",
-    desc: "Instructors from around the world teach millions of students on Udemy. We provide the tools and skills to teach what you love.",
-    btnTxt: "Start teaching today",
-    btnLink: "/start-teaching",
-    img: showcaseImg,
+    ttl: "Jadilah instruktur",
+    desc: "Berbagi ilmu dan dapatkan penghasilan secara online dengan menjadi insturktu di CourseIn",
+    btnTxt: "Mulai Mengajar",
+    btnLink: "/join/login",
+    img: becomeInstruktor,
     dir: "left",
 };
 const det2 = {
@@ -3708,22 +3710,22 @@ const det2 = {
     dir: "right",
 };
 const det3 = {
-    ttl: "Transform your life through education",
-    desc: "Learners around the world are launching new careers, advancing in their fields, and enriching their lives.",
-    btnTxt: "Find out how",
+    ttl: "Ubah hidup anda melalui pendidikan",
+    desc: "Belajarlah sesuai dengan minat dan peluang kerja di masa yang akan datang",
+    btnTxt: "Mulai Belajar",
     btnLink: "/start-teaching",
-    img: showcaseImg3,
-    dir: "left",
+    img: becomeStudent,
+    dir: "right",
 };
 
 const bannerData = [
     {
         id: 1,
-        img: bannerImg1,
+        img: bannerImg3,
         link: null,
         boxData: {
-            ttl: "Learning that gets you",
-            desc: "Skills for your present (and your future). Get started with us.",
+            ttl: "Modern Teknologi",
+            desc: "Belajar skill teknologi bersama kami untuk masa depan yang lebih cerah",
         },
     },
     {
@@ -3731,19 +3733,19 @@ const bannerData = [
         img: bannerImg2,
         link: "/request-a-demo",
         boxData: {
-            ttl: "Unlock the power of your people",
-            desc: "Udemy Business is trusted by 12.5K+ companies around the world. Find out what we can do for yours.",
+            ttl: "Mulai belajar",
+            desc: "CourseIn marketplace kursus online terbaik yang ada di Indonesia",
         },
     },
-    {
-        id: 3,
-        img: bannerImg3,
-        link: null,
-        boxData: {
-            ttl: "Code your future",
-            desc: "Take control of your career. Learn the latest skills in web development.",
-        },
-    },
+    // {
+    //     id: 3,
+    //     img: bannerImg1,
+    //     link: null,
+    //     boxData: {
+    //         ttl: "Code your future",
+    //         desc: "Take control of your career. Learn the latest skills in web development.",
+    //     },
+    // },
 ];
 
 const categoriesData = [

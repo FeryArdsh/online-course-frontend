@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import css from "./LoggedInNavbar.module.css";
 import SearchBar from "../../../utils/SearchBar/SearchBar";
 import hamburgerIcon from "/icons/hamburger.png";
@@ -12,11 +12,13 @@ import instance from "../../../config/instance";
 const LoggedInNavbar = () => {
     let [menuState, setMenuState] = useState(false);
     const user = useSelector((state) => state.userData);
+    const navigate = useNavigate();
 
     const onLogout = async () => {
         try {
             await instance.post("logout/all");
             LOCAL_STORAGE.clearLocalStorage();
+            navigate("/welcome");
         } catch (error) {
             console.log(error);
         }
@@ -157,12 +159,12 @@ const LoggedInNavbar = () => {
                             </div>
                             <hr className={css.hr} />
                             <div className={css.prflDiv} onClick={onLogout}>
-                                <Link to="/welcome" className={css.logout}>
+                                <div className={css.logout}>
                                     <span>Logout</span>
                                     <span>
                                         <BiLogIn size={20} />
                                     </span>
-                                </Link>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -10,33 +10,37 @@ import netappIcon from "/images/brands/netapp-dark.svg";
 import volkswagenIcon from "/images/brands/volkswagen-dark.svg";
 
 const TrustedByBest = () => {
-  let brands = [
-    boxDarkIcon,
-    eventbriteIcon,
-    nasdaqIcon,
-    tcsIcon,
-    netappIcon,
-    volkswagenIcon,
-  ];
+    let brands = [
+        boxDarkIcon,
+        eventbriteIcon,
+        nasdaqIcon,
+        tcsIcon,
+        netappIcon,
+        volkswagenIcon,
+    ];
 
-  return (
-    <div className={css.outerDiv}>
-      <div className={css.innerDiv}>
-        <h2 className={css.ttl}>Trusted by the best</h2>
-        <div className={css.tagLine}>
-          Leading companies use the same courses to help employees keep their
-          skills fresh.
+    return (
+        <div className={css.outerDiv}>
+            <div className={css.innerDiv}>
+                <h2 className={css.ttl}>Dipercaya oleh perusahaan besar</h2>
+                <div className={css.tagLine}>
+                    Karyawan mereka mempelajari skill terbaik disini
+                </div>
+                <div className={css.brands}>
+                    {brands?.map((item, id) => {
+                        return (
+                            <img
+                                key={id}
+                                src={item}
+                                alt="brand icon"
+                                className={css.img}
+                            />
+                        );
+                    })}
+                </div>
+            </div>
         </div>
-        <div className={css.brands}>
-          {brands?.map((item, id) => {
-            return (
-              <img key={id} src={item} alt="brand icon" className={css.img} />
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default TrustedByBest;
