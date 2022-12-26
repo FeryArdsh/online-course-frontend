@@ -26,6 +26,7 @@ import CourseInstructorComp from "../../components/CourseComponents/CourseInstru
 import CourseCard from "../../components/Cards/CourseCard/CourseCard";
 import ShareCourseCard from "../../components/Cards/ShareCourseCard/ShareCourseCard";
 import CourseDetailsTabComp from "../../components/CourseComponents/CourseDetailsTabComp/CourseDetailsTabComp";
+import ReactLoading from "react-loading";
 
 import Button1 from "../../utils/Buttons/Button1/Button1";
 
@@ -35,29 +36,24 @@ import instance from "../../config/instance.js";
 const CoursePage = () => {
     const [shareModal, setShareModal] = useState(false);
     const [course, setCourse] = useState(null);
-    const [corsInstructor, setCorsInstructor] = useState(null);
+    const [loading, setLoading] = useState(false);
     const { id } = useParams();
+
     useEffect(() => {
-        const fetchInstructor = async () => {
-            try {
-                const res = await instance.get("courses/instructor");
-                setCorsInstructor(res.data.courses);
-            } catch (error) {
-                console.log(error);
-            }
-        };
         const fetchCourse = async () => {
             try {
+                setLoading(true);
                 const response = await instance.get("course/" + id);
                 setCourse(response.data.course);
+                setLoading(false);
             } catch (error) {
+                setLoading(true);
                 console.log(error);
             }
         };
-        fetchInstructor();
         fetchCourse();
     }, []);
-    console.log(course);
+
     return (
         <>
             {shareModal ? (
@@ -69,17 +65,26 @@ const CoursePage = () => {
                 />
             ) : null}
             <Layout1>
-                <div className={css.outerDiv}>
-                    {course && (
-                        <CourseHeaderComp
-                            data={course}
-                            setShareModal={setShareModal}
+                {loading ? (
+                    <div className={css.loadingCourse}>
+                        <ReactLoading
+                            color="#306de4"
+                            width={100}
+                            height={100}
                         />
-                    )}
-                    <div className={css.innerDiv}>
-                        <div className={css.bodySec}>
-                            {/* <TextPointsNoter data={Learnings} /> */}
-                            {/* <div className={css.boxSection}>
+                    </div>
+                ) : (
+                    <div className={css.outerDiv}>
+                        {course && (
+                            <CourseHeaderComp
+                                data={course}
+                                setShareModal={setShareModal}
+                            />
+                        )}
+                        <div className={css.innerDiv}>
+                            <div className={css.bodySec}>
+                                {/* <TextPointsNoter data={Learnings} /> */}
+                                {/* <div className={css.boxSection}>
                                 <div className={css.secTtl}>
                                     This course includes:
                                 </div>
@@ -94,67 +99,81 @@ const CoursePage = () => {
                                     })}
                                 </div>
                             </div> */}
-                            <div className={css.boxSection}>
-                                <div className={css.secTtl}>Course content</div>
-                                <div className={css.secBdy}>
-                                    <CourseDetailsTabComp
-                                        courseData={course?.videos}
+                                <div className={css.boxSection}>
+                                    <div className={css.secTtl}>
+                                        Course content
+                                    </div>
+                                    <div className={css.secBdy}>
+                                        <CourseDetailsTabComp
+                                            courseData={course?.videos}
+                                        />
+                                    </div>
+                                </div>
+                                <div className={css.boxSection}>
+                                    <CourseReqComp
+                                        data={course?.courseRequirements}
                                     />
                                 </div>
-                            </div>
-                            <div className={css.boxSection}>
-                                <CourseReqComp
-                                    data={course?.courseRequirements}
-                                />
-                            </div>
-                            <div className={css.boxSection}>
-                                <CourseDescriptionComp
-                                    ttl="Deskripsi"
-                                    desc={course?.fullDesc}
-                                />
-                            </div>
-                            {/* <div className={css.boxSection}>
+                                <div className={css.boxSection}>
+                                    <CourseDescriptionComp
+                                        ttl="Deskripsi"
+                                        desc={course?.fullDesc}
+                                    />
+                                </div>
+                                {/* <div className={css.boxSection}>
                                 <StudentsAlsoBought ttl="Students also bought" />
                             </div> */}
-                            <div className={css.boxSection}>
-                                <h2>Nilai Rating</h2>
-                                {course?.courseReviews?.map((item, i) => (
-                                    <FeaturedReviewComp key={i} data={item} />
-                                ))}
-                            </div>
-                            <div className={css.boxSection}>
-                                <div className={css.secTtl}>
-                                    {course && (
-                                        <CourseInstructorComp
-                                            data={course?.createdBy}
+                                <div className={css.boxSection}>
+                                    <h2>Nilai Rating</h2>
+                                    {course?.courseReviews?.map((item, i) => (
+                                        <FeaturedReviewComp
+                                            key={i}
+                                            data={item}
                                         />
-                                    )}
+                                    ))}
                                 </div>
-                            </div>
-                            <div className={css.boxSection} key={id}>
-                                <div className={css.secTtl}>
-                                    Kursus Lain dari Instructor
-                                </div>
-                                <div className={css.secBdy}>
-                                    {corsInstructor?.map((item) => {
-                                        return (
-                                            <CourseCard
-                                                key={item.id}
-                                                data={item}
+                                <div className={css.boxSection}>
+                                    <div className={css.secTtl}>
+                                        {course && (
+                                            <CourseInstructorComp
+                                                data={course?.createdBy}
                                             />
-                                        );
-                                    })}
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                            <hr />
-                            {/* <Button1
+                                <div className={css.boxSection} key={id}>
+                                    <div className={css.secTtl}>
+                                        Kursus Lain dari Instructor
+                                    </div>
+                                    <div className={css.secBdy}>
+                                        {course?.createdBy?.courses.map(
+                                            (item) => {
+                                                return (
+                                                    <div
+                                                        onClick={() =>
+                                                            window.location.reload()
+                                                        }
+                                                    >
+                                                        <CourseCard
+                                                            key={item.id}
+                                                            data={item}
+                                                        />
+                                                    </div>
+                                                );
+                                            }
+                                        )}
+                                    </div>
+                                </div>
+                                <hr />
+                                {/* <Button1
                                 txt="Report abuse"
                                 extraCss={{ width: "100%" }}
                             /> */}
+                            </div>
+                            <div className={css.rightSidebar}></div>
                         </div>
-                        <div className={css.rightSidebar}></div>
                     </div>
-                </div>
+                )}
             </Layout1>
         </>
     );

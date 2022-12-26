@@ -15,18 +15,20 @@ import instance from "../../config/instance";
 
 const CourseSearchResultsComponent = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const { catId } = useParams();
+    const { categoryPage } = useParams();
     const match = useMatch("/courses/search");
     const options = ["Higest Rated", "Most Popular", "Newest"];
     const [selectedOption, setSelectedOption] = useState("");
     const [showFilters, setShowFilters] = useState(false);
 
     const [courses, setCourses] = useState(null);
+    const [courseFilter, setCourseFilter] = useState(null);
     useEffect(() => {
         const fetchCourse = async () => {
             try {
                 const response = await instance.get("courses");
                 setCourses(response.data.courses);
+                // setCourseFilter(courses?.filter((e) => e.category === categoryPage));
             } catch (error) {
                 console.log(error);
             }
@@ -39,13 +41,17 @@ const CourseSearchResultsComponent = () => {
         setSelectedOption(value);
     };
 
+    useEffect(() => {
+        setCourseFilter(courses?.filter((e) => e.category === categoryPage));
+    }, [categoryPage, courses]);
+
     return (
         <div className={css.outerDiv}>
             <div className={css.innerDiv}>
                 <div className={css.TtlBox}>
                     {!match ? (
                         <div className={css.ttl}>
-                            All <span>{catId}</span> courses
+                            {/* All <span></span> courses */}
                         </div>
                     ) : (
                         <div className={css.ttl}>
@@ -109,6 +115,7 @@ const CourseSearchResultsComponent = () => {
                                 <FiltersComp
                                     data={item}
                                     dropdownState={[0, 1].includes(id)}
+                                    setcur={setCourses}
                                 />
                             </div>
                         ))}
@@ -120,9 +127,12 @@ const CourseSearchResultsComponent = () => {
                             showFilters ? css.rightBoxW : null,
                         ].join(" ")}
                     >
-                        {courses?.map((item, i) => (
+                        {courseFilter?.map((item, i) => (
                             <MedVerticalCourseCard data={item} key={i} />
                         ))}
+                        {courseFilter?.length === 0 && (
+                            <span>Kursus Tidak Tersedia</span>
+                        )}
                     </div>
                 </div>
             </div>

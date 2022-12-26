@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import InputUtil from "../../../../utils/FormUtils/InputUtil/InputUtil";
 import SelectDropdownUtil from "../../../../utils/FormUtils/SelectDropdownUtil/SelectDropdownUtil";
 import CourseCardWithOptions from "../../../Cards/CourseCardWithOptions/CourseCardWithOptions";
+import ReactLoading from "react-loading";
 
 import searchIcon from "/icons/search.png";
 import shareIcon from "/icons/share.png";
@@ -24,6 +25,7 @@ const AllCoursesComponent = () => {
         filterByState: {},
         filterByInstructor: {},
     });
+    const [loading, setLoading] = useState(false);
 
     const [resetBtn, setRestBtn] = useState(false);
 
@@ -124,14 +126,20 @@ const AllCoursesComponent = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const getUserProfile = await instance.get("profile/me", {
-                    headers: {
-                        "x-auth-token": LOCAL_STORAGE.getDataUser().token,
-                    },
-                });
-                setCourse(getUserProfile.data.student.coursesTaken);
+                setLoading(true);
+
+                const getCourseTaken = await instance.get("student/taken");
+                setCourse(getCourseTaken.data.student.coursesTaken);
+                // const getUserProfile = await instance.get("profile/me", {
+                //     headers: {
+                //         "x-auth-token": LOCAL_STORAGE.getDataUser().token,
+                //     },
+                // });
+                // setCourse(getUserProfile.data.student.coursesTaken);
+                setLoading(false);
             } catch (error) {
                 console.log(error);
+                setLoading(false);
             }
         };
         fetchData();
@@ -243,6 +251,9 @@ const AllCoursesComponent = () => {
                 </div> */}
             </div>
             <div className={css.bdy}>
+                {loading && (
+                    <ReactLoading color="#306de4" width={70} height={70} />
+                )}
                 {course?.map((item, inde) => {
                     return (
                         <CourseCardWithOptions

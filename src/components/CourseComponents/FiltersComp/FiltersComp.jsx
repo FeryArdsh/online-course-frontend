@@ -13,42 +13,16 @@ const FiltersComp = (props) => {
 
     const [inptState, setInptState] = useState({
         name: "",
-        value: [],
+        value: "",
         event: "",
     });
     const [toggleDropdown, setToggleDropdown] = useState(dropdownState);
     const [showMore, setShowMore] = useState(false);
 
-    useEffect(() => {
-        const urlValues = searchParams.getAll(slug);
-        setInptState({
-            value: urlValues,
-            name: slug,
-            event: "",
-        });
-    }, []);
-
     const onChangeFunc = (e) => {
-        if (e.target.checked && type === "radio") {
-            searchParams.set(slug, e.target.value);
-        } else if (e.target.checked) {
-            searchParams.append(slug, e.target.value);
-        } else {
-            const values = searchParams.getAll(slug);
-            if (values.length > 0) {
-                const index = values.indexOf(e.target.value);
-                values.splice(index, 1);
-                searchParams.set(slug, values);
-            }
-        }
-
-        setSearchParams(searchParams);
-        setInptState((prev) => {
-            return {
-                value: [...prev.value, e.target.value],
-                name: prev.name,
-                event: e,
-            };
+        setInptState({
+            ...inptState,
+            value: e.target.value,
         });
     };
 
@@ -97,9 +71,6 @@ const FiltersComp = (props) => {
                                     }
                                     id={filterItem?.txt}
                                     value={filterItem.value}
-                                    checked={inptState.value?.includes(
-                                        filterItem.value
-                                    )}
                                     onChange={(e) => onChangeFunc(e)}
                                 />
                                 <label
@@ -107,14 +78,16 @@ const FiltersComp = (props) => {
                                     className={css.label}
                                 >
                                     {filterItem?.stars ? (
-                                        <span className={css.stars}>stars</span>
+                                        <span className={css.stars}>
+                                            Bintang
+                                        </span>
                                     ) : null}
                                     <span className={css.txt}>
                                         {filterItem?.txt}
                                     </span>
-                                    <span className={css.count}>
+                                    {/* <span className={css.count}>
                                         ({filterItem?.count})
-                                    </span>
+                                    </span> */}
                                 </label>
                             </div>
                         );

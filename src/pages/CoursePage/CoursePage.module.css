@@ -1,56 +1,64 @@
 .outerDiv {
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: var(--gray);
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--gray);
 }
 
 .innerDiv {
-  width: 70%;
+    width: 70%;
 }
 
 .bodySec {
-  width: 65%;
+    width: 65%;
 }
 
 .rightSidebar {
-  width: 35%;
+    width: 35%;
 }
 
 .boxSection {
-  margin: 2rem 0;
+    margin: 2rem 0;
 }
 
 .secTtl {
-  font-size: 1.5rem;
-  font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
 .secBdy {
-  margin: 1rem 0;
-  display: flex;
-  flex-wrap: wrap;
+    margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .crseDesc {
-  font-size: 1rem;
-  text-align: left;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.loadingCourse {
+    height: 100vh;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
 }
 
 @media screen and (max-width: 1024px) {
-  .bodySec {
-    width: 100%;
-  }
-  .rightSidebar {
-    width: 0%;
-  }
+    .bodySec {
+        width: 100%;
+    }
+    .rightSidebar {
+        width: 0%;
+    }
 }
 
 @media screen and (max-width: 426px) {
-  .innerDiv {
-    width: 90%;
-  }
+    .innerDiv {
+        width: 90%;
+    }
 }

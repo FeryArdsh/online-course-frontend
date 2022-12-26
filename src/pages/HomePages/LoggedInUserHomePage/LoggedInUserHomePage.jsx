@@ -66,7 +66,7 @@ const LoggedInUserHomePage = () => {
                 <VerticalCategoryMenuBar />
                 <div className={css.ma}>
                     <div className={css.banner}>
-                        <BannerComp bannerData={bannerData[2]} />
+                        <BannerComp bannerData={bannerData[0]} />
                     </div>
                     <h1 className={css.colTtl}>Pelajari kursus lainnya</h1>
                     {loading && (
