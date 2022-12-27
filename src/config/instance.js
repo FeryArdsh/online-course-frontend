@@ -3,7 +3,7 @@ import LOCAL_STORAGE from "../service/localStorage";
 
 const token = LOCAL_STORAGE.getDataUser();
 const instance = axios.create({
-    baseURL: "http://localhost:5000/",
+    baseURL: "https://ill-erin-foal-cuff.cyclic.app/",
     // headers: { "x-auth-token": token?.token },
 });
 
