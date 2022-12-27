@@ -69,19 +69,22 @@ const Cart = () => {
                                 <div className={css.ttlDisPer}>
                                     {courseInCart.disc}% off
                                 </div> */}
-                                <Button1
-                                    link="/checkout"
-                                    txt="Checkout"
-                                    bck="var(--primary)"
-                                    hovBck="var(--primary-dark)"
-                                    extraCss={{
-                                        width: "100%",
-                                        margin: "1rem 0",
-                                        padding: "1rem",
-                                        border: "none",
-                                        color: "var(--white)",
-                                    }}
-                                />
+                                {totalPrice >= 1 && (
+                                    <Button1
+                                        link="/checkout"
+                                        txt="Checkout"
+                                        bck="var(--primary)"
+                                        hovBck="var(--primary-dark)"
+                                        extraCss={{
+                                            width: "100%",
+                                            margin: "1rem 0",
+                                            padding: "1rem",
+                                            border: "none",
+                                            color: "var(--white)",
+                                        }}
+                                    />
+                                )}
+
                                 {/* <div className={css.ctxt}>Coupon code</div>
                                 {appliedCoupon ? (
                                     <div className={css.cpnBox}>

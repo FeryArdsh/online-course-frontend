@@ -142,7 +142,7 @@ const LoggedInNavbar = () => {
                             <hr className={css.hr} />
                             <div className={css.prflDiv}>
                                 <Link
-                                    to="user/koushil"
+                                    to={"/user/" + user?.data?._id}
                                     className={css.menuItem}
                                 >
                                     Profil Publik

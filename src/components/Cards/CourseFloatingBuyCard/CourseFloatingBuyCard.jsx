@@ -9,6 +9,10 @@ import alarmIcon from "/icons/alarm.png";
 import playIcon from "/icons/play.png";
 import heartIcon from "/icons/heart.png";
 import { AiOutlineShareAlt } from "react-icons/ai";
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { addCart } from "../../../service/redux/cart";
+import { useNavigate } from "react-router-dom";
 
 const CourseFloatingBuyCard = (props) => {
     const {
@@ -27,7 +31,9 @@ const CourseFloatingBuyCard = (props) => {
         lang = "English",
         subTtl = "English",
     } = props?.data;
-
+    const cart = useSelector((state) => state.cartData.cart);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { scrolled, setCoupon, applyCoupon, setApplyCoupon, setShareModal } =
         props;
 
@@ -40,7 +46,15 @@ const CourseFloatingBuyCard = (props) => {
         top: 0,
         right: "12%",
     };
-
+    let addToCartHandler = () => {
+        const findId = cart.find((item) => item._id === props?.data?._id);
+        if (findId) {
+            return Swal.fire("Kursus sudah ada", "", "error");
+        }
+        dispatch(addCart(props?.data));
+        Swal.fire("Berhasil menambah kursus", "", "success");
+        navigate("/cart");
+    };
     return (
         <div className={css.outerDiv} style={scrolled ? outStyleGuide : {}}>
             <div className={css.innRightDiv} style={scrolled ? styleGuide : {}}>
@@ -52,12 +66,12 @@ const CourseFloatingBuyCard = (props) => {
                     />
                 </div>
                 <div className={css.maskDiv}></div>
-                <div className={css.imgMask}>
+                {/* <div className={css.imgMask}>
                     <div className={css.imgODiv}>
                         <img src={playIcon} className={css.imgIcon} />
                     </div>
                     <div className={css.maskTxt}>Preview the course</div>
-                </div>
+                </div> */}
             </div>
             <div className={css.crsePmtDt}>
                 <div className={css.prcDet}>
@@ -92,6 +106,7 @@ const CourseFloatingBuyCard = (props) => {
                 <div className={css.btns}>
                     <div className={css.btnsSec1}>
                         <Button1
+                            onClick={addToCartHandler}
                             txt="Beli Sekarang"
                             color="var(--white)"
                             bck="var(--primary)"

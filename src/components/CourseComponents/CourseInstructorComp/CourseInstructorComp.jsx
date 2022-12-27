@@ -15,6 +15,7 @@ const CourseInstructorComp = (props) => {
     const [toggle, setToggle] = useState(false);
 
     const {
+        _id = "",
         studentID = {},
         aboutMe = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehende",
         profession = "",
@@ -32,7 +33,7 @@ const CourseInstructorComp = (props) => {
 
     return (
         <div className={css.outerDiv} id={`author-${name}`}>
-            <Link to={link} className={css.name}>
+            <Link to={"/user/" + _id} className={css.name}>
                 {studentID.name}
             </Link>
             <div className={css.desc}>{profession}</div>

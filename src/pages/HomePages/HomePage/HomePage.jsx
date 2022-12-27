@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Layout1 from "../../Layout1/Layout1";
 import CategoryTabsBox from "../../../components/HomePageComponents/CategoryTabsBox/CategoryTabsBox";
@@ -13,8 +13,11 @@ import { coursesData, det, det2, det3 } from "../../../fakedata/fakedata";
 import css from "./HomePage.module.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import instance from "../../../config/instance";
 
 const HomePage = () => {
+    const [courses, setCourses] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [categoryBoxData, setCategoryBoxData] = useState([
         {
             id: 1,
@@ -50,6 +53,34 @@ const HomePage = () => {
             })
         );
     };
+
+    useEffect(() => {
+        const fetchdata = async () => {
+            try {
+                setLoading(true);
+                const getAllCourse = await instance.get("courses");
+                setCourses(getAllCourse.data.courses);
+                setLoading(false);
+            } catch (error) {
+                setLoading(false);
+
+                console.log(error);
+            }
+        };
+        fetchdata();
+    }, []);
+    const teknologi = courses?.filter(
+        (courses) => courses.category === "technology"
+    );
+    const language = courses?.filter(
+        (courses) => courses.category === "language"
+    );
+
+    const sendData = categoryBoxData?.filter(
+        (courses) => courses.active === true
+    );
+
+    const bestRating = courses?.filter((courses) => courses.avgRating >= 4);
     return (
         <>
             <Layout1>
@@ -65,13 +96,17 @@ const HomePage = () => {
                             data={categoryBoxData}
                             outerCss={{}}
                         >
-                            <CourseCarouselComp coursesData={coursesData} />
+                            {sendData[0].id === 1 ? (
+                                <CourseCarouselComp coursesData={teknologi} />
+                            ) : (
+                                <CourseCarouselComp coursesData={language} />
+                            )}
                         </CategoryTabsBox>
                     </div>
                     <div className={css.m1}>
                         <CourseCarouselComp
-                            ttl="Students are viewing"
-                            coursesData={coursesData}
+                            ttl="Lihat Rating Tertinggi"
+                            coursesData={bestRating}
                         />
                     </div>
                 </div>

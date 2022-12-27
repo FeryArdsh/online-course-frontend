@@ -64,6 +64,9 @@ const CourseDetailsTabComp = (props) => {
             }
         }
     }, [stopId, crseDataTab.leftOver]);
+    const totalDur = courseData?.reduce((accumulator, object) => {
+        return accumulator + object.sectionDuration;
+    }, 0);
 
     return (
         <div className={css.outerDiv}>
@@ -71,8 +74,8 @@ const CourseDetailsTabComp = (props) => {
                 <div className={css.crseDet}>
                     <div className={css.crsDetLeft}>
                         <div>{state.sections} sections</div>
-                        <div>{state.lectures} lectures</div>
-                        <div>{state.length} total length</div>
+                        {/* <div>{state.lectures} lectures</div> */}
+                        <div>{totalDur} menit total</div>
                     </div>
                     <Button2
                         onClick={tabHandler}
