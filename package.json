@@ -29,6 +29,7 @@
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
     "sweetalert2": "^11.6.15",
+    "swiper": "^8.4.6",
     "yup": "^0.32.11"
   },
   "devDependencies": {

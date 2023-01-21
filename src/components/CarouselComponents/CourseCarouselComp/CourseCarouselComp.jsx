@@ -14,13 +14,12 @@ import css from "./CourseCarouselComp.module.css";
 const CourseCarouselComp = (props) => {
   const { ttl, link = null, linkTxt = "", coursesData } = props;
   const settings = {
-    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 6,
+    slidesToScroll: 1,
     initialSlide: 0,
-    lazyLoad: true,
+    swipeToSlide: true,
     nextArrow: <ArrowsComp img={nextIcon} />,
     prevArrow: <ArrowsComp img={backIcon} />,
     responsive: [
@@ -36,7 +35,7 @@ const CourseCarouselComp = (props) => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2,
+          initialSlide: 0,
         },
       },
       {
@@ -44,6 +43,7 @@ const CourseCarouselComp = (props) => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          infinite: true
         },
       },
     ],

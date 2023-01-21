@@ -1,11 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-import TAG1 from "../../../utils/Tags/TAG1/TAG1";
 import Button1 from "../../../utils/Buttons/Button1/Button1";
-
 import css from "./CourseCard.module.css";
-
 import Rating from "react-rating";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +10,6 @@ import Swal from "sweetalert2";
 
 const CourseCard = (props) => {
     const {
-        path = "/course",
         img = "",
         ttl = "",
         desc = "",
@@ -22,12 +17,7 @@ const CourseCard = (props) => {
         newPrc = 0,
         avgRating = 0,
         numOfRatings = 0,
-        updatedDate = new Intl.DateTimeFormat("en-IN", {
-            dateStyle: "long",
-        }).format(new Date()),
         totalDuration = 0,
-        level = "Beginner Level",
-        crsSubtxt = "Python For Beginners : This course is meant for absolute beginners in programming or in python.",
     } = props?.data;
     const cart = useSelector((state) => state.cartData.cart);
     const dispatch = useDispatch();

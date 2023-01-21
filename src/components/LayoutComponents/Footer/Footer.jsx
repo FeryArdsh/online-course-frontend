@@ -12,24 +12,22 @@ const Footer = () => {
                 <div className={css.clmns}>
                     <div className={css.clmn}>
                         <ul className={css.cul}>
-                            {/* <li className={css.cli}>
-                                <Link to="/">Udemy Bussiness</Link>
-                            </li> */}
                             <li className={css.cli}>
-                                <Link to="/">Mengajar di CourseIn</Link>
+                                <h3>Navigasi</h3>
                             </li>
                             <li className={css.cli}>
-                                <Link to="/">Get the app</Link>
+                                <Link to="/">Beranda</Link>
                             </li>
                             <li className={css.cli}>
-                                <Link to="/">Tentang</Link>
+                                <Link to="/join/login">Login</Link>
                             </li>
                             <li className={css.cli}>
-                                <Link to="/">Kontak</Link>
+                                <Link to="/join/signup">Register</Link>
                             </li>
                         </ul>
+
                     </div>
-                    <div className={css.clmn}>
+                    {/* <div className={css.clmn}>
                         <ul className={css.cul}>
                             <li className={css.cli}>
                                 <Link to="/">Karir</Link>
@@ -40,35 +38,32 @@ const Footer = () => {
                             <li className={css.cli}>
                                 <Link to="/">Help and Support</Link>
                             </li>
-                            {/* <li className={css.cli}>
+                            <li className={css.cli}>
                                 <Link to="/">Affiliate</Link>
                             </li>
                             <li className={css.cli}>
                                 <Link to="/">Investors</Link>
-                            </li> */}
+                            </li>
                         </ul>
-                    </div>
+                    </div> */}
                     <div className={css.clmn}>
                         <ul className={css.cul}>
-                            <li className={css.cli}>
-                                <Link to="/">Terms</Link>
-                            </li>
-                            <li className={css.cli}>
-                                <Link to="/">Privacy policy</Link>
-                            </li>
-                            <li className={css.cli}>
-                                <Link to="/">Cookie settings</Link>
-                            </li>
                             {/* <li className={css.cli}>
-                                <Link to="/">Sitemap</Link>
+                                <Link to="/">Udemy Bussiness</Link>
                             </li> */}
                             <li className={css.cli}>
-                                <Link to="/">Accessibility statement</Link>
+                                <Link to="/">Mengajar di CourseIn</Link>
+                            </li>
+                            <li className={css.cli}>
+                                <Link to="/">Tentang</Link>
+                            </li>
+                            <li className={css.cli}>
+                                <Link to="/">Kontak</Link>
                             </li>
                         </ul>
                     </div>
-                    <div className={[css.lastChild, css.clmn].join(" ")}>
-                        {/* <Button1
+                    {/* <div className={[css.lastChild, css.clmn].join(" ")}>
+                        <Button1
                             img={globeIcon}
                             txt="English"
                             bck="#1c1d1f"
@@ -76,8 +71,8 @@ const Footer = () => {
                             hovBck="rgba(255,255,255,.08)"
                             extraCss={{ border: "1px solid #fff" }}
                             imageCss={{ filter: "invert(1)" }}
-                        /> */}
-                    </div>
+                        />
+                    </div> */}
                 </div>
                 <div className={css.creds}>
                     <div className={css.cred1}>

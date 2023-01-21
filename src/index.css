@@ -75,3 +75,13 @@
 .slick-arrow::before {
     display: none;
 }
+
+.loading {
+    display: flex;
+    justify-content: center;
+}
+
+.slick-slide > div {
+    display: grid;
+    place-items: center;
+}

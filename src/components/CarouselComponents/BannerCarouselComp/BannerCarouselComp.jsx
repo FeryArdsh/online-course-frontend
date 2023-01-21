@@ -18,6 +18,17 @@ const BannerCarouselComp = () => {
     lazyLoad: true,
     nextArrow: <ArrowsComp img={nextIcon} />,
     prevArrow: <ArrowsComp img={backIcon} />,
+    responsive: [
+      {
+        breakpoint: 480,
+        settings: {
+          arrows: false,
+          autoplay: true,
+          speed: 1000,
+          autoplaySpeed: 6000,
+        },
+      },
+    ]
   };
   return (
     <Slider {...settings}>

@@ -103,7 +103,7 @@ const FeaturedTopics = () => {
     return (
         <div className={css.outerDiv}>
             <div className={css.innerDiv}>
-                <h1 className={css.ttl}>Featured topics by category</h1>
+                <h1 className={css.ttl}>Kategori Unggulan</h1>
                 {/* <div className={css.bdy}>{comp}</div> */}
                 <div className={css.cat}>
                     <Link className={css.topicName} to={"/courses/technology"}>

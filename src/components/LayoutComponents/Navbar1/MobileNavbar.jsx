@@ -5,20 +5,20 @@ import SearchBar from "../../../utils/SearchBar/SearchBar";
 import Button1 from "../../../utils/Buttons/Button1/Button1";
 
 import cartIcon from "/icons/shopping-cart.png";
+import { Link } from "react-router-dom";
 
 const MobileNavbar = () => {
   return (
     <>
       <div className={css.sidebarMenu}>
         <div className={css.searchBoxM}>
-          <SearchBar />
+          {/* <SearchBar /> */}
         </div>
-        <div className={css.catDropdownM}>Categories</div>
-        <a className={css.hovBoxM} href="#" target="_blank">
-          Teach on Udemy
-        </a>
+        <Link className={css.hovBoxM} to={"/join/signup"}>
+          Mengajar di CourseIn
+        </Link>
         <div className={css.btnsM}>
-          <Button1 txt="Cart" img={cartIcon} link="/cart" />
+
           <Button1 txt="Login" link="/join/login" />
           <Button1
             txt="Sign up"

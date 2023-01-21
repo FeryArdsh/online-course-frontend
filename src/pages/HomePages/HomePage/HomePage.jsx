@@ -8,12 +8,13 @@ import HomeShowcaseCard from "../../../components/Cards/HomeShowcaseCard/HomeSho
 import CourseCarouselComp from "../../../components/CarouselComponents/CourseCarouselComp/CourseCarouselComp";
 import BannerCarouselComp from "../../../components/CarouselComponents/BannerCarouselComp/BannerCarouselComp";
 
-import { coursesData, det, det2, det3 } from "../../../fakedata/fakedata";
+import { det, det3 } from "../../../fakedata/fakedata";
 
 import css from "./HomePage.module.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import instance from "../../../config/instance";
+import LoadingComp from "../../../components/LoadingComp";
 
 const HomePage = () => {
     const [courses, setCourses] = useState(null);
@@ -96,6 +97,7 @@ const HomePage = () => {
                             data={categoryBoxData}
                             outerCss={{}}
                         >
+                            {loading && <LoadingComp />}
                             {sendData[0].id === 1 ? (
                                 <CourseCarouselComp coursesData={teknologi} />
                             ) : (

@@ -1,10 +1,6 @@
 import CourseCard from "../../../components/Cards/CourseCard/CourseCard";
 import Layout1 from "../../Layout1/Layout1";
 
-import profile from "/images/showcase.jpg";
-
-import { coursesData } from "../../../fakedata/fakedata";
-
 import css from "./PublicProfile.module.css";
 import { useParams } from "react-router-dom";
 import instance from "../../../config/instance";
