@@ -40,11 +40,11 @@ const Navbar = () => {
                 </div>
                 <div className={css.right}>
                     <div className={css.searchBox}>
-                        <SearchBar />
+                        {/* <SearchBar /> */}
                     </div>
                     <div>
                         <div className={css.btnAuth}>
-                            <Link className={css.hovBox} to={"/join/signup"}>
+                            <Link className={css.hovBox} to={"/join/signup"} style={{ textDecoration: "underline" }}>
                                 Mengajar di CourseIn
                             </Link>
                             <Button1 txt="Login" link="/join/login" />

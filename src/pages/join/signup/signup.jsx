@@ -1,17 +1,12 @@
 import { useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
-
 import Layout1 from "../../Layout1/Layout1";
-
 import InputUtil from "../../../utils/FormUtils/InputUtil/InputUtil";
-import CheckboxUtil from "../../../utils/FormUtils/CheckboxUtil/CheckboxUtil";
 import Button1 from "../../../utils/Buttons/Button1/Button1";
-
 import user from "/icons/user.png";
 import email from "/icons/email.png";
 import lock from "/icons/lock.png";
-
 import css from "./Signup.module.css";
 import instance from "../../../config/instance";
 import Swal from "sweetalert2";
@@ -29,12 +24,6 @@ const Signup = () => {
     let changeHanlder = (e) => {
         setState((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
-        });
-    };
-
-    let checkboxChangeHanlder = (e) => {
-        setState((prev) => {
-            return { ...prev, check: !prev.check };
         });
     };
 
@@ -110,6 +99,7 @@ const Signup = () => {
                                 onChange={changeHanlder}
                             />
                             <div className={css.psw}>
+                                <h4>Catatan Password:</h4>
                                 <p>*Password minimal 8 karakter</p>
                                 <p>
                                     *Terdapat minimal 1 huruf kapital, ankga dan

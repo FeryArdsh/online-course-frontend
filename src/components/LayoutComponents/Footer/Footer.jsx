@@ -16,7 +16,7 @@ const Footer = () => {
                                 <h3>Navigasi</h3>
                             </li>
                             <li className={css.cli}>
-                                <Link to="/">Beranda</Link>
+                                <Link to="/welcome">Beranda</Link>
                             </li>
                             <li className={css.cli}>
                                 <Link to="/join/login">Login</Link>
@@ -58,7 +58,7 @@ const Footer = () => {
                                 <Link to="/">Tentang</Link>
                             </li>
                             <li className={css.cli}>
-                                <Link to="/">Kontak</Link>
+                                <a href="https://api.whatsapp.com/" target="_blank">Kontak</a>
                             </li>
                         </ul>
                     </div>

@@ -1,9 +1,7 @@
 import { useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 
 import Layout1 from "../../Layout1/Layout1";
-
 import InputUtil from "../../../utils/FormUtils/InputUtil/InputUtil";
 import Button1 from "../../../utils/Buttons/Button1/Button1";
 
@@ -17,9 +15,6 @@ import css from "./Login.module.css";
 import instance from "../../../config/instance";
 import LOCAL_STORAGE from "../../../service/localStorage";
 import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
-import { addUser } from "../../../service/redux/user";
-import axios from "axios";
 
 const login = () => {
     const [state, setState] = useState({
