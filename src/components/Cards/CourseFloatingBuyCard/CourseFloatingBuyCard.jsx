@@ -34,7 +34,7 @@ const CourseFloatingBuyCard = (props) => {
     const cart = useSelector((state) => state.cartData.cart);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { scrolled, setCoupon, applyCoupon, setApplyCoupon, setShareModal } =
+    const { scrolled, setCoupon, applyCoupon, setApplyCoupon, setShareModal, setVideoPrev } =
         props;
 
     const styleGuide = {
@@ -66,12 +66,12 @@ const CourseFloatingBuyCard = (props) => {
                     />
                 </div>
                 <div className={css.maskDiv}></div>
-                {/* <div className={css.imgMask}>
+                <div className={css.imgMask} onClick={() => setVideoPrev((prev) => !prev)}>
                     <div className={css.imgODiv}>
                         <img src={playIcon} className={css.imgIcon} />
                     </div>
-                    <div className={css.maskTxt}>Preview the course</div>
-                </div> */}
+                    <div className={css.maskTxt}>Lihat Pratinjau Kursus</div>
+                </div>
             </div>
             <div className={css.crsePmtDt}>
                 <div className={css.prcDet}>

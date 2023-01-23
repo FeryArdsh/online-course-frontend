@@ -16,7 +16,7 @@ const AddCourse = () => {
     const { id } = useParams();
     const [videoUrl, setVideoUrl] = useState(null);
     const [durVid, setDurVid] = useState(null);
-    const [progresspercent, setProgresspercent] = useState(100);
+    const [progresspercent, setProgresspercent] = useState(0);
     const [course, setCourse] = useState(null);
     const [datavideo, setDatavideo] = useState([
         {

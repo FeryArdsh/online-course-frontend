@@ -3,6 +3,14 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import instance from "../../../config/instance";
 import css from "./index.module.css";
+import storage from "../../../config/firebaseConf";
+import {
+    ref,
+    getStorage,
+    getDownloadURL,
+    uploadBytesResumable,
+    deleteObject,
+} from "firebase/storage";
 
 const AddDraftCourse = () => {
     const [data, setData] = useState({
@@ -13,12 +21,14 @@ const AddDraftCourse = () => {
         category: "",
         prc: 0,
         img: "",
+        videoPromotion: "",
         courseRequirements: [
             {
                 text: "",
             },
         ],
     });
+    const [progresspercent, setProgresspercent] = useState(0)
     const navigate = useNavigate();
 
     const changeImg = (e) => {
@@ -58,6 +68,7 @@ const AddDraftCourse = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const requirment = data.courseRequirements.map((item) => item.text);
+        console.log(data)
         try {
             const response = await instance.post("course", {
                 ...data,
@@ -72,6 +83,32 @@ const AddDraftCourse = () => {
             Swal.fire("Error", "", "error");
             console.log(error);
         }
+    };
+
+    const submitVideoTest = async (e) => {
+        const videoFile = e.target.files[0];
+        const storageRef = ref(
+            storage,
+            `videos/${Date.now()}-${videoFile.name}`
+        );
+        const uploadTask = uploadBytesResumable(storageRef, videoFile);
+
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const uploadProgress =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setProgresspercent(uploadProgress);
+            },
+            (error) => {
+                console.log(error);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    setData((prev) => ({ ...prev, videoPromotion: downloadURL }))
+                });
+            }
+        );
     };
 
     return (
@@ -145,6 +182,24 @@ const AddDraftCourse = () => {
                 <label htmlFor="img">Gambar Promosi</label>
                 <input type="file" name="img" onChange={changeImg} required />
                 {/* ============= */}
+                <label>Video Promosi</label>
+                <input
+                    type="file"
+                    name="video"
+                    accept="video/mp4,video/x-m4v,video/*"
+                    required
+                    onChange={submitVideoTest}
+                />
+                {progresspercent >= 1 &&
+                    progresspercent <= 99 && (
+                        <progress
+                            id="progress-bar"
+                            value={progresspercent}
+                            max="100"
+                        ></progress>
+                    )}
+                {/* ============= */}
+
                 <label htmlFor="courseRequirements">Syarat Kursus</label>
                 {data?.courseRequirements.map((item, i) => (
                     <div key={i}>

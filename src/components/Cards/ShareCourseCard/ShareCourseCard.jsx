@@ -10,15 +10,23 @@ import twIcon from "/icons/socialMedia/twitter.png";
 import mlIcon from "/icons/socialMedia/email.png";
 import closeIcon from "/icons/close.png";
 import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
 
 const ShareCourseCard = (props) => {
     const {
+        video = "",
         ttl = "",
         txt = "",
         btnTxt = "",
-        btnClick = () => {},
-        closeModal = () => {},
+        btnClick = () => { },
+        closeModal = () => { },
     } = props;
+
+    const videoRef = useRef();
+
+    useEffect(() => {
+        videoRef.current?.load();
+    }, [video]);
 
     let shareHandler = () => {
         navigator.clipboard.writeText(window.location.href);
@@ -37,37 +45,44 @@ const ShareCourseCard = (props) => {
                         className={css.icon}
                     />
                 </div>
-                <div className={css.box2}>
-                    <InputUtil
-                        state={txt}
-                        btnTxt={btnTxt}
-                        btnClick={shareHandler}
-                        btnCss={{ padding: "18px", backgroundColor: "blue" }}
-                    />
-                </div>
-                <div className={css.box3}>
-                    <a
-                        href="https://www.facebook.com/"
-                        target="_blank"
-                        className={css.icons}
-                    >
-                        <CircleButton img={fbIcon} />
-                    </a>
-                    <a
-                        href="https://www.twitter.com/"
-                        target="_blank"
-                        className={css.icons}
-                    >
-                        <CircleButton img={twIcon} />
-                    </a>
-                    <a
-                        href="https://www.gmail.com/"
-                        target="_blank"
-                        className={css.icons}
-                    >
-                        <CircleButton img={mlIcon} />
-                    </a>
-                </div>
+                {video ? (<video ref={videoRef} controls>
+                    <source src={video} type="video/webm" />
+                    <source src={video} type="video/mp4" />
+                </video>) : (<>
+                    <div className={css.box2}>
+                        <InputUtil
+                            state={txt}
+                            btnTxt={btnTxt}
+                            btnClick={shareHandler}
+                            btnCss={{ padding: "18px", backgroundColor: "blue" }}
+                        />
+                    </div>
+                    <div className={css.box3}>
+                        <a
+                            href="https://www.facebook.com/"
+                            target="_blank"
+                            className={css.icons}
+                        >
+                            <CircleButton img={fbIcon} />
+                        </a>
+                        <a
+                            href="https://www.twitter.com/"
+                            target="_blank"
+                            className={css.icons}
+                        >
+                            <CircleButton img={twIcon} />
+                        </a>
+                        <a
+                            href="https://www.gmail.com/"
+                            target="_blank"
+                            className={css.icons}
+                        >
+                            <CircleButton img={mlIcon} />
+                        </a>
+                    </div>
+                </>)}
+
+
             </div>
         </div>,
         document.getElementById("modal")

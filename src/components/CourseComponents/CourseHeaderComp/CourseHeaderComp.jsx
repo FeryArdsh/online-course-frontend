@@ -16,6 +16,7 @@ import ReactStars from "react-stars";
 
 const CourseHeaderComp = (props) => {
     const { setShareModal } = props;
+    const { setVideoPrev } = props;
     const [scrolled, setScrolled] = useState(false);
     const [applyCoupon, setApplyCoupon] = useState(false);
     const [coupon, setCoupon] = useState("");
@@ -56,6 +57,7 @@ const CourseHeaderComp = (props) => {
                 applyCoupon={applyCoupon}
                 setApplyCoupon={setApplyCoupon}
                 setShareModal={setShareModal}
+                setVideoPrev={setVideoPrev}
             />
             <div className={css.innerDiv}>
                 <div className={css.leftDiv}>

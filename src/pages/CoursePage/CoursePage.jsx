@@ -35,6 +35,7 @@ import instance from "../../config/instance.js";
 
 const CoursePage = () => {
     const [shareModal, setShareModal] = useState(false);
+    const [videoPrev, setVideoPrev] = useState(false);
     const [course, setCourse] = useState(null);
     const [loading, setLoading] = useState(false);
     const { id } = useParams();
@@ -64,6 +65,13 @@ const CoursePage = () => {
                     closeModal={() => setShareModal(false)}
                 />
             ) : null}
+            {videoPrev ? (
+                <ShareCourseCard
+                    ttl="Pratinjau Kursus"
+                    video={course?.videoPromotion}
+                    closeModal={() => setVideoPrev(false)}
+                />
+            ) : null}
             <Layout1>
                 {loading ? (
                     <div className={css.loadingCourse}>
@@ -79,6 +87,7 @@ const CoursePage = () => {
                             <CourseHeaderComp
                                 data={course}
                                 setShareModal={setShareModal}
+                                setVideoPrev={setVideoPrev}
                             />
                         )}
                         <div className={css.innerDiv}>
