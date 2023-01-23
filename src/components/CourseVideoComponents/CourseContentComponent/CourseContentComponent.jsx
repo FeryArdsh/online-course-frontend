@@ -39,36 +39,38 @@ const CourseContentComponent = (props) => {
                     </Link>
                 </div>
                 <div className={css.bdy}>
-                    <VideoPlayer src={urlVideo} />
-                    <h1>{titleVid}</h1>
-                    {data?.map((item, id) => {
-                        return (
-                            <div className={css.tab} key={`tab-${id}`}>
-                                <div
-                                    className={css.tabTitleBox}
-                                    onClick={() =>
-                                        setToggleBox((p) => {
-                                            return { ...p, [id]: !p[id] };
-                                        })
-                                    }
-                                >
-                                    <div className={css.tabTitleLeft}>
-                                        <div className={css.tabTtl}>{`Section ${
-                                            id + 1
-                                        }: ${item.section}`}</div>
-                                        <div className={css.tabDesc}>
-                                            <span>
-                                                {item?.video?.length} Video
-                                            </span>
-                                            <span></span>
-                                            <span>
-                                                {item.sectionDuration} min
-                                            </span>
+                    <div className={css.vid}>
+                        <VideoPlayer src={urlVideo} />
+                    </div>
+                    <div className={css.conTab}>
+                        <h3 className={css.ttlVid}>{titleVid}</h3>
+                        {data?.map((item, id) => {
+                            return (
+                                <div className={css.tab} key={`tab-${id}`}>
+                                    <div
+                                        className={css.tabTitleBox}
+                                        onClick={() =>
+                                            setToggleBox((p) => {
+                                                return { ...p, [id]: !p[id] };
+                                            })
+                                        }
+                                    >
+                                        <div className={css.tabTitleLeft}>
+                                            <div className={css.tabTtl}>{`Section ${id + 1
+                                                }: ${item.section}`}</div>
+                                            <div className={css.tabDesc}>
+                                                <span>
+                                                    {item?.video?.length} Video
+                                                </span>
+                                                <span></span>
+                                                <span>
+                                                    {item.sectionDuration} min
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className={css.tabTitleRight}>
-                                        <IoIosArrowDown />
-                                        {/* <img
+                                        <div className={css.tabTitleRight}>
+                                            <IoIosArrowDown />
+                                            {/* <img
                                             src={downArrowIcon}
                                             alt="down arrow"
                                             className={[
@@ -78,77 +80,78 @@ const CourseContentComponent = (props) => {
                                                     : null,
                                             ].join(" ")}
                                         /> */}
+                                        </div>
                                     </div>
-                                </div>
-                                {toggleBox[id] ? (
-                                    <Link to="" className={css.tabBdy}>
-                                        {item.video?.map((subItem, i) => {
-                                            return (
-                                                <div
-                                                    className={css.descBdy}
-                                                    key={`subItem-${i}`}
-                                                    onClick={() =>
-                                                        onSetUrl(subItem)
-                                                    }
-                                                >
+                                    {toggleBox[id] ? (
+                                        <Link to="" className={css.tabBdy}>
+                                            {item.video?.map((subItem, i) => {
+                                                return (
                                                     <div
-                                                        className={
-                                                            css.descBdyLeft
+                                                        className={css.descBdy}
+                                                        key={`subItem-${i}`}
+                                                        onClick={() =>
+                                                            onSetUrl(subItem)
                                                         }
                                                     >
-                                                        {/* <CustomCheckboxUtil
+                                                        <div
+                                                            className={
+                                                                css.descBdyLeft
+                                                            }
+                                                        >
+                                                            {/* <CustomCheckboxUtil
                                                             extraCss={{
                                                                 width: "40px",
                                                                 gap: "0",
                                                                 margin: "0.5rem",
                                                             }}
                                                         /> */}
-                                                        -
-                                                    </div>
-                                                    <div
-                                                        className={
-                                                            css.descBdyRight
-                                                        }
-                                                    >
-                                                        <div
-                                                            className={
-                                                                css.sbTtl
-                                                            }
-                                                        >
-                                                            {subItem.title}
+                                                            -
                                                         </div>
                                                         <div
                                                             className={
-                                                                css.sbBox
+                                                                css.descBdyRight
                                                             }
                                                         >
-                                                            <span
+                                                            <div
                                                                 className={
-                                                                    css.subDur
+                                                                    css.sbTtl
                                                                 }
                                                             >
-                                                                <AiFillPlayCircle />
+                                                                {subItem.title}
+                                                            </div>
+                                                            <div
+                                                                className={
+                                                                    css.sbBox
+                                                                }
+                                                            >
                                                                 <span
                                                                     className={
-                                                                        css.subDurTxt
+                                                                        css.subDur
                                                                     }
                                                                 >
-                                                                    {
-                                                                        subItem.duration
-                                                                    }{" "}
-                                                                    min
+                                                                    <AiFillPlayCircle />
+                                                                    <span
+                                                                        className={
+                                                                            css.subDurTxt
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            subItem.duration
+                                                                        }{" "}
+                                                                        min
+                                                                    </span>
                                                                 </span>
-                                                            </span>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            );
-                                        })}
-                                    </Link>
-                                ) : null}
-                            </div>
-                        );
-                    })}
+                                                );
+                                            })}
+                                        </Link>
+                                    ) : null}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </div>
