@@ -26,6 +26,7 @@ import instance from "../../../config/instance";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../../service/redux/user";
 import LOCAL_STORAGE from "../../../service/localStorage";
+import LoadingComp from "../../../components/LoadingComp";
 
 const LoggedInUserHomePage = () => {
     const [courses, setCourses] = useState(null);
@@ -70,7 +71,7 @@ const LoggedInUserHomePage = () => {
                     </div>
                     <h1 className={css.colTtl}>Pelajari kursus lainnya</h1>
                     {loading && (
-                        <ReactLoading color="#306de4" width={64} height={64} />
+                        <LoadingComp />
                     )}
                     <div className={css.m1}>
                         {rating && (

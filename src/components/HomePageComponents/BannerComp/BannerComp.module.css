@@ -59,11 +59,13 @@
         top: 5%;
     }
     .ttl {
-        font-size: 1.2rem;
-    }
-
-    .desc {
         font-size: 0.8rem;
+    }
+    .box {
+        padding: 0.6rem;
+    }
+    .desc {
+        font-size: 0.6rem;
     }
 }
 @media screen and (max-width: 426px) {

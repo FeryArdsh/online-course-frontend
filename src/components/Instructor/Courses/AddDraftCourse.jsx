@@ -178,6 +178,7 @@ const AddDraftCourse = () => {
                     onChange={changeHanlder}
                     required
                 />
+                <span style={{ color: "blue" }}>*Untuk memberi kursus gratis masukkan angka 0 "nol"</span>
                 {/* ============= */}
                 <label htmlFor="img">Gambar Promosi</label>
                 <input type="file" name="img" onChange={changeImg} required />

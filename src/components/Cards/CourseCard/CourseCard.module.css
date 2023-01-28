@@ -32,6 +32,15 @@
     padding: 0.5rem;
 }
 
+.gratis {
+    border: 2px solid rgb(255, 79, 79);
+    color: rgb(255, 79, 79);
+    font-weight: bold;
+    font-size: 12px;
+    padding: 4px 8px;
+    margin-top: 10px;
+    display: inline-block;
+}
 .ttl {
     width: 100%;
     line-height: 1.5em;

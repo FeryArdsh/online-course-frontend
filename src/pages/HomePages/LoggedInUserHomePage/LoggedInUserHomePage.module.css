@@ -1,24 +1,28 @@
 .ma {
-  width: 80%;
-  margin: auto;
+    width: 80%;
+    margin: auto;
 }
 
 .m1 {
-  width: 100%;
-  margin: 2rem 0;
+    width: 100%;
+    margin: 2rem 0;
 }
 
 .banner {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .colTtl {
-  font-size: 2rem;
-  font-weight: 700;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
-@media screen and (max-width: 320px) {
-  .banner {
-    display: none;
-  }
+@media screen and (max-width: 426px) {
+    .banner {
+        display: none;
+    }
+    .colTtl {
+        font-size: 1.5rem;
+        margin-top: 20px;
+    }
 }

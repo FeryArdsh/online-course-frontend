@@ -1,8 +1,10 @@
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import instance from "../../config/instance";
+import { removeCart } from "../../service/redux/cart";
 
 const nameCourse = "How to be rich";
 const style = { layout: "vertical" };
@@ -11,6 +13,7 @@ const PaypalBtn = ({ currency, showSpinner, amount, courseId }) => {
     const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
     const getIds = courseId?.cart?.map((item) => item._id);
     const navigate = useNavigate();
+    const dispatchRedux = useDispatch()
 
     useEffect(() => {
         dispatch({
@@ -28,6 +31,7 @@ const PaypalBtn = ({ currency, showSpinner, amount, courseId }) => {
                 data: getIds,
             });
             console.log(res);
+            dispatchRedux(removeCart())
             await Swal.fire("Berhasil membeli kursus", "", "success");
             navigate("/user/my-courses/learning");
         } catch (error) {

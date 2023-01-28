@@ -65,12 +65,15 @@ const CourseCard = (props) => {
                             <div className={css.noOfRats}>({numOfRatings})</div>
                         </div>
                         <div className={css.prc}>
-                            <span className={css.newPrc}>
-                                {new Intl.NumberFormat("id-ID", {
-                                    style: "currency",
-                                    currency: "IDR",
-                                }).format(newPrc)}
-                            </span>
+                            {
+                                newPrc === 0 ? <span className={css.gratis}>KURSUS GRATIS</span> : <span className={css.newPrc}>
+                                    {new Intl.NumberFormat("id-ID", {
+                                        style: "currency",
+                                        currency: "IDR",
+                                    }).format(newPrc)}
+                                </span>
+                            }
+
                             {newPrc !== prc && (
                                 <span className={css.oldPrc}>
                                     {new Intl.NumberFormat("id-ID", {

@@ -33,7 +33,7 @@ const CheckoutCourseCard = (props) => {
     const dispatch = useDispatch();
 
     return (
-        <Link className={css.outerDiv} to={link}>
+        <Link className={css.outerDiv} to={`/course/${_id}`}>
             <div className={css.box1}>
                 <div className={css.imgBox}>
                     <img

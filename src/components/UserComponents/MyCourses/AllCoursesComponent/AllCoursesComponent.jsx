@@ -254,6 +254,13 @@ const AllCoursesComponent = () => {
                 {loading && (
                     <ReactLoading color="#306de4" width={70} height={70} />
                 )}
+                {
+                    course?.length === 0 && <div className={css.outerEmpty}>
+                        <h4 className={css.emptyCourse}>Kursus Kamu belum ada nih!!!</h4>
+                        <br />
+                        <span className={css.emptyLink}>Yuk <Link to="/">beli</Link> kursus terlebih dahulu </span>
+                    </div>
+                }
                 {course?.map((item, inde) => {
                     return (
                         <CourseCardWithOptions

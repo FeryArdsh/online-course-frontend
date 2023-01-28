@@ -11,15 +11,36 @@ import CheckoutCourseCard from "../../components/Cards/CheckoutCourseCard/Checko
 import cardImg from "/images/card.jpg";
 import crossIcon from "/icons/close.png";
 import { BsCartX } from "react-icons/bs";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import instance from "../../config/instance";
+import Swal from "sweetalert2";
+import { removeCart } from "../../service/redux/cart";
 
 const Cart = () => {
     const courseInCart = useSelector((state) => state.cartData);
-
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
     const totalPrice = courseInCart?.cart?.reduce((accumulator, object) => {
         return accumulator + object.newPrc;
     }, 0);
+
+    const getIds = courseInCart?.cart?.map((item) => item._id);
+    const postFreeCourse = async (e) => {
+        e.preventDefault()
+        try {
+            const res = await instance.post("course/purchase", {
+                data: getIds,
+            });
+            console.log(res);
+            dispatch(removeCart())
+            await Swal.fire("Berhasil membeli kursus", "", "success");
+            navigate("/user/my-courses/learning");
+        } catch (error) {
+            console.log(error);
+            await Swal.fire(error?.response?.data?.message, "", "error");
+        }
+    };
 
     return (
         <>
@@ -69,6 +90,19 @@ const Cart = () => {
                                 <div className={css.ttlDisPer}>
                                     {courseInCart.disc}% off
                                 </div> */}
+                                {
+                                    totalPrice <= 1 && courseInCart?.cart?.length >= 1 &&
+                                    <Button1 txt="Ambil Kursus" bck="var(--primary)"
+                                        hovBck="var(--primary-dark)"
+                                        onClick={postFreeCourse}
+                                        extraCss={{
+                                            width: "100%",
+                                            margin: "1rem 0",
+                                            padding: "1rem",
+                                            border: "none",
+                                            color: "var(--white)",
+                                        }} />
+                                }
                                 {totalPrice >= 1 && (
                                     <Button1
                                         link="/checkout"
