@@ -10,6 +10,7 @@ import lock from "/icons/lock.png";
 import css from "./Signup.module.css";
 import instance from "../../../config/instance";
 import Swal from "sweetalert2";
+import LoadingComp from "../../../components/LoadingComp";
 
 const Signup = () => {
     const [state, setState] = useState({
@@ -19,6 +20,7 @@ const Signup = () => {
         check: true,
     });
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
 
     let changeHanlder = (e) => {
@@ -39,6 +41,7 @@ const Signup = () => {
             return setError(true);
         }
         setError(false);
+        setLoading(true)
         const { name, email, password } = state;
         try {
             const response = await instance.post("signup", {
@@ -52,8 +55,10 @@ const Signup = () => {
                 icon: "success",
                 timer: 2000,
             });
+            setLoading(false)
             navigate("/join/login");
         } catch (error) {
+            setLoading(false)
             Swal.fire({ title: error.response.data.message, icon: "error" });
             console.log(error);
         }
@@ -114,19 +119,20 @@ const Signup = () => {
                                 state={state.check}
                                 onChange={checkboxChangeHanlder}
                             /> */}
-                            <Button1
-                                txt="Daftar"
-                                color="var(--white)"
-                                bck="var(--primary)"
-                                hovBck="var(--primary-dark)"
-                                extraCss={{
-                                    width: "100%",
-                                    margin: "7px 0",
-                                    border: "none",
-                                    padding: "1rem",
-                                }}
-                                onClick={submitHandler}
-                            />
+                            {loading ? <LoadingComp /> :
+                                <Button1
+                                    txt="Daftar"
+                                    color="var(--white)"
+                                    bck="var(--primary)"
+                                    hovBck="var(--primary-dark)"
+                                    extraCss={{
+                                        width: "100%",
+                                        margin: "7px 0",
+                                        border: "none",
+                                        padding: "1rem",
+                                    }}
+                                    onClick={submitHandler}
+                                />}
                             <div className={css.blck}>
                                 <span className={css.blckTxt}>
                                     By signing up, you agree to our

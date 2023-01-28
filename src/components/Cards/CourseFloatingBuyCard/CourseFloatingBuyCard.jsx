@@ -32,6 +32,7 @@ const CourseFloatingBuyCard = (props) => {
         subTtl = "English",
     } = props?.data;
     const cart = useSelector((state) => state.cartData.cart);
+    const courseTaken = useSelector((state) => state.userData.data.coursesTaken);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { scrolled, setCoupon, applyCoupon, setApplyCoupon, setShareModal, setVideoPrev } =
@@ -50,6 +51,10 @@ const CourseFloatingBuyCard = (props) => {
         const findId = cart.find((item) => item._id === props?.data?._id);
         if (findId) {
             return Swal.fire("Kursus sudah ada", "", "error");
+        }
+        if (courseTaken.includes(props?.data?._id)) {
+            Swal.fire("Kamu sudah membeli kursus ini", "", "error")
+            return navigate("/user/my-courses/learning")
         }
         dispatch(addCart(props?.data));
         Swal.fire("Berhasil menambah kursus", "", "success");

@@ -4,11 +4,13 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import instance from "../../../config/instance";
 import { updateInstructor } from "../../../service/redux/user";
+import LoadingComp from "../../LoadingComp";
 import css from "./index.module.css";
 
 const InstructorCourses = () => {
     const user = useSelector((state) => state.userData.data);
     const [course, setCourse] = useState(null);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -64,8 +66,15 @@ const InstructorCourses = () => {
     useEffect(() => {
         if (user.isInstructor) {
             const fetchData = async () => {
-                const response = await instance.get("courses/instructor");
-                setCourse(response.data.courses);
+                setLoading(true);
+                try {
+                    const response = await instance.get("courses/instructor");
+                    setCourse(response.data.courses);
+                    setLoading(false);
+                } catch (error) {
+                    setLoading(false);
+                    console.log(error)
+                }
             };
             fetchData();
         }
@@ -78,6 +87,7 @@ const InstructorCourses = () => {
                 Tambah Kursus +
             </Link>
             <div>
+                {loading && <LoadingComp />}
                 {course?.length === 0 && (
                     <div className={css.listCourse}>
                         <h2 className={css.editCourse}>

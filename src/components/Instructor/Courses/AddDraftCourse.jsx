@@ -113,10 +113,11 @@ const AddDraftCourse = () => {
 
     return (
         <div>
-            <h2>Tambah Kursus Baru Anda</h2>
+            <h2 style={{ textAlign: "center" }}>Tambah Kursus Baru Anda</h2>
             <form className={css.containerDraf} onSubmit={handleSubmit}>
                 <label htmlFor="ttl">Title</label>
                 <input
+                    className={css.input}
                     type="text"
                     name="ttl"
                     onChange={changeHanlder}
@@ -125,6 +126,7 @@ const AddDraftCourse = () => {
                 {/* ============= */}
                 <label htmlFor="desc">Deskripsi Singkat</label>
                 <input
+                    className={css.input}
                     type="text"
                     name="desc"
                     onChange={changeHanlder}
@@ -133,6 +135,7 @@ const AddDraftCourse = () => {
                 {/* ============= */}
                 <label htmlFor="fullDesc">Deskripsi Lengkap</label>
                 <textarea
+                    className={css.input}
                     name="fullDesc"
                     id=""
                     cols="30"
@@ -143,6 +146,7 @@ const AddDraftCourse = () => {
                 {/* ============= */}
                 <label htmlFor="level">Tingkat</label>
                 <select
+                    className={css.input}
                     name="level"
                     id="level"
                     onChange={changeHanlder}
@@ -157,6 +161,7 @@ const AddDraftCourse = () => {
                 {/* ============= */}
                 <label htmlFor="category">Category</label>
                 <select
+                    className={css.input}
                     name="category"
                     id="category"
                     onChange={changeHanlder}
@@ -172,25 +177,33 @@ const AddDraftCourse = () => {
                 {/* ============= */}
                 <label htmlFor="prc">Harga</label>
                 <input
+                    className={css.input}
                     type="text"
                     placeholder="Dalam rupiah, Contoh 45000"
                     name="prc"
                     onChange={changeHanlder}
                     required
                 />
-                <span style={{ color: "blue" }}>*Untuk memberi kursus gratis masukkan angka 0 "nol"</span>
+                <span style={{ color: "green", marginTop: "-10px", marginBottom: "10px" }}>*Untuk memberi kursus gratis masukkan angka 0 "nol"</span>
                 {/* ============= */}
-                <label htmlFor="img">Gambar Promosi</label>
-                <input type="file" name="img" onChange={changeImg} required />
-                {/* ============= */}
-                <label>Video Promosi</label>
-                <input
-                    type="file"
-                    name="video"
-                    accept="video/mp4,video/x-m4v,video/*"
-                    required
-                    onChange={submitVideoTest}
-                />
+                <div className={css.contFile}>
+                    <span className={css.outerFile}>
+                        <label htmlFor="img">Gambar Promosi</label>
+                        <input className={css.inputFile} type="file" name="img" onChange={changeImg} required />
+                    </span>
+                    {/* ============= */}
+                    <span className={css.outerFile}>
+                        <label>Video Promosi</label>
+                        <input
+                            className={css.inputFile}
+                            type="file"
+                            name="video"
+                            accept="video/mp4,video/x-m4v,video/*"
+                            required
+                            onChange={submitVideoTest}
+                        />
+                    </span>
+                </div>
                 {progresspercent >= 1 &&
                     progresspercent <= 99 && (
                         <progress
@@ -205,6 +218,7 @@ const AddDraftCourse = () => {
                 {data?.courseRequirements.map((item, i) => (
                     <div key={i}>
                         <input
+                            className={css.input}
                             type="text"
                             name="text"
                             placeholder={"Syarat ke " + (i + 1)}
@@ -221,10 +235,10 @@ const AddDraftCourse = () => {
                         ) : null}
                     </div>
                 ))}
-                <button type="button" onClick={addFormFields}>
-                    Add
+                <button className={css.addReqCourse} type="button" onClick={addFormFields}>
+                    Tambah Syarat
                 </button>
-                <button type="submit">Save</button>
+                <button type="submit" className={css.submit}>Simpan</button>
             </form>
         </div>
     );

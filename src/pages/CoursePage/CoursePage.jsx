@@ -26,12 +26,12 @@ import CourseInstructorComp from "../../components/CourseComponents/CourseInstru
 import CourseCard from "../../components/Cards/CourseCard/CourseCard";
 import ShareCourseCard from "../../components/Cards/ShareCourseCard/ShareCourseCard";
 import CourseDetailsTabComp from "../../components/CourseComponents/CourseDetailsTabComp/CourseDetailsTabComp";
-import ReactLoading from "react-loading";
 
 import Button1 from "../../utils/Buttons/Button1/Button1";
 
 import css from "./CoursePage.module.css";
 import instance from "../../config/instance.js";
+import LoadingComp from "../../components/LoadingComp/index.jsx";
 
 const CoursePage = () => {
     const [shareModal, setShareModal] = useState(false);
@@ -75,11 +75,7 @@ const CoursePage = () => {
             <Layout1>
                 {loading ? (
                     <div className={css.loadingCourse}>
-                        <ReactLoading
-                            color="#306de4"
-                            width={100}
-                            height={100}
-                        />
+                        <LoadingComp />
                     </div>
                 ) : (
                     <div className={css.outerDiv}>

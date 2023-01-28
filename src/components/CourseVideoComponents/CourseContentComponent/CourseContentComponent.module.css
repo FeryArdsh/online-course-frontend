@@ -41,12 +41,16 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-around;
+    padding: 20px 0;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.062);
+    min-height: 700px;
 }
 
 .vid {
     display: flex;
     justify-content: center;
     width: 100%;
+    border-left: 1px solid rgba(0, 0, 0, 0.116);
 }
 
 .conTab {
@@ -67,6 +71,7 @@
 @media screen and (max-width: 768px) {
     .bdy {
         flex-direction: column;
+        min-height: auto;
     }
     .conTab {
         width: 100%;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AiFillPlayCircle, AiOutlineClose } from "react-icons/ai";
+import { AiFillPlayCircle } from "react-icons/ai";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from "react-router-dom";
 
@@ -40,10 +40,15 @@ const CourseContentComponent = (props) => {
                 </div>
                 <div className={css.bdy}>
                     <div className={css.vid}>
-                        <VideoPlayer src={urlVideo} />
+                        {urlVideo &&
+                            <VideoPlayer src={urlVideo} />
+                        }
                     </div>
                     <div className={css.conTab}>
-                        <h3 className={css.ttlVid}>{titleVid}</h3>
+                        {titleVid ?
+
+                            <h3 className={css.ttlVid}>{titleVid}</h3> : <h3 className={css.ttlVid}>Pilih Video</h3>
+                        }
                         {data?.map((item, id) => {
                             return (
                                 <div className={css.tab} key={`tab-${id}`}>

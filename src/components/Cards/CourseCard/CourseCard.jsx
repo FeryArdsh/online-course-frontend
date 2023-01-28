@@ -20,6 +20,7 @@ const CourseCard = (props) => {
         totalDuration = 0,
     } = props?.data;
     const cart = useSelector((state) => state.cartData.cart);
+    const courseTaken = useSelector((state) => state.userData.data.coursesTaken);
     const dispatch = useDispatch();
     const extraCss = props.extraCss;
 
@@ -27,6 +28,9 @@ const CourseCard = (props) => {
         const findId = cart.find((item) => item._id === props?.data?._id);
         if (findId) {
             return Swal.fire("Kursus sudah ada", "", "error");
+        }
+        if (courseTaken.includes(props?.data?._id)) {
+            return Swal.fire("Kamu sudah membeli kursus ini", "", "error");
         }
         dispatch(addCart(props?.data));
         Swal.fire("Berhasil menambah kursus", "", "success");

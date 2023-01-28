@@ -15,6 +15,7 @@ import css from "./Login.module.css";
 import instance from "../../../config/instance";
 import LOCAL_STORAGE from "../../../service/localStorage";
 import Swal from "sweetalert2";
+import LoadingComp from "../../../components/LoadingComp";
 
 const login = () => {
     const [state, setState] = useState({
@@ -22,6 +23,7 @@ const login = () => {
         password: "",
     });
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
     // const dispatch = useDispatch();
 
@@ -43,6 +45,7 @@ const login = () => {
             return;
         }
         setError(false);
+        setLoading(true)
         try {
             const response = await instance.post("login", {
                 email: state.email,
@@ -55,8 +58,10 @@ const login = () => {
                 icon: "success",
                 timer: 2000,
             });
+            setLoading(false)
             navigate("/");
         } catch (error) {
+            setLoading(false)
             if (error?.response?.status === 404) {
                 return Swal.fire({
                     title: "Email atau password salah",
@@ -124,19 +129,20 @@ const login = () => {
                                 placeholderTxt="Password"
                                 onChange={changeHanlder}
                             />
-                            <Button1
-                                txt="Login"
-                                color="var(--white)"
-                                bck="var(--primary)"
-                                hovBck="var(--primary-dark)"
-                                extraCss={{
-                                    width: "100%",
-                                    margin: "7px 0px",
-                                    border: "none",
-                                    padding: "1rem",
-                                }}
-                                onClick={submitHandler}
-                            />
+                            {loading ? <LoadingComp /> :
+                                <Button1
+                                    txt="Login"
+                                    color="var(--white)"
+                                    bck="var(--primary)"
+                                    hovBck="var(--primary-dark)"
+                                    extraCss={{
+                                        width: "100%",
+                                        margin: "7px 0px",
+                                        border: "none",
+                                        padding: "1rem",
+                                    }}
+                                    onClick={submitHandler}
+                                />}
                             <div className={css.blck}>
                                 <Link
                                     to="/join/forgot-password"

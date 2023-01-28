@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import InputUtil from "../../../../utils/FormUtils/InputUtil/InputUtil";
 import SelectDropdownUtil from "../../../../utils/FormUtils/SelectDropdownUtil/SelectDropdownUtil";
 import CourseCardWithOptions from "../../../Cards/CourseCardWithOptions/CourseCardWithOptions";
-import ReactLoading from "react-loading";
 
 import searchIcon from "/icons/search.png";
 import shareIcon from "/icons/share.png";
@@ -16,6 +15,7 @@ import { courseDataWithOptions } from "../../../../fakedata/fakedata";
 import css from "./AllCoursesComponent.module.css";
 import instance from "../../../../config/instance";
 import LOCAL_STORAGE from "../../../../service/localStorage";
+import LoadingComp from "../../../LoadingComp";
 
 const AllCoursesComponent = () => {
     const [course, setCourse] = useState(null);
@@ -252,7 +252,7 @@ const AllCoursesComponent = () => {
             </div>
             <div className={css.bdy}>
                 {loading && (
-                    <ReactLoading color="#306de4" width={70} height={70} />
+                    <LoadingComp />
                 )}
                 {
                     course?.length === 0 && <div className={css.outerEmpty}>

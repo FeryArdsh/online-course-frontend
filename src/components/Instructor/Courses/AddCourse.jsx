@@ -11,11 +11,14 @@ import {
     deleteObject,
 } from "firebase/storage";
 import Swal from "sweetalert2";
+import LoadingComp from "../../LoadingComp";
+import css from "./index.module.css"
 
 const AddCourse = () => {
     const { id } = useParams();
     const [videoUrl, setVideoUrl] = useState(null);
     const [durVid, setDurVid] = useState(null);
+    const [loading, setLoading] = useState(false)
     const [progresspercent, setProgresspercent] = useState(0);
     const [course, setCourse] = useState(null);
     const [datavideo, setDatavideo] = useState([
@@ -27,8 +30,15 @@ const AddCourse = () => {
     const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
-            const response = await instance.get("course/" + id);
-            setCourse(response.data.course);
+            setLoading(true)
+            try {
+                const response = await instance.get("course/" + id);
+                setCourse(response.data.course);
+                setLoading(false)
+            } catch (error) {
+                setLoading(false)
+                console.log(error)
+            }
         };
         fetchData();
     }, []);
@@ -133,33 +143,37 @@ const AddCourse = () => {
         <div>
             <h2>Tambah Video Kursus</h2>
             <hr />
-            <h3>{course?.ttl}</h3>
-            <form onSubmit={onSubmitVideo}>
+            {loading && <LoadingComp />}
+            <h2 style={{ textAlign: "center" }}>{course?.ttl}</h2>
+            <form onSubmit={onSubmitVideo} className={css.containerDraf}>
                 {datavideo.map((item, i) => (
-                    <div key={i}>
+                    <div key={i} className={css.outerVideoInput}>
                         <h4>Title Section</h4>
+                        {i === 0 ? (
+                            <button
+                                className={css.addSection}
+                                type="button"
+                                onClick={handleClickAddSection}
+                            >
+                                <AiOutlinePlusCircle size={30} />
+                            </button>
+                        ) : (
+                            <button
+                                className={css.deleteButton}
+
+                                type="button"
+                                onClick={(e) => handleClickDeleteSection(e, i)}
+                            >
+                                <AiFillDelete size={26} />
+                            </button>
+                        )}
                         <input
+                            className={css.input}
                             type="text"
                             name="section"
                             required
                             onChange={(e) => onChangeSection(e, i)}
                         />
-                        {i === 0 ? (
-                            <button
-                                type="button"
-                                onClick={handleClickAddSection}
-                            >
-                                <AiOutlinePlusCircle />
-                            </button>
-                        ) : (
-                            <button
-                                type="button"
-                                onClick={(e) => handleClickDeleteSection(e, i)}
-                            >
-                                <AiFillDelete />
-                            </button>
-                        )}
-                        <br />
                         <div>
                             {item.video.map((vid, iVideo) => (
                                 <div key={iVideo}>
@@ -204,18 +218,17 @@ const AddCourse = () => {
                             ))}
                             <br />
                             <button
+                                className={css.addReqCourse}
                                 type="button"
                                 onClick={(e) => handleClickAddVideo(e, i)}
                             >
-                                <AiOutlinePlusCircle />
+                                <AiOutlinePlusCircle size={20} />
                                 Tambah Video
                             </button>
                         </div>
-                        <br />
-                        <br />
                     </div>
                 ))}
-                <button type="submit">Simpan dan Publish</button>
+                <button type="submit" className={css.submit}>Simpan dan Publish</button>
             </form>
         </div>
     );
