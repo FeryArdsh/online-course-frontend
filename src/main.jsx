@@ -35,6 +35,7 @@ import InstructorCourses from "./components/Instructor/Courses";
 import AddCourse from "./components/Instructor/Courses/AddCourse";
 import AddDraftCourse from "./components/Instructor/Courses/AddDraftCourse";
 import CoursePageView from "./pages/CoursePageView";
+import Quiz from "./pages/Quiz";
 
 let routes;
 routes = [
@@ -155,6 +156,10 @@ routes = [
             {
                 path: "/course/view/:id",
                 element: <CoursePageView />,
+            },
+            {
+                path: "/quiz/:id",
+                element: <Quiz />,
             },
             {
                 path: "/test",

@@ -2,10 +2,10 @@ import { useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from "react-router-dom";
-
+import card3 from "/images/card3.jpg"
 import CustomCheckboxUtil from "../../../utils/FormUtils/CustomCheckboxUtil/CustomCheckboxUtil";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
-
+import { RiLock2Fill } from "react-icons/ri"
 // import closeIcon from "/icons/close.png";
 // import playIcon from "/icons/play-button.png";
 // import downArrowIcon from "/icons/down-arrow.svg";
@@ -43,6 +43,14 @@ const CourseContentComponent = (props) => {
                         {urlVideo &&
                             <VideoPlayer src={urlVideo} />
                         }
+                        <h4 className={css.ttlSer}>SERTIFIKAT</h4>
+                        <div className={css.sertificate}>
+                            <img className={css.imgSer} src={card3} alt="Sertifikat" />
+                            <span className={css.lockSer}>
+                                <RiLock2Fill size={50} />
+                                <h5>Selesaikan Ujian untuk Mendapatkan Sertifikat</h5>
+                            </span>
+                        </div>
                     </div>
                     <div className={css.conTab}>
                         {titleVid ?
