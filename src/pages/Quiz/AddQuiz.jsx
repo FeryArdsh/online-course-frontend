@@ -16,6 +16,37 @@ const AddQuiz = () => {
             c: "",
             d: "",
             correct: ""
+        },
+        {
+            title: "",
+            a: "",
+            b: "",
+            c: "",
+            d: "",
+            correct: ""
+        },
+        {
+            title: "",
+            a: "",
+            b: "",
+            c: "",
+            d: "",
+            correct: ""
+        }
+        , {
+            title: "",
+            a: "",
+            b: "",
+            c: "",
+            d: "",
+            correct: ""
+        }, {
+            title: "",
+            a: "",
+            b: "",
+            c: "",
+            d: "",
+            correct: ""
         }
     ])
     const question = [1, 2, 3, 4, 5]
@@ -24,14 +55,35 @@ const AddQuiz = () => {
         e.preventDefault()
         console.log("Wauuuuu");
     }
-    const changeHanlder = (e, index) => {
-        console.log(e.target.value)
-        console.log(index);
+
+    const onChangeTitle = (e, index) => {
+        const value = e.target.value
+        const state = [...quizz]
+        state[index].title = value;
+        setQuizz(state);
     }
 
-    const onCorrect = (e) => {
-        console.log(e.target.style.color = "green")
+    const onChangeAnswer = (event, e, index, i) => {
+        const value = event.target.value;
+        const optionAnswer = e.toLowerCase()
+
+        const newArray = quizz.map((item, indexx) => {
+            if (indexx === index) {
+                return { ...item, [optionAnswer]: value }
+            } else {
+                return item
+            }
+        })
+        setQuizz(newArray)
     }
+
+    const onCorrect = (e, index, i) => {
+        const optionAnswer = e.target.value.toLowerCase()
+        const state = [...quizz]
+        state[index].correct = optionAnswer;
+        setQuizz(state);
+    }
+
     return (
         <div>
             <StepAddCourse number={3} />
@@ -44,29 +96,30 @@ const AddQuiz = () => {
                             <input
                                 className={css.input}
                                 type="text"
-                                name="ttl"
+                                name="title"
                                 placeholder={"Soal No. " + element}
-                                onChange={(e) => changeHanlder(e, index)}
+                                onChange={(e) => onChangeTitle(e, index)}
                                 required
                             />
                             <ol type='A' className={css.optionAns}>
                                 {answer.map((e, i) => (
                                     <li key={i} className={css.answerInput}>
-                                        <label htmlFor="">
-                                            <input
-                                                className={css.input}
-                                                type="text"
-                                                name={i}
-                                                placeholder={'Pilihan Jawaban ' + e}
-                                                onChange={changeHanlder}
-                                                required
-                                            />
+                                        <input
+                                            className={css.input}
+                                            type="text"
+                                            name={element + index + e + i}
+                                            placeholder={'Pilihan Jawaban ' + e}
+                                            onChange={(event) => onChangeAnswer(event, e, index, i)}
+                                            required
+                                        />
+                                        <label>
+                                            <input type="radio" id={element + index + e + i} name={index} value={e} required onChange={(event) => onCorrect(event, index, i)}></input>
+                                            <span>
+                                                <AiOutlineCheckCircle size={24} />
+                                            </span>
                                         </label>
-                                        <input type="radio" id="html" name="ans" value="HTML"></input>
-                                        {/* <button className={css.correct} type="button" onClick={onCorrect}><AiOutlineCheckCircle size={24} /></button> */}
                                     </li>
                                 ))}
-
                             </ol>
                         </li>
                     ))}
@@ -84,11 +137,6 @@ const AddQuiz = () => {
                         padding: "1rem",
                     }}
                 />
-                <select>
-                    <option value="A">Apple</option>
-                    <option value="B">Banana</option>
-                    <option value="C">Cranberry</option>
-                </select>
             </form>
         </div>
     )
