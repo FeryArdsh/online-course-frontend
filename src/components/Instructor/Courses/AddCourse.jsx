@@ -13,6 +13,7 @@ import {
 import Swal from "sweetalert2";
 import LoadingComp from "../../LoadingComp";
 import css from "./index.module.css"
+import StepAddCourse from "../../StepAddCourse";
 
 const AddCourse = () => {
     const { id } = useParams();
@@ -141,7 +142,8 @@ const AddCourse = () => {
 
     return (
         <div>
-            <h2>Tambah Video Kursus</h2>
+            <StepAddCourse number={2} />
+            <h2 style={{ textAlign: "center" }}>Tambah Video Kursus</h2>
             <hr />
             {loading && <LoadingComp />}
             <h2 style={{ textAlign: "center" }}>{course?.ttl}</h2>

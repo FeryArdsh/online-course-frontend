@@ -1,0 +1,75 @@
+.container {
+    box-shadow: 5px 5px 40px 5px rgba(0, 0, 0, 0.288);
+    border: 4px solid var(--gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 30%;
+    margin: 100px auto;
+    padding: 20px 50px;
+}
+
+.innerDiv {
+    padding-top: 20px;
+}
+
+.listQues {
+    list-style-type: decimal;
+    margin: 20px 0;
+}
+
+.listQuesNone {
+    list-style-type: none;
+}
+
+.option {
+    cursor: pointer;
+    padding: 3px;
+}
+
+.option:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.containerDraf {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 50%;
+    margin-top: 20px;
+    min-height: 600px;
+    margin: auto;
+}
+
+.input {
+    border: 2px solid black;
+    padding: 5px 5px;
+    width: 100%;
+}
+
+.listQues {
+    margin-top: 10px;
+}
+
+.optionAns {
+    padding: 0 20px;
+}
+
+.answerInput {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.correct {
+    background-color: transparent;
+    color: gray;
+    border: none;
+    cursor: pointer;
+}
+
+.correct:hover {
+    color: green;
+}

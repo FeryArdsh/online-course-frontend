@@ -11,6 +11,7 @@ import {
     uploadBytesResumable,
     deleteObject,
 } from "firebase/storage";
+import StepAddCourse from "../../StepAddCourse";
 
 const AddDraftCourse = () => {
     const [data, setData] = useState({
@@ -113,7 +114,9 @@ const AddDraftCourse = () => {
 
     return (
         <div>
+            <StepAddCourse number={1} />
             <h2 style={{ textAlign: "center" }}>Tambah Kursus Baru Anda</h2>
+            <hr />
             <form className={css.containerDraf} onSubmit={handleSubmit}>
                 <label htmlFor="ttl">Title</label>
                 <input
