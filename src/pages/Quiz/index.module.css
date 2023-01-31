@@ -11,7 +11,7 @@
 }
 
 .innerDiv {
-    padding-top: 20px;
+    padding-top: 30px;
 }
 
 .listQues {
@@ -72,6 +72,13 @@
 
 .correct:hover {
     color: green;
+}
+
+.theAnswer {
+    color: rgb(214, 47, 47);
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
 }
 
 [type="radio"] {

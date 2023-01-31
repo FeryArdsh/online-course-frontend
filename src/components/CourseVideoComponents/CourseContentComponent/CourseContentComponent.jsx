@@ -12,9 +12,10 @@ import { RiLock2Fill } from "react-icons/ri"
 // import openFolderIcon from "/icons/open-folder.png";
 
 import css from "./CourseContentComponent.module.css";
+import ButtonQuiz from "../../../utils/Buttons/ButtonQuiz";
 
 const CourseContentComponent = (props) => {
-    const { title = "", data = [] } = props;
+    const { title = "", data = [], paramId = "" } = props;
     const [toggleBox, setToggleBox] = useState({});
     const [titleVid, setTitleVid] = useState("");
     const [urlVideo, setUrlVideo] = useState("");
@@ -54,7 +55,6 @@ const CourseContentComponent = (props) => {
                     </div>
                     <div className={css.conTab}>
                         {titleVid ?
-
                             <h3 className={css.ttlVid}>{titleVid}</h3> : <h3 className={css.ttlVid}>Pilih Video</h3>
                         }
                         {data?.map((item, id) => {
@@ -164,6 +164,9 @@ const CourseContentComponent = (props) => {
                                 </div>
                             );
                         })}
+                        <Link to={"/quiz/" + paramId} className={css.linkQuiz}>
+                            <ButtonQuiz />
+                        </Link>
                     </div>
                 </div>
             </div>

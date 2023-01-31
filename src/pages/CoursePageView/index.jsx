@@ -33,6 +33,7 @@ const CoursePageView = () => {
                 <CourseContentComponent
                     title="Course Content"
                     data={course?.videos}
+                    paramId={id}
                 />
             }
         </div>
