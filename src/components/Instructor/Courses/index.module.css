@@ -37,6 +37,9 @@
     text-align: center;
 }
 
+.editCourse:hover {
+    color: blue;
+}
 .containerDraf {
     display: flex;
     flex-direction: column;

@@ -17,8 +17,6 @@ import StepAddCourse from "../../StepAddCourse";
 
 const AddCourse = () => {
     const { id } = useParams();
-    const [videoUrl, setVideoUrl] = useState(null);
-    const [durVid, setDurVid] = useState(null);
     const [loading, setLoading] = useState(false)
     const [progresspercent, setProgresspercent] = useState(0);
     const [course, setCourse] = useState(null);
@@ -39,10 +37,18 @@ const AddCourse = () => {
             } catch (error) {
                 setLoading(false)
                 console.log(error)
+                return navigate("/user/profile/add-courses/draf");
             }
         };
         fetchData();
     }, []);
+
+    useEffect(() => {
+        if (course?.videos.length >= 1) {
+            return navigate("/user/profile/add-courses/quiz/" + id);
+        }
+    }, [course])
+
 
     // ================== Section =====================
     const handleClickAddSection = () => {
@@ -132,7 +138,7 @@ const AddCourse = () => {
                 datavideo
             );
             await Swal.fire("Berhasil publish course", "", "success");
-            navigate("/user/profile/courses");
+            navigate("/user/profile/add-courses/quiz/" + id);
             console.log(response);
         } catch (error) {
             await Swal.fire("Error submit data", "", "error");
@@ -146,7 +152,7 @@ const AddCourse = () => {
             <h2 style={{ textAlign: "center" }}>Tambah Video Kursus</h2>
             <hr />
             {loading && <LoadingComp />}
-            <h2 style={{ textAlign: "center" }}>{course?.ttl}</h2>
+            <h3 style={{ textAlign: "center" }}>{course?.ttl}</h3>
             <form onSubmit={onSubmitVideo} className={css.containerDraf}>
                 {datavideo.map((item, i) => (
                     <div key={i} className={css.outerVideoInput}>
@@ -230,7 +236,7 @@ const AddCourse = () => {
                         </div>
                     </div>
                 ))}
-                <button type="submit" className={css.submit}>Simpan dan Publish</button>
+                <button type="submit" className={css.submit}>Lanjut</button>
             </form>
         </div>
     );

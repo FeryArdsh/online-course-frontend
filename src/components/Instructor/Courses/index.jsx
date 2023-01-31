@@ -79,7 +79,7 @@ const InstructorCourses = () => {
             fetchData();
         }
     }, []);
-    console.log(course);
+
     return (
         <div className={css.containerCourse}>
             <h2>Kursus</h2>
@@ -101,9 +101,9 @@ const InstructorCourses = () => {
                         <h3>{item.ttl}</h3>
                         {item.publish ? <i>Publik</i> : <i>Draf</i>}
                         <p>Total Durasi Video: {item.totalDuration} menit</p>
-                        <Link to="/edit-course" className={css.editCourse}>
-                            Edit/Selesaikan
-                        </Link>
+                        {!item.publish && <Link to={`/user/profile/add-courses/${item._id}`} className={css.editCourse}>
+                            Selesaikan Publish
+                        </Link>}
                     </div>
                 ))}
             </div>

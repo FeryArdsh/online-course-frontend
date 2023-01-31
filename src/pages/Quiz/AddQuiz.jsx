@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import StepAddCourse from '../../components/StepAddCourse'
 import Button1 from '../../utils/Buttons/Button1/Button1'
 import css from "./index.module.css"
 import { AiOutlineCheckCircle } from "react-icons/ai"
+import instance from '../../config/instance'
+import LoadingComp from '../../components/LoadingComp'
+import Swal from 'sweetalert2'
 
 const AddQuiz = () => {
     const { id } = useParams()
+    const [loading, setLoading] = useState(false)
+    const [course, setCourse] = useState(null);
     const [quizz, setQuizz] = useState([
         {
             title: "",
@@ -51,9 +56,11 @@ const AddQuiz = () => {
     ])
     const question = [1, 2, 3, 4, 5]
     const answer = ["A", "B", "C", "D"]
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("Wauuuuu");
+        console.log(quizz);
     }
 
     const onChangeTitle = (e, index) => {
@@ -84,11 +91,36 @@ const AddQuiz = () => {
         setQuizz(state);
     }
 
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true)
+            try {
+                const response = await instance.get("quiz/" + id);
+                setCourse(response);
+                setLoading(false)
+            } catch (error) {
+                setLoading(false)
+                console.log(error)
+            }
+        };
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (course?.data !== null && course?.data !== undefined) {
+            Swal.fire("Ujian Sudah Dibuat", "", "info")
+            return navigate("/user/profile/courses");
+        }
+    }, [course])
+
     return (
         <div>
             <StepAddCourse number={3} />
             <h2 style={{ textAlign: "center" }}>Tambah Ujian Kursus</h2>
             <hr />
+            {
+                loading && <LoadingComp />
+            }
             <form className={css.containerDraf} onSubmit={handleSubmit}>
                 <ol type="1">
                     {question.map((element, index) => (
@@ -126,7 +158,7 @@ const AddQuiz = () => {
 
                 </ol>
                 <Button1
-                    txt="Login"
+                    txt="Simpan dan Publish"
                     color="var(--white)"
                     bck="var(--primary)"
                     hovBck="var(--primary-dark)"
@@ -134,7 +166,7 @@ const AddQuiz = () => {
                         width: "100%",
                         margin: "7px 0px",
                         border: "none",
-                        padding: "1rem",
+                        padding: "10px 2px",
                     }}
                 />
             </form>

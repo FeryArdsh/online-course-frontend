@@ -241,7 +241,7 @@ const AddDraftCourse = () => {
                 <button className={css.addReqCourse} type="button" onClick={addFormFields}>
                     Tambah Syarat
                 </button>
-                <button type="submit" className={css.submit}>Simpan</button>
+                <button type="submit" className={css.submit}>Lanjut</button>
             </form>
         </div>
     );
