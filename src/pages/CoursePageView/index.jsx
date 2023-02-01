@@ -31,7 +31,7 @@ const CoursePageView = () => {
             {loading ?
                 <LoadingComp /> :
                 <CourseContentComponent
-                    title="Course Content"
+                    title={course?.ttl}
                     data={course?.videos}
                     paramId={id}
                 />

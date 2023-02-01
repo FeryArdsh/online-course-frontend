@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from "react-router-dom";
-import card3 from "/images/card3.jpg"
-import CustomCheckboxUtil from "../../../utils/FormUtils/CustomCheckboxUtil/CustomCheckboxUtil";
+import card3 from "/images/certificate.png"
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
 import { RiLock2Fill } from "react-icons/ri"
+import { exportComponentAsPNG } from 'react-component-export-image';
 // import closeIcon from "/icons/close.png";
 // import playIcon from "/icons/play-button.png";
 // import downArrowIcon from "/icons/down-arrow.svg";
@@ -13,17 +13,57 @@ import { RiLock2Fill } from "react-icons/ri"
 
 import css from "./CourseContentComponent.module.css";
 import ButtonQuiz from "../../../utils/Buttons/ButtonQuiz";
+import instance from "../../../config/instance";
+import Button1 from "../../../utils/Buttons/Button1/Button1";
+import Swal from "sweetalert2";
+import { useRef } from "react";
 
 const CourseContentComponent = (props) => {
     const { title = "", data = [], paramId = "" } = props;
     const [toggleBox, setToggleBox] = useState({});
     const [titleVid, setTitleVid] = useState("");
     const [urlVideo, setUrlVideo] = useState("");
+    const [user, setUser] = useState({});
+    const [name, setName] = useState("");
+    const certificateWrapper = useRef()
 
     const onSetUrl = (subItem) => {
         setUrlVideo(subItem.url);
         setTitleVid(subItem.title);
     };
+
+    useEffect(() => {
+        const fetchdata = async () => {
+            try {
+                const getUser = await instance.get("profile/me");
+                setUser(getUser.data.student);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchdata();
+    }, [])
+
+    const isCertificate = user?.certificate?.find((e) => e.idCourse === paramId)
+    const onDownloadCerti = async () => {
+        if (!name) {
+            return Swal.fire({
+                title: "Nama Harus Diisi",
+                timer: 1500,
+                icon: "info"
+            })
+        }
+        exportComponentAsPNG(certificateWrapper, {
+            html2CanvasOptions: { backgroundColor: null }
+        })
+        try {
+            const getUser = await instance.post("download/" + paramId);
+            console.log(getUser)
+        } catch (error) {
+            console.log(error);
+        }
+        window.location.reload();
+    }
 
     return (
         <div className={css.outterDiv}>
@@ -45,13 +85,52 @@ const CourseContentComponent = (props) => {
                             <VideoPlayer src={urlVideo} />
                         }
                         <h4 className={css.ttlSer}>SERTIFIKAT</h4>
-                        <div className={css.sertificate}>
-                            <img className={css.imgSer} src={card3} alt="Sertifikat" />
-                            <span className={css.lockSer}>
-                                <RiLock2Fill size={50} />
-                                <h5>Selesaikan Ujian untuk Mendapatkan Sertifikat</h5>
-                            </span>
-                        </div>
+
+
+                        {isCertificate ?
+                            <>
+                                <p style={{ color: "red" }}>*Gunakan nama kamu dengan benar</p>
+                                <p style={{ color: "red" }}>*Perhatikan bahwa kamu hanya dapat download sertifikat ini satu kali</p>
+                                <div className={css.openSertificate} ref={certificateWrapper}>
+                                    <img className={css.imgSer} src={card3} alt="Sertifikat" />
+                                    <span className={css.nameSertificate}>{name.toUpperCase()}</span>
+                                    <span className={css.ttlSertificate}>{title}</span>
+                                </div>
+                                <input type="text" placeholder="Masukkan Nama Anda" className={css.inputName} onChange={(e) => setName(e.target.value)} />
+                                {isCertificate?.isGraduate ? <Button1 txt="Kamu Sudah Mendownload Sertifikat Ini"
+                                    color="var(--white)"
+                                    bck="gray"
+                                    hovBck="gray"
+                                    extraCss={{
+                                        width: "50%",
+                                        margin: "7px 0px",
+                                        border: "none",
+                                        padding: "1rem",
+                                    }}
+                                    disableBtn={true}
+                                /> : <Button1 txt="Download Sertifikat"
+                                    color="var(--white)"
+                                    bck="var(--primary)"
+                                    hovBck="var(--primary-dark)"
+                                    extraCss={{
+                                        width: "50%",
+                                        margin: "7px 0px",
+                                        border: "none",
+                                        padding: "1rem",
+                                    }}
+                                    onClick={onDownloadCerti}
+                                />}
+
+                            </>
+                            :
+                            <div className={css.sertificate}>
+                                <img className={css.imgSer} src={card3} alt="Sertifikat" />
+                                <span className={css.lockSer}>
+                                    <RiLock2Fill size={50} />
+                                    <h5>Selesaikan Ujian untuk Mendapatkan Sertifikat</h5>
+                                </span>
+                            </div>
+                        }
                     </div>
                     <div className={css.conTab}>
                         {titleVid ?

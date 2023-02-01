@@ -8,6 +8,7 @@ import { AiOutlineSetting, AiOutlineShoppingCart } from "react-icons/ai";
 import { BiLogIn } from "react-icons/bi";
 import LOCAL_STORAGE from "../../../service/localStorage";
 import instance from "../../../config/instance";
+import MobileNavbar from "../Navbar1/MobileNavbar";
 
 const LoggedInNavbar = () => {
     let [menuState, setMenuState] = useState(false);
@@ -118,7 +119,7 @@ const LoggedInNavbar = () => {
                                 <Link to="/cart" className={css.menuItem}>
                                     Keranjang
                                 </Link>
-                                <Link to="/" className={css.menuItem}>
+                                <Link to="/user/profile/courses" className={css.menuItem}>
                                     Instructor Dashboard
                                 </Link>
                             </div>
@@ -170,6 +171,7 @@ const LoggedInNavbar = () => {
                     </div>
                 </div>
             </div>
+            {menuState ? <MobileNavbar /> : ""}
         </div>
     );
 };
