@@ -1,8 +1,10 @@
 import { ethers } from "ethers";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import instance from "../../config/instance";
+import { removeCart } from "../../service/redux/cart";
 import Button1 from "../../utils/Buttons/Button1/Button1";
 
 const CheckoutCrypto = ({ amount, courseId }) => {
@@ -10,6 +12,7 @@ const CheckoutCrypto = ({ amount, courseId }) => {
     const fixAmount = amount.toFixed(2);
     const getIds = courseId?.cart?.map((item) => item._id);
     const navigate = useNavigate();
+    const dispatchRedux = useDispatch()
 
     const sendTrans = async (e) => {
         e.preventDefault();
@@ -34,6 +37,8 @@ const CheckoutCrypto = ({ amount, courseId }) => {
                         data: getIds,
                     });
                     console.log(response);
+                    dispatchRedux(removeCart())
+
                     await Swal.fire("Berhasil membeli kursus", "", "success");
                     navigate("/user/my-courses/learning");
                 } catch (error) {

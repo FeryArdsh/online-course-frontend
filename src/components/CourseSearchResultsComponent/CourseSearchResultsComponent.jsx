@@ -37,8 +37,22 @@ const CourseSearchResultsComponent = () => {
     }, []);
 
     const selectFunctionHandler = (value) => {
-        console.log("selected option", value);
-        setSelectedOption(value);
+        if (value === "Higest Rated") {
+            const oldState = [...courseFilter]
+            const sorted = oldState.sort((a, b) => b.avgRating - a.avgRating);
+            setCourseFilter(sorted)
+        } else if (value === "Most Popular") {
+            const oldState = [...courseFilter]
+            const sorted = oldState.sort((a, b) => b.enrolled - a.enrolled);
+            setCourseFilter(sorted)
+        } else if (value === "Newest") {
+            const oldState = [...courseFilter]
+            const sorted = oldState.map(obj => {
+                return { ...obj, date: new Date(obj.createdAt) }
+            })
+                .sort((a, b) => b.date - a.date)
+            setCourseFilter(sorted)
+        }
     };
 
     useEffect(() => {
@@ -89,13 +103,13 @@ const CourseSearchResultsComponent = () => {
                             onClick={() => setSearchParams({})}
                             className={css.clAllTxt}
                         >
-                            Clear filters
+                            Hapus filter
                         </div>
                     </div>
                     <div className={css.rightTopBar}>
                         {new Intl.NumberFormat("id-ID", {
                             maximumSignificantDigits: 3,
-                        }).format(courses?.length)}
+                        }).format(courseFilter?.length)}
                         Hasil
                     </div>
                 </div>
