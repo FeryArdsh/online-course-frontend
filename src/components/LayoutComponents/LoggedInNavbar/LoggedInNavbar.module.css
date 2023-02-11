@@ -210,6 +210,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        position: absolute;
+        top: 10px;
+        right: 0;
     }
     .menuIcon {
         width: 24px;

@@ -45,7 +45,7 @@ const CourseFloatingBuyCard = (props) => {
     const outStyleGuide = {
         position: "fixed",
         top: 0,
-        right: "12%",
+        right: "7%",
     };
     let addToCartHandler = () => {
         const findId = cart.find((item) => item._id === props?.data?._id);
@@ -145,9 +145,9 @@ const CourseFloatingBuyCard = (props) => {
                     </div> */}
                 </div>
                 <div className={css.crsePmtDtTxt}>
-                    30-Day Money-Back Guarantee
+                    Sertifikat Penyelesaiian
                 </div>
-                <div className={css.crsePmtDtTxt}>Full Lifetime Access</div>
+                <div className={css.crsePmtDtTxt}>Akses Kursus Selamanya</div>
                 <div className={css.crsePmtDtExSec}>
                     <div
                         className={css.innCrsePmtDtExSec}

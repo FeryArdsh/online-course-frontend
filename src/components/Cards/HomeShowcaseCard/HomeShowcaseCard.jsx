@@ -27,9 +27,10 @@ const HomeShowcaseCard = (props) => {
             link={btnLink}
             extraCss={{
               margin: "0px",
-              padding: "0.5rem",
+              padding: "0.6rem",
               color: "var(--white)",
-              backgroundColor: "var(--gray)",
+              backgroundColor: "var(--primary)",
+              border: "none",
             }}
           />
         </div>

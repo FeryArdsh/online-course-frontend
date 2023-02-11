@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "/images/logoWhite.svg";
+import logo from "/images/logo.svg";
 
 import css from "./Footer.module.css";
 // import Button1 from "../../../utils/Buttons/Button1/Button1";

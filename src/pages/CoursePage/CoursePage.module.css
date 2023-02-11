@@ -9,7 +9,7 @@
 }
 
 .innerDiv {
-    width: 70%;
+    width: 80%;
 }
 
 .bodySec {
@@ -47,6 +47,16 @@
     display: flex;
     justify-content: center;
 }
+.allIns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.allCourseInstruct {
+    margin: 10px;
+}
 
 @media screen and (max-width: 1024px) {
     .bodySec {
@@ -54,6 +64,15 @@
     }
     .rightSidebar {
         width: 0%;
+    }
+    .allIns {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .innerDiv {
+        width: 90%;
     }
 }
 

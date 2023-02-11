@@ -4,9 +4,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--gray);
-    color: var(--white);
-    border-top: 1px solid var(--light-gray3);
+    background-color: #f0f2f4;
+    color: var(--black);
+    box-shadow: 0 0px 19px rgb(0 0 0 / 19%);
 }
 
 .innerDiv {
@@ -42,7 +42,7 @@
 
 .cli > a {
     text-decoration: none;
-    color: var(--white);
+    color: var(--black);
 }
 
 .creds {

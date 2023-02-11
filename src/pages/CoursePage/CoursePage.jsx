@@ -150,11 +150,12 @@ const CoursePage = () => {
                                     <div className={css.secTtl}>
                                         Kursus Lain dari Instructor
                                     </div>
-                                    <div className={css.secBdy}>
+                                    <div className={css.allIns}>
                                         {course?.createdBy?.courses.map(
                                             (item) => {
                                                 return (
                                                     <div
+                                                        className={css.allCourseInstruct}
                                                         onClick={() =>
                                                             window.location.reload()
                                                         }

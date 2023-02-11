@@ -11,8 +11,12 @@ import globIcon from "/icons/globe.png";
 import warningIcon from "/icons/warning.png";
 import playIcon from "/icons/play.png";
 import alarmIcon from "/icons/alarm.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReactStars from "react-stars";
+import { AiOutlineShareAlt } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { addCart } from "../../../service/redux/cart";
 
 const CourseHeaderComp = (props) => {
     const { setShareModal } = props;
@@ -48,6 +52,23 @@ const CourseHeaderComp = (props) => {
 
         setScrolled(false);
     });
+    const cart = useSelector((state) => state.cartData.cart);
+    const courseTaken = useSelector((state) => state.userData.data.coursesTaken);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    let addToCartHandler = () => {
+        const findId = cart.find((item) => item._id === props?.data?._id);
+        if (findId) {
+            return Swal.fire("Kursus sudah ada", "", "error");
+        }
+        if (courseTaken.includes(props?.data?._id)) {
+            Swal.fire("Kamu sudah membeli kursus ini", "", "error")
+            return navigate("/user/my-courses/learning")
+        }
+        dispatch(addCart(props?.data));
+        Swal.fire("Berhasil menambah kursus", "", "success");
+        navigate("/cart");
+    };
     return (
         <div className={css.outerDiv}>
             <CourseFloatingBuyCard
@@ -71,7 +92,7 @@ const CourseHeaderComp = (props) => {
                     </div>
                     <div className={css.authors}>
                         Created by
-                        <Link to="#">{createdBy?.studentID?.name}</Link>
+                        <Link to="#" style={{ color: "black" }}>{createdBy?.studentID?.name}</Link>
                     </div>
                     <div className={css.det}>
                         <div className={css.lastUpdated}>
@@ -104,57 +125,39 @@ const CourseHeaderComp = (props) => {
                     <div className={css.crsePmtDt}>
                         <div className={css.prcDet}>
                             <div className={css.prc}>
-                                {new Intl.NumberFormat("en-IN", {
+                                {new Intl.NumberFormat("id-ID", {
                                     style: "currency",
                                     currency: "IDR",
                                 }).format(newPrc)}
                             </div>
-                            <div className={css.dscPrc}>
+                            {/* <div className={css.dscPrc}>
                                 {new Intl.NumberFormat("en-IN", {
                                     style: "currency",
                                     currency: "IDR",
                                 }).format(prc)}
-                            </div>
-                            <div className={css.desc}>{disc}% off</div>
-                        </div>
-                        <div className={css.tmLeft}>
-                            <img
-                                src={alarmIcon}
-                                alt="clock icon"
-                                className={css.cicon}
-                            />
-                            <span>
-                                <b>{tmLeft} hours</b> left at this price!
-                            </span>
+                            </div> */}
                         </div>
                         <Button1
-                            txt="Add to cart"
+                            onClick={addToCartHandler}
+                            txt="Beli Sekarang"
                             color="var(--white)"
-                            bck="var(--purple)"
+                            bck="var(--primary)"
                             hovBck="var(--purple-dark)"
                             extraCss={{ width: "100%", padding: "0.7rem" }}
                         />
                         <div className={css.crsePmtDtTxt}>
-                            30-Day Money-Back Guarantee
+                            Sertifikat Penyelesaiian
                         </div>
                         <div className={css.crsePmtDtTxt}>
-                            Full Lifetime Access
+                            Akses Kursus Selamanya
                         </div>
                         <div className={css.crsePmtDtExSec}>
                             <div
                                 className={css.innCrsePmtDtExSec}
                                 onClick={() => setShareModal((prev) => !prev)}
                             >
-                                Share
-                            </div>
-                            <div className={css.innCrsePmtDtExSec}>
-                                Gift this course
-                            </div>
-                            <div
-                                className={css.innCrsePmtDtExSec}
-                                onClick={() => setApplyCoupon((prev) => !prev)}
-                            >
-                                Apply the Coupon
+                                Bagikan Kursus
+                                <AiOutlineShareAlt size={24} />
                             </div>
                         </div>
                         <div className={css.inptBox}>
@@ -183,7 +186,7 @@ const CourseHeaderComp = (props) => {
                             />
                         </div>
                         <div className={css.maskDiv}></div>
-                        <div className={css.imgMask}>
+                        <div className={css.imgMask} onClick={() => setVideoPrev((prev) => !prev)}>
                             <div className={css.imgODiv}>
                                 <img src={playIcon} className={css.imgIcon} />
                             </div>

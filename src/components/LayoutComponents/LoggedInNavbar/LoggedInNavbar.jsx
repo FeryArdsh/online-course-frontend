@@ -8,7 +8,7 @@ import { AiOutlineSetting, AiOutlineShoppingCart } from "react-icons/ai";
 import { BiLogIn } from "react-icons/bi";
 import LOCAL_STORAGE from "../../../service/localStorage";
 import instance from "../../../config/instance";
-import MobileNavbar from "../Navbar1/MobileNavbar";
+import MobileNavbarLogin from "../Navbar1/MobileNavbarLogin";
 
 const LoggedInNavbar = () => {
     let [menuState, setMenuState] = useState(false);
@@ -171,7 +171,7 @@ const LoggedInNavbar = () => {
                     </div>
                 </div>
             </div>
-            {menuState ? <MobileNavbar /> : ""}
+            {menuState ? <MobileNavbarLogin onClick={onLogout} /> : ""}
         </div>
     );
 };

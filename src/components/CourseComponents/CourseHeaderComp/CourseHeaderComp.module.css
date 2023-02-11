@@ -5,8 +5,13 @@
     display: flex;
     justify-content: center;
     color: var(--white);
-    background-color: var(--gray);
+    background: linear-gradient(
+        171deg,
+        rgba(48, 109, 228, 1) 40%,
+        rgba(122, 167, 255, 1) 100%
+    );
     position: relative;
+    border-bottom: 2px solid var(--primary);
 }
 
 .innerDiv {
@@ -22,6 +27,7 @@
 .ttl {
     font-size: 2rem;
     font-weight: 700;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.692);
 }
 
 .desc {
@@ -180,6 +186,7 @@
     font-size: 0.9rem;
     margin: 0.5rem 0;
     text-align: center;
+    color: black;
 }
 
 .crsePmtDtExSec {
@@ -195,6 +202,10 @@
     font-weight: 700;
     text-decoration: underline;
     text-underline-offset: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
 }
 
 .inptBox {
@@ -256,5 +267,11 @@
     }
     .innCrsePmtDtExSec {
         margin: 0.5rem 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .outerDiv {
+        height: auto;
     }
 }

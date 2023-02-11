@@ -55,9 +55,33 @@
     margin: 0 0.5rem;
 }
 
+.loginNav {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.logout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary);
+}
+
+.mengajar {
+    color: var(--primary);
+}
+
+.linkNav {
+    text-decoration: none;
+    color: black;
+}
 .hovBox:hover,
 .catDropdown:hover {
-    color: var(--purple-dark);
+    color: var(--primary);
 }
 
 .cartBox {

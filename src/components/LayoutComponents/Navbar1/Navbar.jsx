@@ -47,13 +47,13 @@ const Navbar = () => {
                             <Link className={css.hovBox} to={"/join/signup"} style={{ textDecoration: "underline" }}>
                                 Mengajar di CourseIn
                             </Link>
-                            <Button1 txt="Login" link="/join/login" />
+                            <Button1 txt="Login" link="/join/login" extraCss={{ "border": "1px solid #306de4" }} color="#306de4" hovBck="#2764df02" />
                             <Button1
                                 txt="Sign up"
-                                bck="#1c1d1f"
+                                bck="#306de4"
                                 link="/join/signup"
                                 color="#fff"
-                                hovBck="#000"
+                                hovBck="#2764df"
                             />
                         </div>
                     </div>
