@@ -78,11 +78,7 @@ const CourseInstructorComp = (props) => {
                     height: toggle ? "max-content" : "200px",
                 }}
             >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehende
+                {aboutMe}
                 <div className={css.coverup}></div>
             </div>
             <button className={css.btn} onClick={toggleHandler}>

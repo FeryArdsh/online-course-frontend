@@ -58,9 +58,17 @@ const AddQuiz = () => {
     const answer = ["A", "B", "C", "D"]
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(quizz);
+        try {
+            const response = await instance.post("quiz/" + id, quizz);
+            console.log(response)
+            await Swal.fire("Berhasil membuat ujian!", "", "success")
+            navigate("/user/profile/courses");
+        } catch (error) {
+            await Swal.fire("Gagal membuat ujian!", "", "error")
+            console.log(error)
+        }
     }
 
     const onChangeTitle = (e, index) => {
