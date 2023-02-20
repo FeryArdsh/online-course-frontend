@@ -104,6 +104,9 @@ const InstructorCourses = () => {
                         {!item.publish && <Link to={`/user/profile/add-courses/${item._id}`} className={css.editCourse}>
                             Selesaikan Publish
                         </Link>}
+                        <Link to={`/user/profile/add-courses/${item._id}`} className={css.editCourse}>
+                            Klik jika belum menambahkan ujian
+                        </Link>
                     </div>
                 ))}
             </div>

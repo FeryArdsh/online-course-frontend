@@ -104,7 +104,7 @@ const Signup = () => {
                                 onChange={changeHanlder}
                             />
                             <div className={css.psw}>
-                                <h4>Catatan Password:</h4>
+                                <h4 style={{ color: "red" }}>Catatan Password:</h4>
                                 <p>*Password minimal 8 karakter</p>
                                 <p>
                                     *Terdapat minimal 1 huruf kapital, ankga dan

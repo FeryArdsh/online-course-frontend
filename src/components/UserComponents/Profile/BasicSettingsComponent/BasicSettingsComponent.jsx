@@ -125,10 +125,10 @@ const BasicSettingsComponent = () => {
             </div>
             <div className={css.bottomDiv}>
                 <Button1
-                    txt="Save"
+                    txt="Simpan"
                     color="var(--white)"
-                    bck="var(--light-gray2)"
-                    hovBck="var(--gray)"
+                    bck="var(--primary)"
+                    hovBck="var(--primary-dark)"
                     onClick={submitHandler}
                     extraCss={{
                         margin: "1rem 0",
