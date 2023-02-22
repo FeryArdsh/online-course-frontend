@@ -38,7 +38,9 @@ const LoggedInUserHomePage = () => {
             try {
                 setLoading(true);
                 const getAllCourse = await instance.get("courses");
-                setCourses(getAllCourse.data.courses);
+                const isPublish = getAllCourse?.data?.courses?.filter((courses) => courses.publish === true);
+
+                setCourses(isPublish);
                 setLoading(false);
             } catch (error) {
                 setLoading(false);
@@ -58,8 +60,11 @@ const LoggedInUserHomePage = () => {
         fetchUser();
         fetchdata();
     }, []);
-    const rating = courses?.filter((courses) => courses.avgRating >= 4.8);
-    const laris = courses?.filter((courses) => courses.numOfRatings >= 2);
+    const rating = courses?.filter((courses) => courses.avgRating >= 4.5);
+    const laris = courses?.filter((courses) => courses.enrolled >= 3);
+    const cat = courses?.filter((courses) => courses.category === "technology");
+    const free = courses?.filter((courses) => courses.newPrc === 0);
+
 
     return (
         <>
@@ -84,18 +89,27 @@ const LoggedInUserHomePage = () => {
                     <div className={css.m1}>
                         {laris && (
                             <CourseCarouselComp
-                                ttl="Paling Banyak di Ulas"
+                                ttl="Kursus Terlaris"
                                 link="/"
-                                coursesData={courses}
+                                coursesData={laris}
                             />
                         )}
                     </div>
                     <div className={css.m1}>
-                        {courses && (
+                        {cat && (
                             <CourseCarouselComp
-                                ttl="Kursus Terpopuler"
+                                ttl="Kategori Populer"
                                 link="/"
-                                coursesData={courses}
+                                coursesData={cat}
+                            />
+                        )}
+                    </div>
+                    <div className={css.m1}>
+                        {free && (
+                            <CourseCarouselComp
+                                ttl="Coba Kursus Gratis"
+                                link="/"
+                                coursesData={free}
                             />
                         )}
                     </div>

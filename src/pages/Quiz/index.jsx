@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2';
 import LoadingComp from '../../components/LoadingComp';
 import instance from '../../config/instance';
@@ -30,7 +30,7 @@ const Quiz = () => {
                 answer
             );
             setScore(response.data.grade);
-            if (response.data.grade <= 79) {
+            if (response?.data?.grade <= 79) {
                 Swal.fire(
                     {
                         title: `Skor : ${response.data.grade}`,
@@ -45,10 +45,10 @@ const Quiz = () => {
         try {
             const responseCertificate = await instance.post("certificate/" + id);
             console.log(responseCertificate)
-            Swal.fire("Selamat Kamu Lulus", "Skor :" + response.data.grade, "")
+            await Swal.fire("Selamat Kamu Lulus", "Skor :" + responseCertificate?.data, "")
             navigate("/course/view/" + id)
         } catch (error) {
-            Swal.fire("Skor :" + score, error.response.data.message, "error")
+            await Swal.fire(error.response.data.message, "", "error")
             navigate("/course/view/" + id)
         }
     }
@@ -71,7 +71,7 @@ const Quiz = () => {
 
     return (
         <div className={css.container}>
-            <h1>Ujian Kursus</h1>
+            {!course ? <h2>Maaf Kursus Ini Tidak Memiliki Ujian</h2> : <h1>Ujian Kursus</h1>}
             {loading ? <LoadingComp /> :
                 <ul className={css.listQues}>
                     {course?.question.map((e, i) => (
@@ -88,7 +88,7 @@ const Quiz = () => {
                     ))}
                 </ul>
             }
-            <Button1
+            {course && <Button1
                 txt="Kirim"
                 color="var(--white)"
                 bck="var(--primary)"
@@ -100,7 +100,10 @@ const Quiz = () => {
                     padding: "1rem",
                 }}
                 onClick={submitHandler}
-            />
+            />}
+            <Link to={"/course/view/" + id}>
+                Kembali
+            </Link>
         </div>
     )
 }

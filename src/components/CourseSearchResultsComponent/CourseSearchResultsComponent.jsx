@@ -12,6 +12,7 @@ import filterIcon from "/icons/filter.png";
 
 import css from "./CourseSearchResultsComponent.module.css";
 import instance from "../../config/instance";
+import LoadingComp from "../LoadingComp";
 
 const CourseSearchResultsComponent = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -20,16 +21,21 @@ const CourseSearchResultsComponent = () => {
     const options = ["Higest Rated", "Most Popular", "Newest"];
     const [selectedOption, setSelectedOption] = useState("");
     const [showFilters, setShowFilters] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const [courses, setCourses] = useState(null);
     const [courseFilter, setCourseFilter] = useState(null);
     useEffect(() => {
         const fetchCourse = async () => {
+            setLoading(true)
             try {
                 const response = await instance.get("courses");
                 setCourses(response.data.courses);
+                setLoading(false)
+
                 // setCourseFilter(courses?.filter((e) => e.category === categoryPage));
             } catch (error) {
+                setLoading(false)
                 console.log(error);
             }
         };
@@ -141,6 +147,7 @@ const CourseSearchResultsComponent = () => {
                             showFilters ? css.rightBoxW : null,
                         ].join(" ")}
                     >
+                        {loading && <LoadingComp />}
                         {courseFilter?.map((item, i) => (
                             <MedVerticalCourseCard data={item} key={i} />
                         ))}

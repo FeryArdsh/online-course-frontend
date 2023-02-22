@@ -52,7 +52,7 @@ const CourseCard = (props) => {
                     <div className={css.cardBdy}>
                         <div className={css.ttl}>{ttl}</div>
                         <div className={css.authDet}>{desc}</div>
-                        <div className={css.authDet}>{totalDuration} menit</div>
+                        <div className={css.authDet} style={{ color: "black" }}>{totalDuration} menit</div>
                         <div className={css.stats}>
                             <Rating
                                 initialRating={avgRating}
@@ -70,7 +70,7 @@ const CourseCard = (props) => {
                         </div>
                         <div className={css.prc}>
                             {
-                                newPrc === 0 ? <span className={css.gratis}>KURSUS GRATIS</span> : <span className={css.newPrc}>
+                                newPrc === 0 ? <span className={css.gratis}>GRATIS</span> : <span className={css.newPrc}>
                                     {new Intl.NumberFormat("id-ID", {
                                         style: "currency",
                                         currency: "IDR",
