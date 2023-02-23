@@ -48,7 +48,7 @@ const CourseInstructorComp = (props) => {
                 <div className={css.det}>
                     <div className={css.udet}>
                         <img src={bstarIcon} alt="icon" className={css.icon} />{" "}
-                        {avgRating}
+                        {avgRating.toFixed(1)}
                         <span className={css.udetTxt}>Rating Instructor</span>
                     </div>
                     <div className={css.udet}>

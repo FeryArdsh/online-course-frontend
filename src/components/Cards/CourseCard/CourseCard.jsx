@@ -64,7 +64,7 @@ const CourseCard = (props) => {
                                     <AiFillStar size={15} color="orange" />
                                 }
                             />
-                            <div className={css.rat1}>{avgRating}</div>
+                            <div className={css.rat1}>{avgRating.toFixed(1)}</div>
                             {/* <div className={css.rat2}>{avgRating}</div> */}
                             <div className={css.noOfRats}>({numOfRatings})</div>
                         </div>

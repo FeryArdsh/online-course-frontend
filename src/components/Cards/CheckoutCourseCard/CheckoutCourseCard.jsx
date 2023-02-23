@@ -60,7 +60,7 @@ const CheckoutCourseCard = (props) => {
                                     <AiFillStar size={15} color="orange" />
                                 }
                             />
-                            <span className={css.num}>{avgRating}</span>
+                            <span className={css.num}>{avgRating.toFixed(1)}</span>
                             <span className={css.count}>({numOfRatings})</span>
                         </div>
                     </div>

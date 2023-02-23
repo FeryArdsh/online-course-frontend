@@ -86,7 +86,7 @@ const CourseHeaderComp = (props) => {
                     <div className={css.desc}>{desc}</div>
                     <div className={css.rats}>
                         <ReactStars value={avgRating} size={16} edit={false} />
-                        <div className={css.rating}>{avgRating}</div>
+                        <div className={css.rating}>{avgRating.toFixed(1)}</div>
                         <div className={css.ratss}>({numOfRatings})</div>
                         <div className={css.enrolled}>{enrolled} terjual</div>
                     </div>

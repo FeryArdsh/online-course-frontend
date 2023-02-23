@@ -45,7 +45,7 @@ const Quiz = () => {
         try {
             const responseCertificate = await instance.post("certificate/" + id);
             console.log(responseCertificate)
-            await Swal.fire("Selamat Kamu Lulus", "Skor :" + responseCertificate?.data, "")
+            await Swal.fire("Selamat Kamu Lulus", responseCertificate?.data, "success")
             navigate("/course/view/" + id)
         } catch (error) {
             await Swal.fire(error.response.data.message, "", "error")
@@ -71,22 +71,24 @@ const Quiz = () => {
 
     return (
         <div className={css.container}>
-            {!course ? <h2>Maaf Kursus Ini Tidak Memiliki Ujian</h2> : <h1>Ujian Kursus</h1>}
             {loading ? <LoadingComp /> :
-                <ul className={css.listQues}>
-                    {course?.question.map((e, i) => (
-                        <li className={css.innerDiv} key={i}>
-                            <h4>{e.title}</h4>
-                            <ul className={css.listQuesNone}>
-                                <li className={css.option} onClick={() => onSetAnswer("a", i)}>A. {e.a}</li>
-                                <li className={css.option} onClick={() => onSetAnswer("b", i)}>B. {e.b}</li>
-                                <li className={css.option} onClick={() => onSetAnswer("c", i)}>C. {e.c}</li>
-                                <li className={css.option} onClick={() => onSetAnswer("d", i)}>D. {e.d}</li>
-                            </ul>
-                            <span className={css.theAnswer}>Jawaban : {answer[i].toUpperCase()}</span>
-                        </li>
-                    ))}
-                </ul>
+                <>
+                    {!course ? <h2>Maaf Kursus Ini Tidak Memiliki Ujian</h2> : <h1>Ujian Kursus</h1>}
+                    <ul className={css.listQues}>
+                        {course?.question.map((e, i) => (
+                            <li className={css.innerDiv} key={i}>
+                                <h4>{e.title}</h4>
+                                <ul className={css.listQuesNone}>
+                                    <li className={css.option} onClick={() => onSetAnswer("a", i)}>A. {e.a}</li>
+                                    <li className={css.option} onClick={() => onSetAnswer("b", i)}>B. {e.b}</li>
+                                    <li className={css.option} onClick={() => onSetAnswer("c", i)}>C. {e.c}</li>
+                                    <li className={css.option} onClick={() => onSetAnswer("d", i)}>D. {e.d}</li>
+                                </ul>
+                                <span className={css.theAnswer}>Jawaban : {answer[i].toUpperCase()}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </>
             }
             {course && <Button1
                 txt="Kirim"

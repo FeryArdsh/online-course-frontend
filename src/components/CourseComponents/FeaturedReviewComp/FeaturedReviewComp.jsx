@@ -9,6 +9,7 @@ import TimeSinceFunc from "../../../helpers/TimeSinceFunc.js";
 import userprofileIcon from "/icons/userprofile.png";
 import thumbsdownIcon from "/icons/dislike.png";
 import thumbsupIcon from "/icons/like.png";
+import ReactStars from "react-stars";
 
 const FeaturedReviewComp = (props) => {
     const initObj = {
@@ -50,6 +51,8 @@ const FeaturedReviewComp = (props) => {
                 </div>
             </div>
             <div className={css.rats}>
+                <ReactStars value={rating.toFixed()} size={16} edit={false} />
+
                 <span className={css.stars}>{rating} nilai rating</span>
                 <span className={css.tme}>{TimeSinceFunc(createdAt)}</span>
             </div>

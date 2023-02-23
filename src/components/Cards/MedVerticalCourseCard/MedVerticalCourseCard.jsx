@@ -55,7 +55,7 @@ const MedVerticalCourseCard = (props) => {
                                     <AiFillStar size={15} color="orange" />
                                 }
                             />
-                            <div className={css.rat}>{avgRating}</div>
+                            <div className={css.rat}>{avgRating.toFixed(1)}</div>
                             <div className={css.cnt}>({numOfRatings})</div>
                             {/* <Tag
                                 txt={tag}
